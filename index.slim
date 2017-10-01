@@ -1,6 +1,51 @@
 doctype html
 html lang="ja"
   head
+    script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"
+    script src="simulator.js"
     title リネレボ強化シミュレーター
+    style
+      |
+        body {
+          line-height: 1.5em;
+        }
+        .input_area {
+        }
+        .result_area {
+          background: #eee;
+          border-radius: 20px;
+          padding: 10px;
+        }
+        label.input {
+          width: 200px;
+          display: inline-block;
+        }
+        input.plus {
+          position:relative;
+        }
+        input.plus:before {
+          position:absolute;
+          left: 0px;
+          content: '+';
+        }
   body
-    h1 リネレボ最高
+    h1 リネレボ強化シミュレーター
+    .input_area
+      div
+        label.input
+          |現在+:
+        input#plus.plus type="text" value="0"
+      div
+        label.input
+          |使うスクロールの枚数:
+        input#scroll_num type="text" value="0"
+        |枚
+      div
+        label.input
+          |目標+:
+        input#scroll_num.plus type="text" value="0"
+        |枚
+      div
+        input#run type="button" value="実行"
+    .result_area
+      |結果:

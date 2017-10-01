@@ -1,11 +1,54 @@
 <!DOCTYPE html>
 <html lang="ja">
   <head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+    <script src="simulator.js"></script>
     <title>リネレボ強化シミュレーター</title>
+    <style>
+      body {
+        line-height: 1.5em;
+      }
+      .input_area {
+      }
+      .result_area {
+        background: #eee;
+        border-radius: 20px;
+        padding: 10px;
+      }
+      label.input {
+        width: 200px;
+        display: inline-block;
+      }
+      input.plus {
+        position:relative;
+      }
+      input.plus:before {
+        position:absolute;
+        left: 0px;
+        content: '+';
+      }
+    </style>
   </head>
   <body>
     <h1>
-      リネレボ最高
+      リネレボ強化シミュレーター
     </h1>
+    <div class="input_area">
+      <div>
+        <label class="input">現在+:</label><input class="plus" id="plus" type="text" value="0" />
+      </div>
+      <div>
+        <label class="input">使うスクロールの枚数:</label><input id="scroll_num" type="text" value="0" />枚
+      </div>
+      <div>
+        <label class="input">目標+:</label><input class="plus" id="scroll_num" type="text" value="0" />枚
+      </div>
+      <div>
+        <input id="run" type="button" value="実行" />
+      </div>
+    </div>
+    <div class="result_area">
+      結果:
+    </div>
   </body>
 </html>

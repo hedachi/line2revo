@@ -63,8 +63,10 @@ class Simulator
     [25,100000,6,14]
   ]
 
-s = new Simulator(8)
-s.exec(40)
-#console.log s
-
+$ ->
+  $('#run').click ->
+    sim = new Simulator($('#plus').val())
+    sim.exec($('#scroll_num').val())
+  #s = new Simulator(8)
+  #s.exec(40)
 
