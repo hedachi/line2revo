@@ -20,6 +20,8 @@ html lang="ja"
         label.input {
           width: 200px;
           display: inline-block;
+          text-align: right;
+          padding-right: 5px;
         }
         input.plus {
           position:relative;
@@ -33,6 +35,12 @@ html lang="ja"
           width: 150px;
           height: 50px;
           display: inline-block;
+          border: solid gray 1px;
+          border-radius: 2px;
+        }
+        input[type="text"] {
+          border: solid gray 1px;
+          border-radius: 2px;
         }
         .log_count {
           display: inline-block;
@@ -43,15 +51,6 @@ html lang="ja"
     .input_area
       div
         label.input
-          |現在+:
-        input#plus.plus type="text" value="0"
-      div
-        label.input
-          |目標+:
-        input#plus_target.plus type="text" value="0"
-        |枚
-      div
-        label.input
           |種類:
         label for="weapon"
           |武器
@@ -59,6 +58,15 @@ html lang="ja"
         label for="armor"
           |防具
         input#armor  type="radio" name="item_type" value="防具"
+      div
+        label.input
+          |現在+:
+        input#plus.plus type="text" value="0"
+      div
+        label.input
+          |目標+:
+        input#plus_target.plus type="text" value="0"
+        |枚
       div
         label.input
           |使うスクロールの枚数:

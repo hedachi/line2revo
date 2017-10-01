@@ -19,6 +19,8 @@
       label.input {
         width: 200px;
         display: inline-block;
+        text-align: right;
+        padding-right: 5px;
       }
       input.plus {
         position:relative;
@@ -32,6 +34,12 @@
         width: 150px;
         height: 50px;
         display: inline-block;
+        border: solid gray 1px;
+        border-radius: 2px;
+      }
+      input[type="text"] {
+        border: solid gray 1px;
+        border-radius: 2px;
       }
       .log_count {
         display: inline-block;
@@ -45,13 +53,13 @@
     </h1>
     <div class="input_area">
       <div>
+        <label class="input">種類:</label><label for="weapon">武器</label><input checked="checked" id="weapon" name="item_type" type="radio" value="武器" /><label for="armor">防具</label><input id="armor" name="item_type" type="radio" value="防具" />
+      </div>
+      <div>
         <label class="input">現在+:</label><input class="plus" id="plus" type="text" value="0" />
       </div>
       <div>
         <label class="input">目標+:</label><input class="plus" id="plus_target" type="text" value="0" />枚
-      </div>
-      <div>
-        <label class="input">種類:</label><label for="weapon">武器</label><input checked="checked" id="weapon" name="item_type" type="radio" value="武器" /><label for="armor">防具</label><input id="armor" name="item_type" type="radio" value="防具" />
       </div>
       <div>
         <label class="input">使うスクロールの枚数:</label><input id="scroll_num" type="text" value="0" />枚
