@@ -11,13 +11,13 @@
       var before_plus, data, is_success, result, results, used_money, used_scroll_num;
       used_scroll_num = 0;
       used_money = 0;
-      console.log("スクロール" + scroll_num + "枚で、武器+" + this.plus + "を強化します。");
+      this.show_message("スクロール" + scroll_num + "枚で、武器+" + this.plus + "を強化します。");
       results = [];
       while (true) {
         data = this.constructor.get_data(this.plus);
         used_scroll_num += data.scroll;
-        used_money += data.money;
         if (scroll_num - used_scroll_num >= 0) {
+          used_money += data.money;
           before_plus = this.plus;
           is_success = (data.percent / 100) >= Math.random();
           if (is_success) {
@@ -29,13 +29,17 @@
               this.plus--;
             }
           }
-          results.push(console.log("+" + before_plus + "からスクロール" + data.scroll + "枚、" + data.money + "アデナ、成功率" + data.percent + "%で強化...[" + result + "]" + this.plus + "になりました。"));
+          results.push(this.show_message("+" + before_plus + "からスクロール" + data.scroll + "枚、" + data.money + "アデナ、成功率" + data.percent + "%で強化...[" + result + "]" + this.plus + "になりました。"));
         } else {
-          console.log("スクロールが足りなくなりました。累計消費アデナ:" + used_money);
+          this.show_message("スクロールが足りなくなりました。累計消費アデナ:" + used_money);
           break;
         }
       }
       return results;
+    };
+
+    Simulator.prototype.show_message = function(message) {
+      return $('.result_area').append("<div>" + message + "</div>");
     };
 
     Simulator.get_data = function(plus) {
