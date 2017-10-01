@@ -1,4 +1,5 @@
 class Simulator
+  @log_count = 0
   constructor: (plus) ->
     @plus = plus
   exec: (scroll_num) ->
@@ -23,7 +24,7 @@ class Simulator
         @show_message "スクロールが足りなくなりました。累計消費アデナ:#{used_money}"
         break
   show_message: (message) ->
-    $('.result_area').append "<div>#{message}</div>"
+    $('.result_area').prepend "<div><div class='log_count'>#{++Simulator.log_count}</div>#{message}</div>"
   @get_data = (plus) ->
     data = @DATA[plus]
     {
@@ -69,6 +70,9 @@ $ ->
   $('#run').click ->
     sim = new Simulator($('#plus').val())
     sim.exec($('#scroll_num').val())
+  $('#plus').change ->
+    if $('#plus_target').val() <= $('#plus').val()
+      $('#plus_target').val(parseInt($('#plus').val()) + 1)
   #s = new Simulator(8)
   #s.exec(40)
 

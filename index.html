@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="ja">
+  <meta content="width=480" name="viewport" />
   <head>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
     <script src="simulator.js"></script>
@@ -27,6 +28,15 @@
         left: 0px;
         content: '+';
       }
+      input[type="button"] {
+        width: 150px;
+        height: 50px;
+        display: inline-block;
+      }
+      .log_count {
+        display: inline-block;
+        width: 100px;
+      }
     </style>
   </head>
   <body>
@@ -38,17 +48,18 @@
         <label class="input">現在+:</label><input class="plus" id="plus" type="text" value="0" />
       </div>
       <div>
-        <label class="input">使うスクロールの枚数:</label><input id="scroll_num" type="text" value="0" />枚
+        <label class="input">目標+:</label><input class="plus" id="plus_target" type="text" value="0" />枚
       </div>
       <div>
-        <label class="input">目標+:</label><input class="plus" id="scroll_num" type="text" value="0" />枚
+        <label class="input">種類:</label><label for="weapon">武器</label><input checked="checked" id="weapon" name="item_type" type="radio" value="武器" /><label for="armor">防具</label><input id="armor" name="item_type" type="radio" value="防具" />
+      </div>
+      <div>
+        <label class="input">使うスクロールの枚数:</label><input id="scroll_num" type="text" value="0" />枚
       </div>
       <div>
         <input id="run" type="button" value="実行" />
       </div>
     </div>
-    <div class="result_area">
-      結果:
-    </div>
+    <div class="result_area"></div>
   </body>
 </html>

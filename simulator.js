@@ -3,6 +3,8 @@
   var Simulator;
 
   Simulator = (function() {
+    Simulator.log_count = 0;
+
     function Simulator(plus) {
       this.plus = plus;
     }
@@ -39,7 +41,7 @@
     };
 
     Simulator.prototype.show_message = function(message) {
-      return $('.result_area').append("<div>" + message + "</div>");
+      return $('.result_area').prepend("<div><div class='log_count'>" + (++Simulator.log_count) + "</div>" + message + "</div>");
     };
 
     Simulator.get_data = function(plus) {
@@ -60,10 +62,15 @@
   })();
 
   $(function() {
-    return $('#run').click(function() {
+    $('#run').click(function() {
       var sim;
       sim = new Simulator($('#plus').val());
       return sim.exec($('#scroll_num').val());
+    });
+    return $('#plus').change(function() {
+      if ($('#plus_target').val() <= $('#plus').val()) {
+        return $('#plus_target').val(parseInt($('#plus').val()) + 1);
+      }
     });
   });
 

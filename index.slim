@@ -1,5 +1,6 @@
 doctype html
 html lang="ja"
+  meta name="viewport" content="width=480"
   head
     script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"
     script src="simulator.js"
@@ -28,6 +29,15 @@ html lang="ja"
           left: 0px;
           content: '+';
         }
+        input[type="button"] {
+          width: 150px;
+          height: 50px;
+          display: inline-block;
+        }
+        .log_count {
+          display: inline-block;
+          width: 100px;
+        }
   body
     h1 リネレボ強化シミュレーター
     .input_area
@@ -37,15 +47,23 @@ html lang="ja"
         input#plus.plus type="text" value="0"
       div
         label.input
+          |目標+:
+        input#plus_target.plus type="text" value="0"
+        |枚
+      div
+        label.input
+          |種類:
+        label for="weapon"
+          |武器
+        input#weapon type="radio" name="item_type" value="武器" checked="checked"
+        label for="armor"
+          |防具
+        input#armor  type="radio" name="item_type" value="防具"
+      div
+        label.input
           |使うスクロールの枚数:
         input#scroll_num type="text" value="0"
         |枚
       div
-        label.input
-          |目標+:
-        input#scroll_num.plus type="text" value="0"
-        |枚
-      div
         input#run type="button" value="実行"
     .result_area
-      |結果:
