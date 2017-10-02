@@ -62,6 +62,14 @@
   })();
 
   $(function() {
+    var i, j, k;
+    for (i = j = 0; j <= 30; i = ++j) {
+      $('#plus').append("<option value='" + i + "'>" + i + "</option>");
+    }
+    for (i = k = 1; k <= 30; i = ++k) {
+      $('#plus_target').append("<option value='" + i + "'>" + i + "</option>");
+    }
+    $('#plus_target').append('<option value="">1</option>');
     $('#run').click(function() {
       var sim;
       sim = new Simulator($('#plus').val());

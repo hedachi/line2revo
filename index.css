@@ -1,9 +1,10 @@
 body {
+  width: 480px;
   line-height: 1.5em;
   font-size: 18px;
   background-color: rgb(8, 17, 21);
   background-image: url('enhance3.jpg');
-  background-size: 100%;
+  background-size: 480px 600px;
   background-repeat: no-repeat;
   color: white;
   position: relative;
@@ -41,20 +42,20 @@ label.input_plus {
   padding-right: 5px;
   font-size: 50px;
 }
-input.plus[type="text"] {
+.plus {
   position:absolute;
-  font-size: 30px;
-  width: 50px;
-  height: 30px;
-  background: black;
+  font-size: 24px;
+  width: 60px;
+  height: 40px;
+  background: transparent;
 }
-input#plus {
-  top: 0;
+#plus {
+  top: -3px;
   left: 150px;
   color: white;
 }
-input#plus_target {
-  top: 0;
+#plus_target {
+  top: -3px;
   left: 318px;
   color: green;
 }

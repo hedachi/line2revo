@@ -1,6 +1,7 @@
 doctype html
 html lang="ja"
   meta name="viewport" content="width=480"
+  meta charset="utf-8"
   head
     title リネレボ強化シミュレーター
     script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"
@@ -10,8 +11,8 @@ html lang="ja"
   body
     h1 リネレボ強化シミュレーター
     .input_area
-      input#plus.plus type="text" value="0"
-      input#plus_target.plus type="text" value="0"
+      select#plus.plus
+      select#plus_target.plus type="text" value="0"
       img#run src="ok_button.png"
       /div
         label.input

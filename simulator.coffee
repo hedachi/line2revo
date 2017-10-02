@@ -68,6 +68,11 @@ class Simulator
   ]
 
 $ ->
+  for i in [0..30]
+    $('#plus').append "<option value='#{i}'>#{i}</option>"
+  for i in [1..30]
+    $('#plus_target').append "<option value='#{i}'>#{i}</option>"
+  $('#plus_target').append '<option value="">1</option>'
   $('#run').click ->
     sim = new Simulator($('#plus').val())
     #sim.exec($('#scroll_num').val())
