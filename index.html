@@ -2,67 +2,11 @@
 <html lang="ja">
   <meta content="width=480" name="viewport" />
   <head>
+    <title>リネレボ強化シミュレーター</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
     <script src="simulator.js"></script>
-    <title>リネレボ強化シミュレーター</title>
-    <style>
-      body {
-        line-height: 1.5em;
-        font-size: 18px;
-      }
-      h1 {
-        font-size: 26px;
-      }
-      .input_area {
-      }
-      .result_area {
-        background: #eee;
-        border-radius: 20px;
-        padding: 10px;
-      }
-      label.input {
-        width: 160px;
-        display: inline-block;
-        text-align: right;
-        padding-right: 5px;
-      }
-      input.plus {
-        position:relative;
-      }
-      input.plus:before {
-        position:absolute;
-        left: 0px;
-        content: '+';
-      }
-      input[type="button"] {
-        font-size: 20px;
-        width:100%;
-        height: 50px;
-        display: inline-block;
-        border: solid gray 1px;
-        border-radius: 2px;
-        margin: 3px 0;
-      }
-      input[type="text"] {
-        font-size: 40px;
-        border: solid gray 1px;
-        border-radius: 2px;
-        height: 50px;
-        width: 100px;
-        text-align: right;
-      }
-      input[type="radio"] {
-        margin: 20px 10px;
-      }
-      .log_count {
-        display: inline-block;
-        width: 100px;
-      }
-      .author {
-        margin: 15px 0;
-        font-size: 12px;
-      }
-    </style>
+    <link href="reset.css" media="all" rel="stylesheet" type="text/css" />
+    <link href="index.css" media="all" rel="stylesheet" type="text/css" />
   </head>
   <body>
     <h1>
@@ -73,13 +17,10 @@
         <label class="input">種類:</label><label for="weapon">武器</label><input checked="checked" id="weapon" name="item_type" type="radio" value="武器" />　<label for="armor">防具</label><input id="armor" name="item_type" type="radio" value="防具" />
       </div>
       <div>
-        <label class="input">現在+:</label><input class="plus" id="plus" type="text" value="0" />
+        <label class="input_plus">+</label><input class="plus" id="plus" type="text" value="0" />
       </div>
       <div>
-        <label class="input">目標+:</label><input class="plus" id="plus_target" type="text" value="0" />
-      </div>
-      <div>
-        <label class="input">スクロール枚数:</label><input id="scroll_num" type="text" value="0" />枚
+        <label class="input_plus">+</label><input class="plus" id="plus_target" type="text" value="0" />
       </div>
       <div>
         <input id="run" type="button" value="実行" />

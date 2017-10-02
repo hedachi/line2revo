@@ -2,67 +2,11 @@ doctype html
 html lang="ja"
   meta name="viewport" content="width=480"
   head
+    title リネレボ強化シミュレーター
     script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"
     script src="simulator.js"
-    title リネレボ強化シミュレーター
-    style
-      |
-        body {
-          line-height: 1.5em;
-          font-size: 18px;
-        }
-        h1 {
-          font-size: 26px;
-        }
-        .input_area {
-        }
-        .result_area {
-          background: #eee;
-          border-radius: 20px;
-          padding: 10px;
-        }
-        label.input {
-          width: 160px;
-          display: inline-block;
-          text-align: right;
-          padding-right: 5px;
-        }
-        input.plus {
-          position:relative;
-        }
-        input.plus:before {
-          position:absolute;
-          left: 0px;
-          content: '+';
-        }
-        input[type="button"] {
-          font-size: 20px;
-          width:100%;
-          height: 50px;
-          display: inline-block;
-          border: solid gray 1px;
-          border-radius: 2px;
-          margin: 3px 0;
-        }
-        input[type="text"] {
-          font-size: 40px;
-          border: solid gray 1px;
-          border-radius: 2px;
-          height: 50px;
-          width: 100px;
-          text-align: right;
-        }
-        input[type="radio"] {
-          margin: 20px 10px;
-        }
-        .log_count {
-          display: inline-block;
-          width: 100px;
-        }
-        .author {
-          margin: 15px 0;
-          font-size: 12px;
-        }
+    link rel='stylesheet' href='reset.css' type='text/css' media='all'
+    link rel='stylesheet' href='index.css' type='text/css' media='all'
   body
     h1 リネレボ強化シミュレーター
     .input_area
@@ -77,14 +21,14 @@ html lang="ja"
           |防具
         input#armor  type="radio" name="item_type" value="防具"
       div
-        label.input
-          |現在+:
+        label.input_plus
+          |+
         input#plus.plus type="text" value="0"
       div
-        label.input
-          |目標+:
+        label.input_plus
+          |+
         input#plus_target.plus type="text" value="0"
-      div
+      /div
         label.input
           |スクロール枚数:
         input#scroll_num type="text" value="0"
