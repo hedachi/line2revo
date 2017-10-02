@@ -41,7 +41,7 @@
     };
 
     Simulator.prototype.show_message = function(message) {
-      return $('.result_area').prepend("<div><div class='log_count'>" + (++Simulator.log_count) + "</div>" + message + "</div>");
+      return $('.result_area').append("<div>" + message + "</div>");
     };
 
     Simulator.get_data = function(plus) {

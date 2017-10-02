@@ -1,9 +1,11 @@
 body {
   line-height: 1.5em;
   font-size: 18px;
-  background: url('強化成功編集後2.png');
+  background-color: rgb(8, 17, 21);
+  background-image: url('強化成功編集後2.png');
   background-size: 100%;
   background-repeat: no-repeat;
+  color: white;
 }
 h1 {
   font-size: 26px;
@@ -14,9 +16,9 @@ h1 {
   height: 200px;
 }
 .result_area {
-  background: #eee;
-  border-radius: 20px;
+  color: white;
   padding: 10px;
+  background: rgb(8, 17, 21);
 }
 label.input {
   width: 160px;

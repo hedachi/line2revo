@@ -24,7 +24,8 @@ class Simulator
         @show_message "スクロールが足りなくなりました。累計消費アデナ:#{used_money}"
         break
   show_message: (message) ->
-    $('.result_area').prepend "<div><div class='log_count'>#{++Simulator.log_count}</div>#{message}</div>"
+    #$('.result_area').prepend "<div><div class='log_count'>#{++Simulator.log_count}</div>#{message}</div>"
+    $('.result_area').append "<div>#{message}</div>"
   @get_data = (plus) ->
     data = @DATA[plus]
     {
