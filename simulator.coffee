@@ -70,7 +70,8 @@ class Simulator
 $ ->
   $('#run').click ->
     sim = new Simulator($('#plus').val())
-    sim.exec($('#scroll_num').val())
+    #sim.exec($('#scroll_num').val())
+    sim.exec(Math.ceil(Math.random() * 100))
   $('#plus').change ->
     if $('#plus_target').val() <= $('#plus').val()
       $('#plus_target').val(parseInt($('#plus').val()) + 1)

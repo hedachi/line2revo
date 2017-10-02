@@ -15,6 +15,9 @@ h1 {
   height: 0;
   text-align: center;
 }
+a {
+  color: yellow;
+}
 .input_area {
   margin-top: 292px;
   position: relative;

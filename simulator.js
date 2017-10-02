@@ -65,7 +65,7 @@
     $('#run').click(function() {
       var sim;
       sim = new Simulator($('#plus').val());
-      return sim.exec($('#scroll_num').val());
+      return sim.exec(Math.ceil(Math.random() * 100));
     });
     return $('#plus').change(function() {
       if ($('#plus_target').val() <= $('#plus').val()) {
