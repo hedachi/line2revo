@@ -9,6 +9,10 @@ html lang="ja"
       |
         body {
           line-height: 1.5em;
+          font-size: 18px;
+        }
+        h1 {
+          font-size: 26px;
         }
         .input_area {
         }
@@ -18,7 +22,7 @@ html lang="ja"
           padding: 10px;
         }
         label.input {
-          width: 200px;
+          width: 160px;
           display: inline-block;
           text-align: right;
           padding-right: 5px;
@@ -32,6 +36,7 @@ html lang="ja"
           content: '+';
         }
         input[type="button"] {
+          font-size: 20px;
           width:100%;
           height: 50px;
           display: inline-block;
@@ -40,9 +45,12 @@ html lang="ja"
           margin: 3px 0;
         }
         input[type="text"] {
+          font-size: 40px;
           border: solid gray 1px;
           border-radius: 2px;
           height: 50px;
+          width: 100px;
+          text-align: right;
         }
         input[type="radio"] {
           margin: 20px 10px;
@@ -52,7 +60,8 @@ html lang="ja"
           width: 100px;
         }
         .author {
-          padding: 5px;
+          margin: 15px 0;
+          font-size: 12px;
         }
   body
     h1 リネレボ強化シミュレーター
@@ -63,6 +72,7 @@ html lang="ja"
         label for="weapon"
           |武器
         input#weapon type="radio" name="item_type" value="武器" checked="checked"
+        |　
         label for="armor"
           |防具
         input#armor  type="radio" name="item_type" value="防具"
@@ -74,10 +84,9 @@ html lang="ja"
         label.input
           |目標+:
         input#plus_target.plus type="text" value="0"
-        |枚
       div
         label.input
-          |使うスクロールの枚数:
+          |スクロール枚数:
         input#scroll_num type="text" value="0"
         |枚
       div
@@ -85,11 +94,12 @@ html lang="ja"
     .result_area
 
     .author
-      |作成者: hedachi@エルモア
+      |作成者: hedachi@エルモアサーバー
+      |　
       a href="https://twitter.com/hedachi"
         |twitter
-      br
-      |無課金で効率的なプレイを追求しています。
+    img style="width:100%;" src="IMG_0144.PNG"
+    .author
+      |無課金での効率的なプレイを追求しています。
       br
       |21日目、Lv69で戦闘力300,000超えを達成！
-    img style="width:100%;" src="IMG_0144.PNG"

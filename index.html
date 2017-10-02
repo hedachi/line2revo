@@ -8,6 +8,10 @@
     <style>
       body {
         line-height: 1.5em;
+        font-size: 18px;
+      }
+      h1 {
+        font-size: 26px;
       }
       .input_area {
       }
@@ -17,7 +21,7 @@
         padding: 10px;
       }
       label.input {
-        width: 200px;
+        width: 160px;
         display: inline-block;
         text-align: right;
         padding-right: 5px;
@@ -31,6 +35,7 @@
         content: '+';
       }
       input[type="button"] {
+        font-size: 20px;
         width:100%;
         height: 50px;
         display: inline-block;
@@ -39,9 +44,12 @@
         margin: 3px 0;
       }
       input[type="text"] {
+        font-size: 40px;
         border: solid gray 1px;
         border-radius: 2px;
         height: 50px;
+        width: 100px;
+        text-align: right;
       }
       input[type="radio"] {
         margin: 20px 10px;
@@ -51,7 +59,8 @@
         width: 100px;
       }
       .author {
-        padding: 5px;
+        margin: 15px 0;
+        font-size: 12px;
       }
     </style>
   </head>
@@ -61,16 +70,16 @@
     </h1>
     <div class="input_area">
       <div>
-        <label class="input">種類:</label><label for="weapon">武器</label><input checked="checked" id="weapon" name="item_type" type="radio" value="武器" /><label for="armor">防具</label><input id="armor" name="item_type" type="radio" value="防具" />
+        <label class="input">種類:</label><label for="weapon">武器</label><input checked="checked" id="weapon" name="item_type" type="radio" value="武器" />　<label for="armor">防具</label><input id="armor" name="item_type" type="radio" value="防具" />
       </div>
       <div>
         <label class="input">現在+:</label><input class="plus" id="plus" type="text" value="0" />
       </div>
       <div>
-        <label class="input">目標+:</label><input class="plus" id="plus_target" type="text" value="0" />枚
+        <label class="input">目標+:</label><input class="plus" id="plus_target" type="text" value="0" />
       </div>
       <div>
-        <label class="input">使うスクロールの枚数:</label><input id="scroll_num" type="text" value="0" />枚
+        <label class="input">スクロール枚数:</label><input id="scroll_num" type="text" value="0" />枚
       </div>
       <div>
         <input id="run" type="button" value="実行" />
@@ -78,8 +87,11 @@
     </div>
     <div class="result_area"></div>
     <div class="author">
-      作成者: hedachi@エルモア<a href="https://twitter.com/hedachi">twitter</a><br />無課金で効率的なプレイを追求しています。<br />21日目、Lv69で戦闘力300,000超えを達成！
+      作成者: hedachi@エルモアサーバー　<a href="https://twitter.com/hedachi">twitter</a>
     </div>
     <img src="IMG_0144.PNG" style="width:100%;" />
+    <div class="author">
+      無課金での効率的なプレイを追求しています。<br />21日目、Lv69で戦闘力300,000超えを達成！
+    </div>
   </body>
 </html>
