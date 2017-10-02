@@ -11,7 +11,7 @@ h1 {
   font-size: 26px;
 }
 .input_area {
-  margin-top: 286px;
+  margin-top: 334px;
   position: relative;
   height: 200px;
 }
@@ -42,12 +42,12 @@ input.plus[type="text"] {
 }
 input#plus {
   top: 0;
-  left: 130px;
+  left: 150px;
   color: white;
 }
 input#plus_target {
   top: 0;
-  left: 250px;
+  left: 318px;
   color: green;
 }
 input[type="button"] {
@@ -81,6 +81,6 @@ input[type="radio"] {
 img#run {
   position: absolute;
   top: 60px;
-  left: 120px;
+  left: 155px;
   width: 180px;
 }
