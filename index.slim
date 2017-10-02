@@ -12,7 +12,7 @@ html lang="ja"
     h1 リネレボ強化シミュレーター
     .input_area
       select#plus.plus
-      select#plus_target.plus type="text" value="0"
+      select#plus_target.plus
       img#run src="ok_button.png"
       /div
         label.input
@@ -30,6 +30,9 @@ html lang="ja"
         input#scroll_num type="text" value="0"
         |枚
         /input#run type="button" value="実行"
+      select#simulation_type.plus
+        option 10回試す
+        option 10,000回試す
     .result_area
     .author
       |作成者: hedachi@エルモアサーバー
@@ -39,4 +42,4 @@ html lang="ja"
     img style="width:100%;" src="IMG_0144.PNG"
     .author
       |無課金やりこみしてます。
-      |21日目、Lv69で戦闘力300,000超えを達成！
+      |21日目、Lv69で戦闘力30万超え達成！

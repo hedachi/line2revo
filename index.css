@@ -86,9 +86,16 @@ input[type="radio"] {
 .author {
   margin: 15px 0;
 }
+#simulation_type {
+  position: absolute;
+  top: 70px;
+  left: 155px;
+  width: 180px;
+  color: white;
+}
 img#run {
   position: absolute;
-  top: 60px;
+  top: 130px;
   left: 155px;
   width: 180px;
 }
