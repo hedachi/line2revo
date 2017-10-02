@@ -8,9 +8,12 @@ html lang="ja"
     link rel='stylesheet' href='reset.css' type='text/css' media='all'
     link rel='stylesheet' href='index.css' type='text/css' media='all'
   body
-    h1 リネレボ強化シミュレーター
+    /h1 リネレボ強化シミュレーター
     .input_area
-      div
+      input#plus.plus type="text" value="0"
+      input#plus_target.plus type="text" value="0"
+      img#run src="ok_button.png"
+      /div
         label.input
           |種類:
         label for="weapon"
@@ -20,23 +23,13 @@ html lang="ja"
         label for="armor"
           |防具
         input#armor  type="radio" name="item_type" value="防具"
-      div
-        label.input_plus
-          |+
-        input#plus.plus type="text" value="0"
-      div
-        label.input_plus
-          |+
-        input#plus_target.plus type="text" value="0"
-      /div
+      div style="display:none;"
         label.input
           |スクロール枚数:
         input#scroll_num type="text" value="0"
         |枚
-      div
-        input#run type="button" value="実行"
+        /input#run type="button" value="実行"
     .result_area
-
     .author
       |作成者: hedachi@エルモアサーバー
       |　

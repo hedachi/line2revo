@@ -1,13 +1,17 @@
 body {
   line-height: 1.5em;
   font-size: 18px;
+  background: url('強化成功編集後2.png');
+  background-size: 100%;
+  background-repeat: no-repeat;
 }
 h1 {
   font-size: 26px;
 }
 .input_area {
-  background: url('plus.png');
-  background-size: 480px;
+  margin-top: 286px;
+  position: relative;
+  height: 200px;
 }
 .result_area {
   background: #eee;
@@ -27,13 +31,22 @@ label.input_plus {
   padding-right: 5px;
   font-size: 50px;
 }
-input.plus {
-  position:relative;
-}
-input.plus:before {
+input.plus[type="text"] {
   position:absolute;
-  left: 0px;
-  content: '+';
+  font-size: 30px;
+  width: 50px;
+  height: 30px;
+  background: black;
+}
+input#plus {
+  top: 0;
+  left: 130px;
+  color: white;
+}
+input#plus_target {
+  top: 0;
+  left: 250px;
+  color: green;
 }
 input[type="button"] {
   font-size: 20px;
@@ -62,4 +75,10 @@ input[type="radio"] {
 .author {
   margin: 15px 0;
   font-size: 12px;
+}
+img#run {
+  position: absolute;
+  top: 60px;
+  left: 120px;
+  width: 180px;
 }

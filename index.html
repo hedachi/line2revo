@@ -9,21 +9,10 @@
     <link href="index.css" media="all" rel="stylesheet" type="text/css" />
   </head>
   <body>
-    <h1>
-      リネレボ強化シミュレーター
-    </h1>
     <div class="input_area">
-      <div>
-        <label class="input">種類:</label><label for="weapon">武器</label><input checked="checked" id="weapon" name="item_type" type="radio" value="武器" />　<label for="armor">防具</label><input id="armor" name="item_type" type="radio" value="防具" />
-      </div>
-      <div>
-        <label class="input_plus">+</label><input class="plus" id="plus" type="text" value="0" />
-      </div>
-      <div>
-        <label class="input_plus">+</label><input class="plus" id="plus_target" type="text" value="0" />
-      </div>
-      <div>
-        <input id="run" type="button" value="実行" />
+      <input class="plus" id="plus" type="text" value="0" /><input class="plus" id="plus_target" type="text" value="0" /><img id="run" src="ok_button.png" />
+      <div style="display:none;">
+        <label class="input">スクロール枚数:</label><input id="scroll_num" type="text" value="0" />枚
       </div>
     </div>
     <div class="result_area"></div>
