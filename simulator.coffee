@@ -1,7 +1,8 @@
 class AbstractSimulator
   @log_count = 0
-  constructor: (plus) ->
+  constructor: (plus, simulation_number) ->
     @plus = plus
+    @simulation_number = simulation_number
   show_result: (result) ->
   show_message: (message) ->
     #$('.result_area').prepend "<div><div class='log_count'>#{++Simulator.log_count}</div>#{message}</div>"
@@ -74,55 +75,55 @@ class TargetSimulator extends AbstractSimulator
   exec: (target_plus) ->
     used_scroll_num = 0
     used_money = 0
-    for i in [1...10]
-      console.log "#{i}回目"
-      $result_tr = $ '<tr></tr>'
-      $result_tr.append $ "<td>#{i}</td>"
-      $result_tr.append $ "<td>-</td>"
-      $result_tr.append $ "<td>-</td>"
-      result_process = "+#{@plus}"
-      loop
-        data = @constructor.get_data(@plus)
-        used_scroll_num += data.scroll
-        if target_plus > @plus
-          used_money += data.money
-          before_plus = @plus
-          is_success = (data.percent / 100) >= Math.random()
-          if is_success
-            #result = '成功'
-            @plus++
-          else
-            #result = '失敗'
-            unless @plus % 10 == 0 then @plus--
-          result_process += " -> +#{@plus}"
-          #$result.append(if result == '成功' then '◯' else '☓')
-          #$result.click ->
-            #console.log "+#{before_plus}からスクロール#{data.scroll}枚、#{data.money}アデナ、成功率#{data.percent}%で強化...[#{result}]#{@plus}になりました。"
-        else
-          $result_tr.append $("<td>#{result_process}</td>")
-          $('table#result').append $result_tr
-          break
+    result_process = [new Number(@plus)]
+    loop
+      data = @constructor.get_data(@plus)
+      used_scroll_num += data.scroll
+      if target_plus > @plus
+        used_money += data.money
+        before_plus = @plus
+        is_success = (data.percent / 100) >= Math.random()
+        if is_success
+          @plus++
+        else if @plus % 10 != 0
+          @plus--
+        result_process.push new Number(@plus)
+        #console.log "+#{before_plus}からスクロール#{data.scroll}枚、#{data.money}アデナ、成功率#{data.percent}%で強化...[#{result}]#{@plus}になりました。"
+      else
+        $result_tr = $ '<tr></tr>'
+        $result_tr.append $ "<td>#{@simulation_number}</td>"
+        $result_tr.append $ "<td>#{result_process.length - 1}</td>"
+        $result_tr.append $ "<td>#{used_scroll_num}</td>"
+        $result_tr.append $("<td>#{result_process.map((plus)->" +#{plus} ").join('→')}</td>")
+        $('table#result').append $result_tr
+        break
 
 with_scroll = false
 
 $ ->
+  execute = ->
+      
+    $('table#result > tr').not
+    $('.result_area_header').not
+    if with_scroll
+      sim = new ScrollSimulator($('#plus').val())
+      #sim.exec($('#scroll_num').val())
+      sim.exec(Math.ceil(Math.random() * 100))
+    else
+      for i in [1...10]
+        sim = new TargetSimulator($('#plus').val(), i)
+        sim.exec($('#plus_target').val())
   for i in [0..30]
     $('#plus').append "<option value='#{i}'>#{i}</option>"
   for i in [1..30]
     $('#plus_target').append "<option value='#{i}'>#{i}</option>"
   $('#plus_target').append '<option value="">1</option>'
   $('#plus_target').val 5 + Math.ceil(Math.random() * 10)
-  $('#run').click ->
-    if with_scroll
-      sim = new ScrollSimulator($('#plus').val())
-      #sim.exec($('#scroll_num').val())
-      sim.exec(Math.ceil(Math.random() * 100))
-    else
-      sim = new TargetSimulator($('#plus').val())
-      sim.exec($('#plus_target').val())
+  $('#run').click execute
   $('#plus').change ->
     if $('#plus_target').val() <= $('#plus').val()
       $('#plus_target').val(parseInt($('#plus').val()) + 1)
+  execute()
   #s = new Simulator(8)
   #s.exec(40)
 

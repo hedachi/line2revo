@@ -7,8 +7,9 @@
   AbstractSimulator = (function() {
     AbstractSimulator.log_count = 0;
 
-    function AbstractSimulator(plus) {
+    function AbstractSimulator(plus, simulation_number) {
       this.plus = plus;
+      this.simulation_number = simulation_number;
     }
 
     AbstractSimulator.prototype.show_result = function(result) {};
@@ -84,43 +85,35 @@
     }
 
     TargetSimulator.prototype.exec = function(target_plus) {
-      var $result_tr, before_plus, data, i, is_success, j, result_process, results, used_money, used_scroll_num;
+      var $result_tr, before_plus, data, is_success, result_process, results, used_money, used_scroll_num;
       used_scroll_num = 0;
       used_money = 0;
+      result_process = [new Number(this.plus)];
       results = [];
-      for (i = j = 1; j < 10; i = ++j) {
-        console.log(i + "回目");
-        $result_tr = $('<tr></tr>');
-        $result_tr.append($("<td>" + i + "</td>"));
-        $result_tr.append($("<td>-</td>"));
-        $result_tr.append($("<td>-</td>"));
-        result_process = "+" + this.plus;
-        results.push((function() {
-          var results1;
-          results1 = [];
-          while (true) {
-            data = this.constructor.get_data(this.plus);
-            used_scroll_num += data.scroll;
-            if (target_plus > this.plus) {
-              used_money += data.money;
-              before_plus = this.plus;
-              is_success = (data.percent / 100) >= Math.random();
-              if (is_success) {
-                this.plus++;
-              } else {
-                if (this.plus % 10 !== 0) {
-                  this.plus--;
-                }
-              }
-              results1.push(result_process += " -> +" + this.plus);
-            } else {
-              $result_tr.append($("<td>" + result_process + "</td>"));
-              $('table#result').append($result_tr);
-              break;
-            }
+      while (true) {
+        data = this.constructor.get_data(this.plus);
+        used_scroll_num += data.scroll;
+        if (target_plus > this.plus) {
+          used_money += data.money;
+          before_plus = this.plus;
+          is_success = (data.percent / 100) >= Math.random();
+          if (is_success) {
+            this.plus++;
+          } else if (this.plus % 10 !== 0) {
+            this.plus--;
           }
-          return results1;
-        }).call(this));
+          results.push(result_process.push(new Number(this.plus)));
+        } else {
+          $result_tr = $('<tr></tr>');
+          $result_tr.append($("<td>" + this.simulation_number + "</td>"));
+          $result_tr.append($("<td>" + (result_process.length - 1) + "</td>"));
+          $result_tr.append($("<td>" + used_scroll_num + "</td>"));
+          $result_tr.append($("<td>" + (result_process.map(function(plus) {
+            return " +" + plus + " ";
+          }).join('→')) + "</td>"));
+          $('table#result').append($result_tr);
+          break;
+        }
       }
       return results;
     };
@@ -132,7 +125,23 @@
   with_scroll = false;
 
   $(function() {
-    var i, j, k;
+    var execute, i, j, k;
+    execute = function() {
+      var i, j, results, sim;
+      $('table#result > tr').not;
+      $('.result_area_header').not;
+      if (with_scroll) {
+        sim = new ScrollSimulator($('#plus').val());
+        return sim.exec(Math.ceil(Math.random() * 100));
+      } else {
+        results = [];
+        for (i = j = 1; j < 10; i = ++j) {
+          sim = new TargetSimulator($('#plus').val(), i);
+          results.push(sim.exec($('#plus_target').val()));
+        }
+        return results;
+      }
+    };
     for (i = j = 0; j <= 30; i = ++j) {
       $('#plus').append("<option value='" + i + "'>" + i + "</option>");
     }
@@ -141,21 +150,13 @@
     }
     $('#plus_target').append('<option value="">1</option>');
     $('#plus_target').val(5 + Math.ceil(Math.random() * 10));
-    $('#run').click(function() {
-      var sim;
-      if (with_scroll) {
-        sim = new ScrollSimulator($('#plus').val());
-        return sim.exec(Math.ceil(Math.random() * 100));
-      } else {
-        sim = new TargetSimulator($('#plus').val());
-        return sim.exec($('#plus_target').val());
-      }
-    });
-    return $('#plus').change(function() {
+    $('#run').click(execute);
+    $('#plus').change(function() {
       if ($('#plus_target').val() <= $('#plus').val()) {
         return $('#plus_target').val(parseInt($('#plus').val()) + 1);
       }
     });
+    return execute();
   });
 
 }).call(this);
