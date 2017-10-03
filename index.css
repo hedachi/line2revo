@@ -57,7 +57,7 @@ label.input_plus {
 #plus_target {
   top: -3px;
   left: 318px;
-  color: green;
+  color: #0f9;
 }
 input[type="button"] {
   font-size: 20px;
@@ -98,4 +98,16 @@ img#run {
   top: 130px;
   left: 155px;
   width: 180px;
+}
+table#result {
+  width: 100%;
+}
+table#result th {
+  text-align: left;
+  line-height: 1.3em;
+}
+table#result th, table#result td {
+  border: #888 1px solid;
+  padding: 2px;
+  font-size: 13px;
 }

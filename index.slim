@@ -1,6 +1,6 @@
 doctype html
 html lang="ja"
-  meta name="viewport" content="width=480"
+  meta name="viewport" content="width=480,user-scalable=no"
   meta charset="utf-8"
   head
     title リネレボ強化シミュレーター
@@ -34,6 +34,25 @@ html lang="ja"
         option 10回試す
         option 10,000回試す
     .result_area
+      table#result
+        tr
+          th style="width: 50px;"
+            |No.
+          th style="width: 50px;"
+            |強化
+            br
+            |回数
+          th style="width: 50px;"
+            |消費
+            br
+            |枚数
+          th 経過
+        tr
+          td 1
+          td 7回
+          td 33
+          td +6 -> +7 -> +8
+
     .author
       |作成者: hedachi@エルモアサーバー
       |　
