@@ -7,9 +7,10 @@
   AbstractSimulator = (function() {
     AbstractSimulator.log_count = 0;
 
-    function AbstractSimulator(plus, simulation_number) {
+    function AbstractSimulator(plus, simulation_number, try_times) {
       this.plus = plus;
       this.simulation_number = simulation_number;
+      this.try_times = try_times;
     }
 
     AbstractSimulator.prototype.show_result = function(result) {};
@@ -74,13 +75,15 @@
       var $result_tr, text;
       $result_tr = $('<tr></tr>');
       $result_tr.append($("<td>" + this.simulation_number + "</td>"));
-      $result_tr.append($("<td>" + (this.result_process.length - 1) + "</td>"));
-      $result_tr.append($("<td>" + this.used_scroll_num + "</td>"));
-      $result_tr.append($("<td>" + this.used_money + "</td>"));
-      text = this.result_process.map(function(plus) {
-        return " +" + plus + " ";
-      }).join('→');
-      $result_tr.append($("<td><input class='show_details' type='button' value='詳細' data-details='" + text + "'/></td>"));
+      $result_tr.append($("<td class='enhance_times'>" + (this.result_process.length - 1) + "</td>"));
+      $result_tr.append($("<td class='used_scroll_num'>" + this.used_scroll_num + "</td>"));
+      $result_tr.append($("<td class='used_money'>" + this.used_money + "</td>"));
+      if (this.try_times <= 10) {
+        text = this.result_process.map(function(plus) {
+          return " +" + plus + " ";
+        }).join('→');
+        $result_tr.append($("<td><input class='show_details' type='button' value='詳細' data-details='" + text + "'/></td>"));
+      }
       return $('table#result').append($result_tr);
     };
 
@@ -91,20 +94,43 @@
   with_scroll = false;
 
   $(function() {
-    var after_plus, before_plus, execute, i, j, k;
+    var after_plus, before_plus, execute, get_average, get_sum, i, insert_average, j, k;
+    get_sum = function(selector) {
+      var sum;
+      sum = 0;
+      $(selector).each(function(index, element) {
+        return sum += parseInt(element.innerHTML);
+      });
+      return sum;
+    };
+    get_average = function(selector) {
+      var average;
+      average = get_sum(selector) / $(selector).size();
+      return Math.round(average * 10) / 10;
+    };
+    insert_average = function() {
+      var $result_tr;
+      $result_tr = $('<tr></tr>');
+      $result_tr.append($("<td>平均</td>"));
+      $result_tr.append($("<td class='enhance_times'>" + (get_average('.enhance_times')) + "</td>"));
+      $result_tr.append($("<td class='used_scroll_num'>" + (get_average('.used_scroll_num')) + "</td>"));
+      $result_tr.append($("<td class='used_money'>" + (get_average('.used_money')) + "</td>"));
+      return $('tr#result_area_header').after($result_tr);
+    };
     execute = function() {
-      var i, j, results, sim;
+      var i, j, ref, sim, try_times;
       $('table#result tr').not('#result_area_header').detach();
       if (with_scroll) {
         sim = new ScrollSimulator($('#plus').val());
         return sim.exec(Math.ceil(Math.random() * 100));
       } else {
-        results = [];
-        for (i = j = 1; j < 10; i = ++j) {
-          sim = new TargetSimulator($('#plus').val(), i);
-          results.push(sim.exec(parseInt($('#plus_target').val())));
+        try_times = parseInt($('#simulation_type').val());
+        $('th#result_details').toggle(try_times <= 10);
+        for (i = j = 1, ref = try_times; 1 <= ref ? j < ref : j > ref; i = 1 <= ref ? ++j : --j) {
+          sim = new TargetSimulator($('#plus').val(), i, try_times);
+          sim.exec(parseInt($('#plus_target').val()));
         }
-        return results;
+        return insert_average();
       }
     };
     for (i = j = 0; j <= 29; i = ++j) {
@@ -113,9 +139,9 @@
     for (i = k = 1; k <= 30; i = ++k) {
       $('#plus_target').append("<option value='" + i + "'>" + i + "</option>");
     }
-    before_plus = Math.floor(Math.random() * 30);
+    before_plus = 5 + Math.floor(Math.random() * 5);
     $('#plus').val(before_plus);
-    after_plus = Math.min(30, before_plus + Math.ceil(Math.random() * 10));
+    after_plus = Math.min(30, before_plus + Math.ceil(Math.random() * 3));
     $('#plus_target').val(after_plus);
     $('#run').click(execute);
     $('#plus').change(function() {

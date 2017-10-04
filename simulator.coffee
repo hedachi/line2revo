@@ -1,8 +1,9 @@
 class AbstractSimulator
   @log_count = 0
-  constructor: (plus, simulation_number) ->
+  constructor: (plus, simulation_number, try_times) ->
     @plus = plus
     @simulation_number = simulation_number
+    @try_times = try_times
   show_result: (result) ->
   show_message: (message) ->
     #$('.result_area').prepend "<div><div class='log_count'>#{++Simulator.log_count}</div>#{message}</div>"
@@ -96,16 +97,32 @@ class TargetSimulator extends AbstractSimulator
   show_result: ->
     $result_tr = $ '<tr></tr>'
     $result_tr.append $ "<td>#{@simulation_number}</td>"
-    $result_tr.append $ "<td>#{@result_process.length - 1}</td>"
-    $result_tr.append $ "<td>#{@used_scroll_num}</td>"
-    $result_tr.append $ "<td>#{@used_money}</td>"
-    text = @result_process.map((plus)->" +#{plus} ").join('→')
-    $result_tr.append $("<td><input class='show_details' type='button' value='詳細' data-details='#{text}'/></td>")
+    $result_tr.append $ "<td class='enhance_times'>#{@result_process.length - 1}</td>"
+    $result_tr.append $ "<td class='used_scroll_num'>#{@used_scroll_num}</td>"
+    $result_tr.append $ "<td class='used_money'>#{@used_money}</td>"
+    if @try_times <= 10
+      text = @result_process.map((plus)->" +#{plus} ").join('→')
+      $result_tr.append $("<td><input class='show_details' type='button' value='詳細' data-details='#{text}'/></td>")
     $('table#result').append $result_tr
 
 with_scroll = false
 
 $ ->
+  get_sum = (selector) ->
+    sum = 0
+    $(selector).each (index, element) ->
+      sum += parseInt element.innerHTML
+    sum
+  get_average = (selector) ->
+    average = get_sum(selector) / $(selector).size()
+    Math.round(average * 10) / 10
+  insert_average = ->
+    $result_tr = $ '<tr></tr>'
+    $result_tr.append $ "<td>平均</td>"
+    $result_tr.append $ "<td class='enhance_times'>#{get_average('.enhance_times')}</td>"
+    $result_tr.append $ "<td class='used_scroll_num'>#{get_average('.used_scroll_num')}</td>"
+    $result_tr.append $ "<td class='used_money'>#{get_average('.used_money')}</td>"
+    $('tr#result_area_header').after $result_tr
   execute = ->
     $('table#result tr').not('#result_area_header').detach()
     if with_scroll
@@ -113,18 +130,21 @@ $ ->
       #sim.exec($('#scroll_num').val())
       sim.exec(Math.ceil(Math.random() * 100))
     else
-      for i in [1...10]
-        sim = new TargetSimulator($('#plus').val(), i)
+      try_times = parseInt $('#simulation_type').val()
+      $('th#result_details').toggle(try_times <= 10)
+      for i in [1...try_times]
+        sim = new TargetSimulator($('#plus').val(), i, try_times)
         sim.exec(parseInt $('#plus_target').val())
+      insert_average()
 
   for i in [0..29]
     $('#plus').append "<option value='#{i}'>#{i}</option>"
   for i in [1..30]
     $('#plus_target').append "<option value='#{i}'>#{i}</option>"
 
-  before_plus = Math.floor(Math.random() * 30)
+  before_plus = 5 + Math.floor(Math.random() * 5)
   $('#plus').val before_plus
-  after_plus = Math.min(30, before_plus + Math.ceil(Math.random() * 10))
+  after_plus = Math.min(30, before_plus + Math.ceil(Math.random() * 3))
   $('#plus_target').val after_plus
 
   $('#run').click execute

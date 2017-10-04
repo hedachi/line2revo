@@ -5,9 +5,9 @@
   <head>
     <title>リネレボ強化シミュレーター</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
-    <script src="simulator.js"></script>
+    <script src="simulator.js?ver=4"></script>
     <link href="reset.css" media="all" rel="stylesheet" type="text/css" />
-    <link href="index.css?ver=3" media="all" rel="stylesheet" type="text/css" />
+    <link href="index.css?ver=4" media="all" rel="stylesheet" type="text/css" />
   </head>
   <body>
     <div id="popup_window">
@@ -28,11 +28,14 @@
         <label class="input">スクロール枚数:</label><input id="scroll_num" type="text" value="0" />枚
       </div>
       <select class="plus" id="simulation_type">
-        <option>
-          10回試す
+        <option value="100">
+          100回試す
         </option>
-        <option>
-          10,000回試す
+        <option value="1000">
+          1,000回試す
+        </option>
+        <option value="10">
+          10回試す
         </option>
       </select>
     </div>
@@ -51,18 +54,11 @@
           <th style="width: 50px;">
             消費<br />ｱﾃﾞﾅ
           </th>
-          <th>
-            経過
+          <th id="result_details">
+            詳細
           </th>
         </tr>
       </table>
-    </div>
-    <div class="author">
-      作成者: hedachi@エルモアサーバー　<a href="https://twitter.com/hedachi">twitter</a>
-    </div>
-    <img src="IMG_0144.PNG" style="width:100%;" />
-    <div class="author">
-      無課金やりこみしてます。21日目、Lv69で戦闘力30万超え達成！
     </div>
   </body>
 </html>
