@@ -43,11 +43,13 @@
 
     TargetSimulator.execute_count = 0;
 
+    TargetSimulator.EXECUTE_COUNT_LIMIT = 100000;
+
     TargetSimulator.prototype.exec = function(target_plus) {
       var before_plus, data, is_success, results;
-      if (TargetSimulator.execute_count > 10000) {
-        console.log('10000回を超えたので停止します。');
-        return;
+      if (TargetSimulator.execute_count > TargetSimulator.EXECUTE_COUNT_LIMIT) {
+        alert("計算量が多すぎるため停止します。");
+        throw "計算量が多すぎるため停止します。";
       }
       this.used_scroll_num = 0;
       this.used_money = 0;
@@ -82,6 +84,7 @@
       $result_tr.append($("<td class='enhance_times'>" + (this.result_process.length - 1) + "</td>"));
       $result_tr.append($("<td class='used_scroll_num'>" + this.used_scroll_num + "</td>"));
       $result_tr.append($("<td class='used_money'>" + this.used_money + "</td>"));
+      $result_tr.append($("<td class='used_money_not_weapon'>" + (Math.round(this.used_money / 4)) + "</td>"));
       if (this.try_times <= 10) {
         text = this.result_process.map(function(plus) {
           return " +" + plus + " ";
@@ -115,23 +118,26 @@
       return Math.round(average * 10) / 10;
     };
 
-    Controller.insert_average = function() {
-      var $result_tr;
+    Controller.initialize = function() {
+      TargetSimulator.execute_count = 0;
+      return $('table#result tr').not('#result_area_header').detach();
+    };
+
+    Controller.finalize = function() {
+      var $result_tr, used_money_average;
       $result_tr = $('<tr></tr>');
       $result_tr.append($("<td>平均</td>"));
       $result_tr.append($("<td class='enhance_times'>" + (this.get_average('.enhance_times')) + "</td>"));
       $result_tr.append($("<td class='used_scroll_num'>" + (this.get_average('.used_scroll_num')) + "</td>"));
-      $result_tr.append($("<td class='used_money'>" + (this.get_average('.used_money')) + "</td>"));
+      used_money_average = this.get_average('.used_money');
+      $result_tr.append($("<td class='used_money'>" + used_money_average + "</td>"));
+      $result_tr.append($("<td class='used_money_not_weapon'>" + (used_money_average / 4) + "</td>"));
       return $('tr#result_area_header').after($result_tr);
-    };
-
-    Controller.reset = function() {
-      return $('table#result tr').not('#result_area_header').detach();
     };
 
     Controller.execute = function() {
       var i, j, ref, sim, try_times;
-      this.reset();
+      this.initialize();
       if (with_scroll) {
         sim = new ScrollSimulator($('#plus').val());
         return sim.exec(Math.ceil(Math.random() * 100));
@@ -142,7 +148,7 @@
           sim = new TargetSimulator($('#plus').val(), i, try_times);
           sim.exec(parseInt($('#plus_target').val()));
         }
-        return this.insert_average();
+        return this.finalize();
       }
     };
 

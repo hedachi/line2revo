@@ -50,10 +50,11 @@ class AbstractSimulator
 
 class TargetSimulator extends AbstractSimulator
   @execute_count = 0
+  @EXECUTE_COUNT_LIMIT = 100000
   exec: (target_plus) ->
-    if TargetSimulator.execute_count > 10000
-      console.log '10000回を超えたので停止します。'
-      return
+    if TargetSimulator.execute_count > TargetSimulator.EXECUTE_COUNT_LIMIT
+      alert "計算量が多すぎるため停止します。"
+      throw "計算量が多すぎるため停止します。"
     @used_scroll_num = 0
     @used_money = 0
     @result_process = [new Number(@plus)]
@@ -80,6 +81,7 @@ class TargetSimulator extends AbstractSimulator
     $result_tr.append $ "<td class='enhance_times'>#{@result_process.length - 1}</td>"
     $result_tr.append $ "<td class='used_scroll_num'>#{@used_scroll_num}</td>"
     $result_tr.append $ "<td class='used_money'>#{@used_money}</td>"
+    $result_tr.append $ "<td class='used_money_not_weapon'>#{Math.round @used_money/4}</td>"
     if @try_times <= 10
       text = @result_process.map((plus)->" +#{plus} ").join('→')
       $result_tr.append $("<td><input class='show_details' type='button' value='詳細' data-details='#{text}'/></td>")
@@ -96,17 +98,20 @@ class Controller
   @get_average = (selector) ->
     average = @get_sum(selector) / $(selector).size()
     Math.round(average * 10) / 10
-  @insert_average = ->
+  @initialize = ->
+    TargetSimulator.execute_count = 0
+    $('table#result tr').not('#result_area_header').detach()
+  @finalize = ->
     $result_tr = $ '<tr></tr>'
     $result_tr.append $ "<td>平均</td>"
     $result_tr.append $ "<td class='enhance_times'>#{@get_average('.enhance_times')}</td>"
     $result_tr.append $ "<td class='used_scroll_num'>#{@get_average('.used_scroll_num')}</td>"
-    $result_tr.append $ "<td class='used_money'>#{@get_average('.used_money')}</td>"
+    used_money_average = @get_average('.used_money')
+    $result_tr.append $ "<td class='used_money'>#{used_money_average}</td>"
+    $result_tr.append $ "<td class='used_money_not_weapon'>#{used_money_average / 4}</td>"
     $('tr#result_area_header').after $result_tr
-  @reset = ->
-    $('table#result tr').not('#result_area_header').detach()
   @execute = ->
-    @reset()
+    @initialize()
     if with_scroll
       sim = new ScrollSimulator($('#plus').val())
       #sim.exec($('#scroll_num').val())
@@ -117,7 +122,7 @@ class Controller
       for i in [1...try_times]
         sim = new TargetSimulator($('#plus').val(), i, try_times)
         sim.exec(parseInt $('#plus_target').val())
-      @insert_average()
+      @finalize()
 
 $ ->
   for i in [0..29]

@@ -111,7 +111,7 @@ table#result th {
 table#result th, table#result td {
   border: #888 1px solid;
   padding: 2px;
-  font-size: 13px;
+  font-size: 14px;
 }
 #popup_window {
   display: none;
@@ -144,4 +144,8 @@ input.show_details {
 #system_message {
   background: #333;
   border-radius: 5px;
+}
+.annotation {
+  font-size: 12px;
+  line-height: 1.2em;
 }
