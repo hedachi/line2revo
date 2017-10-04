@@ -10,6 +10,15 @@
     <link href="index.css?ver=3" media="all" rel="stylesheet" type="text/css" />
   </head>
   <body>
+    <div id="popup_window">
+      <div class="popup_window_title">
+        詳細情報
+      </div>
+      <div class="popup_window_content"></div>
+      <div style="text-align: center;">
+        <img id="close_popup_window" src="ok_button.png" />
+      </div>
+    </div>
     <h1>
       リネレボ強化シミュレーター
     </h1>
@@ -29,7 +38,7 @@
     </div>
     <div class="result_area">
       <table id="result">
-        <tr class="result_area_header">
+        <tr id="result_area_header">
           <th style="width: 50px;">
             No.
           </th>
@@ -37,7 +46,10 @@
             強化<br />回数
           </th>
           <th style="width: 50px;">
-            消費<br />枚数
+            ｽｸﾛｰﾙ<br />消費<br />枚数
+          </th>
+          <th style="width: 50px;">
+            消費<br />ｱﾃﾞﾅ
           </th>
           <th>
             経過

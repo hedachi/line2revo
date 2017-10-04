@@ -9,6 +9,11 @@ html lang="ja"
     link rel='stylesheet' href='reset.css' type='text/css' media='all'
     link rel='stylesheet' href='index.css?ver=3' type='text/css' media='all'
   body
+    #popup_window
+      .popup_window_title 詳細情報
+      .popup_window_content
+      div style="text-align: center;"
+        img#close_popup_window src="ok_button.png"
     h1 リネレボ強化シミュレーター
     .input_area
       select#plus.plus
@@ -35,7 +40,7 @@ html lang="ja"
         option 10,000回試す
     .result_area
       table#result
-        tr.result_area_header
+        tr#result_area_header
           th style="width: 50px;"
             |No.
           th style="width: 50px;"
@@ -43,9 +48,15 @@ html lang="ja"
             br
             |回数
           th style="width: 50px;"
+            |ｽｸﾛｰﾙ
+            br
             |消費
             br
             |枚数
+          th style="width: 50px;"
+            |消費
+            br
+            |ｱﾃﾞﾅ
           th 経過
 
     .author

@@ -111,3 +111,31 @@ table#result th, table#result td {
   padding: 2px;
   font-size: 13px;
 }
+#popup_window {
+  display: none;
+  position: absolute;
+  width: 450px;
+  left: 15px;
+  top: 50px;
+  background: rgba(0,0,0,0.8);
+  z-index: 1;
+  border: solid #999 1px;
+}
+.popup_window_title {
+  border-bottom: solid #999 1px;
+  padding: 3px;
+  text-align: center;
+}
+.popup_window_content {
+  padding: 3px;
+  min-height: 450px;
+}
+#close_popup_window {
+  width: 300px;
+  margin: auto;
+}
+input.show_details {
+  width: 100px;
+  height: 30px;
+  font-size: 14px;
+}

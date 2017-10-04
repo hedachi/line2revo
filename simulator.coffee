@@ -48,63 +48,65 @@ class AbstractSimulator
     [25,100000,6,14]
   ]
 
-class ScrollSimulator extends AbstractSimulator
-  exec: (scroll_num) ->
-    used_scroll_num = 0
-    used_money = 0
-    @show_message "スクロール#{scroll_num}枚で、武器+#{@plus}を強化します。"
-    loop
-      data = @constructor.get_data(@plus)
-      used_scroll_num += data.scroll
-      if scroll_num - used_scroll_num >= 0
-        used_money += data.money
-        before_plus = @plus
-        is_success = (data.percent / 100) >= Math.random()
-        if is_success
-          result = '成功'
-          @plus++
-        else
-          result = '失敗'
-          unless @plus % 10 == 0 then @plus--
-        @show_message "+#{before_plus}からスクロール#{data.scroll}枚、#{data.money}アデナ、成功率#{data.percent}%で強化...[#{result}]#{@plus}になりました。"
-      else
-        @show_message "スクロールが足りなくなりました。累計消費アデナ:#{used_money}"
-        break
+#class ScrollSimulator extends AbstractSimulator
+#  exec: (scroll_num) ->
+#    used_scroll_num = 0
+#    used_money = 0
+#    @show_message "スクロール#{scroll_num}枚で、武器+#{@plus}を強化します。"
+#    loop
+#      data = @constructor.get_data(@plus)
+#      used_scroll_num += data.scroll
+#      if scroll_num - used_scroll_num >= 0
+#        used_money += data.money
+#        before_plus = @plus
+#        is_success = (data.percent / 100) >= Math.random()
+#        if is_success
+#          result = '成功'
+#          @plus++
+#        else
+#          result = '失敗'
+#          unless @plus % 10 == 0 then @plus--
+#        @show_message "+#{before_plus}からスクロール#{data.scroll}枚、#{data.money}アデナ、成功率#{data.percent}%で強化...[#{result}]#{@plus}になりました。"
+#      else
+#        @show_message "スクロールが足りなくなりました。累計消費アデナ:#{used_money}"
+#        break
 
 class TargetSimulator extends AbstractSimulator
   exec: (target_plus) ->
-    used_scroll_num = 0
-    used_money = 0
-    result_process = [new Number(@plus)]
+    @used_scroll_num = 0
+    @used_money = 0
+    @result_process = [new Number(@plus)]
     loop
       data = @constructor.get_data(@plus)
-      used_scroll_num += data.scroll
+      @used_scroll_num += data.scroll
       if target_plus > @plus
-        used_money += data.money
+        @used_money += data.money
         before_plus = @plus
         is_success = (data.percent / 100) >= Math.random()
         if is_success
           @plus++
         else if @plus % 10 != 0
           @plus--
-        result_process.push new Number(@plus)
+        @result_process.push new Number(@plus)
         #console.log "+#{before_plus}からスクロール#{data.scroll}枚、#{data.money}アデナ、成功率#{data.percent}%で強化...[#{result}]#{@plus}になりました。"
       else
-        $result_tr = $ '<tr></tr>'
-        $result_tr.append $ "<td>#{@simulation_number}</td>"
-        $result_tr.append $ "<td>#{result_process.length - 1}</td>"
-        $result_tr.append $ "<td>#{used_scroll_num}</td>"
-        $result_tr.append $("<td>#{result_process.map((plus)->" +#{plus} ").join('→')}</td>")
-        $('table#result').append $result_tr
+        @show_result()
         break
+  show_result: ->
+    $result_tr = $ '<tr></tr>'
+    $result_tr.append $ "<td>#{@simulation_number}</td>"
+    $result_tr.append $ "<td>#{@result_process.length - 1}</td>"
+    $result_tr.append $ "<td>#{@used_scroll_num}</td>"
+    $result_tr.append $ "<td>#{@used_money}</td>"
+    text = @result_process.map((plus)->" +#{plus} ").join('→')
+    $result_tr.append $("<td><input class='show_details' type='button' value='詳細' data-details='#{text}'/></td>")
+    $('table#result').append $result_tr
 
 with_scroll = false
 
 $ ->
   execute = ->
-      
-    $('table#result > tr').not
-    $('.result_area_header').not
+    $('table#result tr').not('#result_area_header').detach()
     if with_scroll
       sim = new ScrollSimulator($('#plus').val())
       #sim.exec($('#scroll_num').val())
@@ -113,17 +115,25 @@ $ ->
       for i in [1...10]
         sim = new TargetSimulator($('#plus').val(), i)
         sim.exec($('#plus_target').val())
-  for i in [0..30]
+  for i in [0..29]
     $('#plus').append "<option value='#{i}'>#{i}</option>"
   for i in [1..30]
     $('#plus_target').append "<option value='#{i}'>#{i}</option>"
   $('#plus_target').append '<option value="">1</option>'
-  $('#plus_target').val 5 + Math.ceil(Math.random() * 10)
+
+  before_plus = Math.floor(Math.random() * 30)
+  $('#plus').val before_plus
+  after_plus = Math.min(30, before_plus + Math.ceil(Math.random() * 30))
+  $('#plus_target').val after_plus
+
   $('#run').click execute
   $('#plus').change ->
-    if $('#plus_target').val() <= $('#plus').val()
+    if parseInt($('#plus_target').val()) <= parseInt($('#plus').val())
       $('#plus_target').val(parseInt($('#plus').val()) + 1)
   execute()
+  $('#close_popup_window').click ->
+    $('#popup_window').hide()
+
   #s = new Simulator(8)
   #s.exec(40)
 
