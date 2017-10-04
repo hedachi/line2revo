@@ -107,24 +107,26 @@ class TargetSimulator extends AbstractSimulator
 
 with_scroll = false
 
-$ ->
-  get_sum = (selector) ->
+class Controller
+  get_sum: (selector) ->
     sum = 0
     $(selector).each (index, element) ->
       sum += parseInt element.innerHTML
     sum
-  get_average = (selector) ->
-    average = get_sum(selector) / $(selector).size()
+  get_average: (selector) ->
+    average = @get_sum(selector) / $(selector).size()
     Math.round(average * 10) / 10
-  insert_average = ->
+  insert_average: ->
     $result_tr = $ '<tr></tr>'
     $result_tr.append $ "<td>平均</td>"
-    $result_tr.append $ "<td class='enhance_times'>#{get_average('.enhance_times')}</td>"
-    $result_tr.append $ "<td class='used_scroll_num'>#{get_average('.used_scroll_num')}</td>"
-    $result_tr.append $ "<td class='used_money'>#{get_average('.used_money')}</td>"
+    $result_tr.append $ "<td class='enhance_times'>#{@get_average('.enhance_times')}</td>"
+    $result_tr.append $ "<td class='used_scroll_num'>#{@get_average('.used_scroll_num')}</td>"
+    $result_tr.append $ "<td class='used_money'>#{@get_average('.used_money')}</td>"
     $('tr#result_area_header').after $result_tr
-  execute = ->
+  reset: ->
     $('table#result tr').not('#result_area_header').detach()
+  execute: ->
+    @reset()
     if with_scroll
       sim = new ScrollSimulator($('#plus').val())
       #sim.exec($('#scroll_num').val())
@@ -135,7 +137,10 @@ $ ->
       for i in [1...try_times]
         sim = new TargetSimulator($('#plus').val(), i, try_times)
         sim.exec(parseInt $('#plus_target').val())
-      insert_average()
+      @insert_average()
+
+$ ->
+  controller = new Controller
 
   for i in [0..29]
     $('#plus').append "<option value='#{i}'>#{i}</option>"
@@ -147,16 +152,11 @@ $ ->
   after_plus = Math.min(30, before_plus + Math.ceil(Math.random() * 3))
   $('#plus_target').val after_plus
 
-  $('#run').click execute
+  $('#run').click -> controller.execute()
   $('#plus').change ->
     if parseInt($('#plus_target').val()) <= parseInt($('#plus').val())
       $('#plus_target').val(parseInt($('#plus').val()) + 1)
-    execute()
-  $('#plus_target').change execute
-  execute()
-
+    controller.execute()
+  $('#plus_target').change -> controller.execute()
+  controller.execute()
   $('#close_popup_window').click -> $('#popup_window').hide()
-
-  #s = new Simulator(8)
-  #s.exec(40)
-

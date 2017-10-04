@@ -99,6 +99,8 @@ img#run {
   left: 155px;
   width: 180px;
 }
+.system_message {
+}
 table#result {
   width: 100%;
 }
@@ -138,4 +140,8 @@ input.show_details {
   width: 100px;
   height: 30px;
   font-size: 14px;
+}
+#system_message {
+  background: #333;
+  border-radius: 5px;
 }
