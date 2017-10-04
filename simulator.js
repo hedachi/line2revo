@@ -96,7 +96,7 @@
   Controller = (function() {
     function Controller() {}
 
-    Controller.prototype.get_sum = function(selector) {
+    Controller.get_sum = function(selector) {
       var sum;
       sum = 0;
       $(selector).each(function(index, element) {
@@ -105,13 +105,13 @@
       return sum;
     };
 
-    Controller.prototype.get_average = function(selector) {
+    Controller.get_average = function(selector) {
       var average;
       average = this.get_sum(selector) / $(selector).size();
       return Math.round(average * 10) / 10;
     };
 
-    Controller.prototype.insert_average = function() {
+    Controller.insert_average = function() {
       var $result_tr;
       $result_tr = $('<tr></tr>');
       $result_tr.append($("<td>平均</td>"));
@@ -121,12 +121,13 @@
       return $('tr#result_area_header').after($result_tr);
     };
 
-    Controller.prototype.reset = function() {
+    Controller.reset = function() {
       return $('table#result tr').not('#result_area_header').detach();
     };
 
-    Controller.prototype.execute = function() {
+    Controller.execute = function() {
       var i, j, ref, sim, try_times;
+      this.log('execute start!');
       this.reset();
       if (with_scroll) {
         sim = new ScrollSimulator($('#plus').val());
@@ -142,13 +143,16 @@
       }
     };
 
+    Controller.log = function(message) {
+      return $('#system_message').text(message);
+    };
+
     return Controller;
 
   })();
 
   $(function() {
-    var after_plus, before_plus, controller, i, j, k;
-    controller = new Controller;
+    var after_plus, before_plus, i, j, k;
     for (i = j = 0; j <= 29; i = ++j) {
       $('#plus').append("<option value='" + i + "'>" + i + "</option>");
     }
@@ -160,18 +164,18 @@
     after_plus = Math.min(30, before_plus + Math.ceil(Math.random() * 3));
     $('#plus_target').val(after_plus);
     $('#run').click(function() {
-      return controller.execute();
+      return Controller.execute();
     });
     $('#plus').change(function() {
       if (parseInt($('#plus_target').val()) <= parseInt($('#plus').val())) {
         $('#plus_target').val(parseInt($('#plus').val()) + 1);
       }
-      return controller.execute();
+      return Controller.execute();
     });
     $('#plus_target').change(function() {
-      return controller.execute();
+      return Controller.execute();
     });
-    controller.execute();
+    Controller.execute();
     return $('#close_popup_window').click(function() {
       return $('#popup_window').hide();
     });

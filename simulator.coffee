@@ -108,24 +108,25 @@ class TargetSimulator extends AbstractSimulator
 with_scroll = false
 
 class Controller
-  get_sum: (selector) ->
+  @get_sum = (selector) ->
     sum = 0
     $(selector).each (index, element) ->
       sum += parseInt element.innerHTML
     sum
-  get_average: (selector) ->
+  @get_average = (selector) ->
     average = @get_sum(selector) / $(selector).size()
     Math.round(average * 10) / 10
-  insert_average: ->
+  @insert_average = ->
     $result_tr = $ '<tr></tr>'
     $result_tr.append $ "<td>平均</td>"
     $result_tr.append $ "<td class='enhance_times'>#{@get_average('.enhance_times')}</td>"
     $result_tr.append $ "<td class='used_scroll_num'>#{@get_average('.used_scroll_num')}</td>"
     $result_tr.append $ "<td class='used_money'>#{@get_average('.used_money')}</td>"
     $('tr#result_area_header').after $result_tr
-  reset: ->
+  @reset = ->
     $('table#result tr').not('#result_area_header').detach()
-  execute: ->
+  @execute = ->
+    @log 'execute start!'
     @reset()
     if with_scroll
       sim = new ScrollSimulator($('#plus').val())
@@ -138,10 +139,10 @@ class Controller
         sim = new TargetSimulator($('#plus').val(), i, try_times)
         sim.exec(parseInt $('#plus_target').val())
       @insert_average()
+  @log = (message) ->
+    $('#system_message').text message
 
 $ ->
-  controller = new Controller
-
   for i in [0..29]
     $('#plus').append "<option value='#{i}'>#{i}</option>"
   for i in [1..30]
@@ -152,11 +153,11 @@ $ ->
   after_plus = Math.min(30, before_plus + Math.ceil(Math.random() * 3))
   $('#plus_target').val after_plus
 
-  $('#run').click -> controller.execute()
+  $('#run').click -> Controller.execute()
   $('#plus').change ->
     if parseInt($('#plus_target').val()) <= parseInt($('#plus').val())
       $('#plus_target').val(parseInt($('#plus').val()) + 1)
-    controller.execute()
-  $('#plus_target').change -> controller.execute()
-  controller.execute()
+    Controller.execute()
+  $('#plus_target').change -> Controller.execute()
+  Controller.execute()
   $('#close_popup_window').click -> $('#popup_window').hide()
