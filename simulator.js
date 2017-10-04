@@ -21,6 +21,7 @@
     AbstractSimulator.get_data = function(plus) {
       var data;
       data = this.DATA[plus];
+      console.log("get_data of +" + plus);
       return {
         percent: data[0],
         money: data[1],
@@ -49,15 +50,15 @@
       this.result_process = [new Number(this.plus)];
       results = [];
       while (true) {
-        data = this.constructor.get_data(this.plus);
-        this.used_scroll_num += data.scroll;
         if (target_plus > this.plus) {
+          data = this.constructor.get_data(this.plus);
+          this.used_scroll_num += data.scroll;
           this.used_money += data.money;
           before_plus = this.plus;
           is_success = (data.percent / 100) >= Math.random();
           if (is_success) {
             this.plus++;
-          } else if (this.plus % 10 !== 0) {
+          } else if (this.plus === 30 || this.plus % 10 !== 0) {
             this.plus--;
           }
           results.push(this.result_process.push(new Number(this.plus)));
@@ -101,7 +102,7 @@
         results = [];
         for (i = j = 1; j < 10; i = ++j) {
           sim = new TargetSimulator($('#plus').val(), i);
-          results.push(sim.exec($('#plus_target').val()));
+          results.push(sim.exec(parseInt($('#plus_target').val())));
         }
         return results;
       }
@@ -112,17 +113,18 @@
     for (i = k = 1; k <= 30; i = ++k) {
       $('#plus_target').append("<option value='" + i + "'>" + i + "</option>");
     }
-    $('#plus_target').append('<option value="">1</option>');
     before_plus = Math.floor(Math.random() * 30);
     $('#plus').val(before_plus);
-    after_plus = Math.min(30, before_plus + Math.ceil(Math.random() * 30));
+    after_plus = Math.min(30, before_plus + Math.ceil(Math.random() * 10));
     $('#plus_target').val(after_plus);
     $('#run').click(execute);
     $('#plus').change(function() {
       if (parseInt($('#plus_target').val()) <= parseInt($('#plus').val())) {
-        return $('#plus_target').val(parseInt($('#plus').val()) + 1);
+        $('#plus_target').val(parseInt($('#plus').val()) + 1);
       }
+      return execute();
     });
+    $('#plus_target').change(execute);
     execute();
     return $('#close_popup_window').click(function() {
       return $('#popup_window').hide();

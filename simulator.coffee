@@ -9,6 +9,7 @@ class AbstractSimulator
     $('.result_area').append "<div>#{message}</div>"
   @get_data = (plus) ->
     data = @DATA[plus]
+    console.log "get_data of +#{plus}"
     {
       percent: data[0]
       money: data[1]
@@ -77,15 +78,15 @@ class TargetSimulator extends AbstractSimulator
     @used_money = 0
     @result_process = [new Number(@plus)]
     loop
-      data = @constructor.get_data(@plus)
-      @used_scroll_num += data.scroll
       if target_plus > @plus
+        data = @constructor.get_data(@plus)
+        @used_scroll_num += data.scroll
         @used_money += data.money
         before_plus = @plus
         is_success = (data.percent / 100) >= Math.random()
         if is_success
           @plus++
-        else if @plus % 10 != 0
+        else if @plus == 30 || @plus % 10 != 0
           @plus--
         @result_process.push new Number(@plus)
         #console.log "+#{before_plus}からスクロール#{data.scroll}枚、#{data.money}アデナ、成功率#{data.percent}%で強化...[#{result}]#{@plus}になりました。"
@@ -114,25 +115,27 @@ $ ->
     else
       for i in [1...10]
         sim = new TargetSimulator($('#plus').val(), i)
-        sim.exec($('#plus_target').val())
+        sim.exec(parseInt $('#plus_target').val())
+
   for i in [0..29]
     $('#plus').append "<option value='#{i}'>#{i}</option>"
   for i in [1..30]
     $('#plus_target').append "<option value='#{i}'>#{i}</option>"
-  $('#plus_target').append '<option value="">1</option>'
 
   before_plus = Math.floor(Math.random() * 30)
   $('#plus').val before_plus
-  after_plus = Math.min(30, before_plus + Math.ceil(Math.random() * 30))
+  after_plus = Math.min(30, before_plus + Math.ceil(Math.random() * 10))
   $('#plus_target').val after_plus
 
   $('#run').click execute
   $('#plus').change ->
     if parseInt($('#plus_target').val()) <= parseInt($('#plus').val())
       $('#plus_target').val(parseInt($('#plus').val()) + 1)
+    execute()
+  $('#plus_target').change execute
   execute()
-  $('#close_popup_window').click ->
-    $('#popup_window').hide()
+
+  $('#close_popup_window').click -> $('#popup_window').hide()
 
   #s = new Simulator(8)
   #s.exec(40)
