@@ -5,8 +5,6 @@
     hasProp = {}.hasOwnProperty;
 
   AbstractSimulator = (function() {
-    AbstractSimulator.log_count = 0;
-
     function AbstractSimulator(plus, simulation_number, try_times) {
       this.plus = plus;
       this.simulation_number = simulation_number;
@@ -22,7 +20,6 @@
     AbstractSimulator.get_data = function(plus) {
       var data;
       data = this.DATA[plus];
-      console.log("get_data of +" + plus);
       return {
         percent: data[0],
         money: data[1],
@@ -44,13 +41,20 @@
       return TargetSimulator.__super__.constructor.apply(this, arguments);
     }
 
+    TargetSimulator.execute_count = 0;
+
     TargetSimulator.prototype.exec = function(target_plus) {
       var before_plus, data, is_success, results;
+      if (TargetSimulator.execute_count > 10000) {
+        console.log('10000回を超えたので停止します。');
+        return;
+      }
       this.used_scroll_num = 0;
       this.used_money = 0;
       this.result_process = [new Number(this.plus)];
       results = [];
       while (true) {
+        TargetSimulator.execute_count++;
         if (target_plus > this.plus) {
           data = this.constructor.get_data(this.plus);
           this.used_scroll_num += data.scroll;
@@ -127,7 +131,6 @@
 
     Controller.execute = function() {
       var i, j, ref, sim, try_times;
-      this.log('execute start!');
       this.reset();
       if (with_scroll) {
         sim = new ScrollSimulator($('#plus').val());
@@ -143,33 +146,25 @@
       }
     };
 
-    Controller.log = function(message) {
-      return $('#system_message').text(message);
-    };
-
     return Controller;
 
   })();
 
   $(function() {
-    var after_plus, before_plus, i, j, k;
+    var i, j, k;
     for (i = j = 0; j <= 29; i = ++j) {
       $('#plus').append("<option value='" + i + "'>" + i + "</option>");
     }
     for (i = k = 1; k <= 30; i = ++k) {
       $('#plus_target').append("<option value='" + i + "'>" + i + "</option>");
     }
-    before_plus = 5 + Math.floor(Math.random() * 5);
-    $('#plus').val(before_plus);
-    after_plus = Math.min(30, before_plus + Math.ceil(Math.random() * 3));
-    $('#plus_target').val(after_plus);
+    $('#plus').val(5 + Math.floor(Math.random() * 5));
+    $('#plus_target').val(parseInt($('#plus').val()) + 1);
     $('#run').click(function() {
       return Controller.execute();
     });
     $('#plus').change(function() {
-      if (parseInt($('#plus_target').val()) <= parseInt($('#plus').val())) {
-        $('#plus_target').val(parseInt($('#plus').val()) + 1);
-      }
+      $('#plus_target').val(parseInt($('#plus').val()) + 1);
       return Controller.execute();
     });
     $('#plus_target').change(function() {

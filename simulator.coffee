@@ -1,16 +1,14 @@
 class AbstractSimulator
-  @log_count = 0
   constructor: (plus, simulation_number, try_times) ->
     @plus = plus
     @simulation_number = simulation_number
     @try_times = try_times
   show_result: (result) ->
   show_message: (message) ->
-    #$('.result_area').prepend "<div><div class='log_count'>#{++Simulator.log_count}</div>#{message}</div>"
     $('.result_area').append "<div>#{message}</div>"
   @get_data = (plus) ->
     data = @DATA[plus]
-    console.log "get_data of +#{plus}"
+    #console.log "get_data of +#{plus}"
     {
       percent: data[0]
       money: data[1]
@@ -50,35 +48,17 @@ class AbstractSimulator
     [25,100000,6,14]
   ]
 
-#class ScrollSimulator extends AbstractSimulator
-#  exec: (scroll_num) ->
-#    used_scroll_num = 0
-#    used_money = 0
-#    @show_message "スクロール#{scroll_num}枚で、武器+#{@plus}を強化します。"
-#    loop
-#      data = @constructor.get_data(@plus)
-#      used_scroll_num += data.scroll
-#      if scroll_num - used_scroll_num >= 0
-#        used_money += data.money
-#        before_plus = @plus
-#        is_success = (data.percent / 100) >= Math.random()
-#        if is_success
-#          result = '成功'
-#          @plus++
-#        else
-#          result = '失敗'
-#          unless @plus % 10 == 0 then @plus--
-#        @show_message "+#{before_plus}からスクロール#{data.scroll}枚、#{data.money}アデナ、成功率#{data.percent}%で強化...[#{result}]#{@plus}になりました。"
-#      else
-#        @show_message "スクロールが足りなくなりました。累計消費アデナ:#{used_money}"
-#        break
-
 class TargetSimulator extends AbstractSimulator
+  @execute_count = 0
   exec: (target_plus) ->
+    if TargetSimulator.execute_count > 10000
+      console.log '10000回を超えたので停止します。'
+      return
     @used_scroll_num = 0
     @used_money = 0
     @result_process = [new Number(@plus)]
     loop
+      TargetSimulator.execute_count++
       if target_plus > @plus
         data = @constructor.get_data(@plus)
         @used_scroll_num += data.scroll
@@ -126,7 +106,6 @@ class Controller
   @reset = ->
     $('table#result tr').not('#result_area_header').detach()
   @execute = ->
-    @log 'execute start!'
     @reset()
     if with_scroll
       sim = new ScrollSimulator($('#plus').val())
@@ -139,8 +118,6 @@ class Controller
         sim = new TargetSimulator($('#plus').val(), i, try_times)
         sim.exec(parseInt $('#plus_target').val())
       @insert_average()
-  @log = (message) ->
-    $('#system_message').text message
 
 $ ->
   for i in [0..29]
@@ -148,15 +125,12 @@ $ ->
   for i in [1..30]
     $('#plus_target').append "<option value='#{i}'>#{i}</option>"
 
-  before_plus = 5 + Math.floor(Math.random() * 5)
-  $('#plus').val before_plus
-  after_plus = Math.min(30, before_plus + Math.ceil(Math.random() * 3))
-  $('#plus_target').val after_plus
+  $('#plus').val 5 + Math.floor(Math.random() * 5)
+  $('#plus_target').val parseInt($('#plus').val()) + 1
 
   $('#run').click -> Controller.execute()
   $('#plus').change ->
-    if parseInt($('#plus_target').val()) <= parseInt($('#plus').val())
-      $('#plus_target').val(parseInt($('#plus').val()) + 1)
+    $('#plus_target').val(parseInt($('#plus').val()) + 1)
     Controller.execute()
   $('#plus_target').change -> Controller.execute()
   Controller.execute()
