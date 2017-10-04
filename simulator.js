@@ -43,7 +43,7 @@
 
     TargetSimulator.execute_count = 0;
 
-    TargetSimulator.EXECUTE_COUNT_LIMIT = 100000;
+    TargetSimulator.EXECUTE_COUNT_LIMIT = 200000;
 
     TargetSimulator.prototype.exec = function(target_plus) {
       var before_plus, data, is_success, results;
