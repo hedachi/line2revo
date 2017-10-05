@@ -119,11 +119,12 @@
     };
 
     Controller.initialize = function() {
+      $('span.result_plus').text($('#plus').val());
+      $('span.result_plus_target').text($('#plus_target').val());
+      $('span.result_execute_times').text(parseInt($('#simulation_type').val()));
       TargetSimulator.execute_count = 0;
       return $('table#result tr').not('#result_area_header').detach();
     };
-
-    Controller.decimal_format = function(number, place) {};
 
     Controller.finalize = function() {
       var used_money_average;

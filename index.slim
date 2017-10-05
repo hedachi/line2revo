@@ -5,9 +5,9 @@ html lang="ja"
   head
     title リネレボ強化シミュレーター
     script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"
-    script src="simulator.js?ver=5"
+    script src="simulator.js?ver=6"
     link rel='stylesheet' href='reset.css' type='text/css' media='all'
-    link rel='stylesheet' href='index.css?ver=5' type='text/css' media='all'
+    link rel='stylesheet' href='index.css?ver=6' type='text/css' media='all'
   body
     /#popup_window
       .popup_window_title 詳細情報
@@ -54,16 +54,18 @@ html lang="ja"
       /div
         |+13 -> +15までの強化を500回試した平均値です。
       table.result_summary
-        tr.result_summary_header
+        /tr.result_summary_header
           th colspan="3"
             |平均データ
-        /tr.result_summary_header
-          th colspan="2"
-            |+13
-            | → 
-            |+15
-            |の強化
-            |500
+        tr.result_summary_header
+          th colspan="3"
+            |[+
+            span.result_plus
+            |] => 
+            |[+
+            span.result_plus_target
+            |]&nbsp;強化
+            span.result_execute_times
             |回の平均データ
         tr
           th 強化回数

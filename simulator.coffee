@@ -99,9 +99,11 @@ class Controller
     average = @get_sum(selector) / $(selector).size()
     Math.round(average * 10) / 10
   @initialize = ->
+    $('span.result_plus').text $('#plus').val()
+    $('span.result_plus_target').text $('#plus_target').val()
+    $('span.result_execute_times').text parseInt($('#simulation_type').val())
     TargetSimulator.execute_count = 0
     $('table#result tr').not('#result_area_header').detach()
-  @decimal_format = (number, place) ->
   @finalize = ->
     $('#average_enhance_times').text @get_average('.enhance_times').toFixed(1)
     $('#average_used_scroll_num').text @get_average('.used_scroll_num').toFixed(1)
