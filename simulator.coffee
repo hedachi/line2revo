@@ -101,15 +101,21 @@ class Controller
   @initialize = ->
     TargetSimulator.execute_count = 0
     $('table#result tr').not('#result_area_header').detach()
+  @decimal_format = (number, place) ->
   @finalize = ->
-    $result_tr = $ '<tr></tr>'
-    $result_tr.append $ "<td>平均</td>"
-    $result_tr.append $ "<td class='enhance_times'>#{@get_average('.enhance_times')}</td>"
-    $result_tr.append $ "<td class='used_scroll_num'>#{@get_average('.used_scroll_num')}</td>"
+    $('#average_enhance_times').text @get_average('.enhance_times').toFixed(1)
+    $('#average_used_scroll_num').text @get_average('.used_scroll_num').toFixed(1)
     used_money_average = @get_average('.used_money')
-    $result_tr.append $ "<td class='used_money'>#{used_money_average}</td>"
-    $result_tr.append $ "<td class='used_money_not_weapon'>#{used_money_average / 4}</td>"
-    $('tr#result_area_header').after $result_tr
+    $('#average_used_money').text (used_money_average / 1000).toFixed(1)
+    $('#average_used_money_not_weapon').text (used_money_average / 4 / 1000).toFixed(1)
+    #$result_tr = $ '<tr></tr>'
+    #$result_tr.append $ "<td>平均</td>"
+    #$result_tr.append $ "<td class='enhance_times'>#{@get_average('.enhance_times')}</td>"
+    #$result_tr.append $ "<td class='used_scroll_num'>#{@get_average('.used_scroll_num')}</td>"
+    #used_money_average = @get_average('.used_money')
+    #$result_tr.append $ "<td class='used_money'>#{used_money_average}</td>"
+    #$result_tr.append $ "<td class='used_money_not_weapon'>#{used_money_average / 4}</td>"
+    #$('tr#result_area_header').after $result_tr
   @execute = ->
     @initialize()
     if with_scroll

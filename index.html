@@ -39,8 +39,51 @@
         </option>
       </select>
     </div>
-    <div id="system_message"></div>
     <div class="result_area">
+      <table class="result_summary">
+        <tr class="result_summary_header">
+          <th colspan="3">
+            平均データ
+          </th>
+        </tr>
+        <tr>
+          <th>
+            強化回数
+          </th>
+          <td id="average_enhance_times"></td>
+          <td class="unit">
+            回
+          </td>
+        </tr>
+        <tr>
+          <th>
+            スクロール消費枚数
+          </th>
+          <td id="average_used_scroll_num"></td>
+          <td class="unit">
+            枚
+          </td>
+        </tr>
+        <tr>
+          <th>
+            消費アデナ(武器)
+          </th>
+          <td id="average_used_money"></td>
+          <td class="unit">
+            万
+          </td>
+        </tr>
+        <tr>
+          <th>
+            消費アデナ(防具・装飾品)
+          </th>
+          <td id="average_used_money_not_weapon"></td>
+          <td class="unit">
+            万
+          </td>
+        </tr>
+      </table>
+      <br />
       <table id="result">
         <tr id="result_area_header">
           <th style="width: 10%;">

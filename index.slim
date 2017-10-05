@@ -50,8 +50,38 @@ html lang="ja"
           |100回試す
         option value="10000"
           |10,000回試す
-    #system_message
     .result_area
+      /div
+        |+13 -> +15までの強化を500回試した平均値です。
+      table.result_summary
+        tr.result_summary_header
+          th colspan="3"
+            |平均データ
+        /tr.result_summary_header
+          th colspan="2"
+            |+13
+            | → 
+            |+15
+            |の強化
+            |500
+            |回の平均データ
+        tr
+          th 強化回数
+          td#average_enhance_times
+          td.unit 回
+        tr
+          th スクロール消費枚数
+          td#average_used_scroll_num
+          td.unit 枚
+        tr
+          th 消費アデナ(武器)
+          td#average_used_money
+          td.unit 万
+        tr
+          th 消費アデナ(防具・装飾品)
+          td#average_used_money_not_weapon
+          td.unit 万
+      br
       table#result
         tr#result_area_header
           th style="width: 10%;"

@@ -120,10 +120,9 @@ img#run {
     ,to(rgb(25, 62, 103))
   );
 }
-.system_message {
-}
 table#result {
   width: 100%;
+  display: none;
 }
 table#result th {
   text-align: left;
@@ -169,4 +168,31 @@ input.show_details {
 .annotation {
   font-size: 12px;
   line-height: 1.2em;
+}
+table.result_summary {
+  width: 90%;
+  margin: auto;
+}
+table.result_summary td, table.result_summary th {
+  border-top: #777 solid 1px;
+  padding: 10px;
+}
+table.result_summary th {
+  width: 70%;
+  text-align: left;
+  font-size: 22px;
+}
+table.result_summary td {
+  text-align: right;
+  font-size: 22px;
+}
+table.result_summary td.unit {
+  width: 5%;
+}
+tr.result_summary_header th {
+  border-top: #777 solid 0px;
+  font-weight: bold;
+  font-size: 18px;
+  color: #9cf;
+  text-align: center;
 }

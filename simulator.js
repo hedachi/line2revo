@@ -123,16 +123,15 @@
       return $('table#result tr').not('#result_area_header').detach();
     };
 
+    Controller.decimal_format = function(number, place) {};
+
     Controller.finalize = function() {
-      var $result_tr, used_money_average;
-      $result_tr = $('<tr></tr>');
-      $result_tr.append($("<td>平均</td>"));
-      $result_tr.append($("<td class='enhance_times'>" + (this.get_average('.enhance_times')) + "</td>"));
-      $result_tr.append($("<td class='used_scroll_num'>" + (this.get_average('.used_scroll_num')) + "</td>"));
+      var used_money_average;
+      $('#average_enhance_times').text(this.get_average('.enhance_times').toFixed(1));
+      $('#average_used_scroll_num').text(this.get_average('.used_scroll_num').toFixed(1));
       used_money_average = this.get_average('.used_money');
-      $result_tr.append($("<td class='used_money'>" + used_money_average + "</td>"));
-      $result_tr.append($("<td class='used_money_not_weapon'>" + (used_money_average / 4) + "</td>"));
-      return $('tr#result_area_header').after($result_tr);
+      $('#average_used_money').text((used_money_average / 1000).toFixed(1));
+      return $('#average_used_money_not_weapon').text((used_money_average / 4 / 1000).toFixed(1));
     };
 
     Controller.execute = function() {
