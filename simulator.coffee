@@ -50,7 +50,7 @@ class AbstractSimulator
 
 class TargetSimulator extends AbstractSimulator
   @execute_count = 0
-  @EXECUTE_COUNT_LIMIT = 1000000
+  @EXECUTE_COUNT_LIMIT = 100000
   exec: (target_plus) ->
     if TargetSimulator.execute_count > TargetSimulator.EXECUTE_COUNT_LIMIT
       alert "計算量が多すぎるため停止します。"
