@@ -108,8 +108,8 @@ class Controller
     $('#average_enhance_times').text @get_average('.enhance_times').toFixed(1)
     $('#average_used_scroll_num').text @get_average('.used_scroll_num').toFixed(1)
     used_money_average = @get_average('.used_money')
-    $('#average_used_money').text (used_money_average / 1000).toFixed(1)
-    $('#average_used_money_not_weapon').text (used_money_average / 4 / 1000).toFixed(1)
+    $('#average_used_money').text (used_money_average / 10000).toFixed(1)
+    $('#average_used_money_not_weapon').text (used_money_average / 4 / 10000).toFixed(1)
     #$result_tr = $ '<tr></tr>'
     #$result_tr.append $ "<td>平均</td>"
     #$result_tr.append $ "<td class='enhance_times'>#{@get_average('.enhance_times')}</td>"

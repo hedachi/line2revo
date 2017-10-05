@@ -131,8 +131,8 @@
       $('#average_enhance_times').text(this.get_average('.enhance_times').toFixed(1));
       $('#average_used_scroll_num').text(this.get_average('.used_scroll_num').toFixed(1));
       used_money_average = this.get_average('.used_money');
-      $('#average_used_money').text((used_money_average / 1000).toFixed(1));
-      return $('#average_used_money_not_weapon').text((used_money_average / 4 / 1000).toFixed(1));
+      $('#average_used_money').text((used_money_average / 10000).toFixed(1));
+      return $('#average_used_money_not_weapon').text((used_money_average / 4 / 10000).toFixed(1));
     };
 
     Controller.execute = function() {
