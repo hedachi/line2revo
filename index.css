@@ -22,7 +22,7 @@ a {
 .input_area {
   margin-top: 292px;
   position: relative;
-  height: 200px;
+  height: 50px;
 }
 .result_area {
   color: white;
@@ -94,16 +94,11 @@ input[type="radio"] {
   color: white;
 }
 img#run {
-  position: absolute;
-  top: 130px;
-  left: 155px;
   width: 180px;
 }
 .ok_button {
   text-align: center;
-  position: absolute;
-  top: 130px;
-  left: 155px;
+  margin: 20px auto;
   width: 180px;
   border: solid #222 1px;
   border-radius: 1px;
@@ -166,6 +161,8 @@ input.show_details {
   border-radius: 5px;
 }
 .annotation {
+  width: 90%;
+  margin: auto;
   font-size: 12px;
   line-height: 1.2em;
 }

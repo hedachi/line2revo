@@ -15,31 +15,8 @@
     </h1>
     <div class="input_area">
       <select class="plus" id="plus"></select><select class="plus" id="plus_target"></select>
-      <div class="ok_button" id="run">
-        更新
-      </div>
-      <div style="display:none;">
-        <label class="input">スクロール枚数:</label><input id="scroll_num" type="text" value="0" />枚
-      </div>
-      <select class="plus" id="simulation_type">
-        <option value="500">
-          500回試す
-        </option>
-        <option value="1000">
-          1,000回試す
-        </option>
-        <option value="10">
-          10回試す
-        </option>
-        <option value="100">
-          100回試す
-        </option>
-        <option value="10000">
-          10,000回試す
-        </option>
-      </select>
     </div>
-    <div class="result_area">
+    <div class="middle_area">
       <table class="result_summary">
         <tr class="result_summary_header">
           <th colspan="3">
@@ -75,7 +52,7 @@
         </tr>
         <tr>
           <th>
-            消費アデナ(防具・装飾品)
+            消費アデナ(防具・装飾品)※
           </th>
           <td id="average_used_money_not_weapon"></td>
           <td class="unit">
@@ -83,7 +60,26 @@
           </td>
         </tr>
       </table>
-      <br />
+      <div class="ok_button" id="run">
+        更新
+      </div>
+      <select class="plus" id="simulation_type" style="display: none;">
+        <option value="500">
+          500回試す
+        </option>
+        <option value="1000">
+          1,000回試す
+        </option>
+        <option value="10">
+          10回試す
+        </option>
+        <option value="100">
+          100回試す
+        </option>
+        <option value="10000">
+          10,000回試す
+        </option>
+      </select>
       <table id="result">
         <tr id="result_area_header">
           <th style="width: 10%;">
@@ -110,5 +106,5 @@
   </body>
 </html>
 <div class="annotation">
-  ※防具・装飾品の消費アデナはデータがないため推定値です。<br />+15までを見る限りでは武器の消費アデナの4分の1程度なので、そのように計算しています。
+  ※防具・装飾品の消費アデナはデータがないため推定値です。+15までを見る限りでは武器の消費アデナの4分の1程度なので、4分の1で計算しています。
 </div>
