@@ -43,7 +43,7 @@
 
     TargetSimulator.execute_count = 0;
 
-    TargetSimulator.EXECUTE_COUNT_LIMIT = 200000;
+    TargetSimulator.EXECUTE_COUNT_LIMIT = 1000000;
 
     TargetSimulator.prototype.exec = function(target_plus) {
       var before_plus, data, is_success, results;
@@ -85,7 +85,7 @@
       $result_tr.append($("<td class='used_scroll_num'>" + this.used_scroll_num + "</td>"));
       $result_tr.append($("<td class='used_money'>" + this.used_money + "</td>"));
       $result_tr.append($("<td class='used_money_not_weapon'>" + (Math.round(this.used_money / 4)) + "</td>"));
-      if (this.try_times <= 10) {
+      if (Controller.show_details()) {
         text = this.result_process.map(function(plus) {
           return " +" + plus + " ";
         }).join('→');
@@ -143,13 +143,17 @@
         return sim.exec(Math.ceil(Math.random() * 100));
       } else {
         try_times = parseInt($('#simulation_type').val());
-        $('th#result_details').toggle(try_times <= 10);
+        $('th#result_details').toggle(this.show_details());
         for (i = j = 1, ref = try_times; 1 <= ref ? j < ref : j > ref; i = 1 <= ref ? ++j : --j) {
           sim = new TargetSimulator($('#plus').val(), i, try_times);
           sim.exec(parseInt($('#plus_target').val()));
         }
         return this.finalize();
       }
+    };
+
+    Controller.show_details = function() {
+      return false;
     };
 
     return Controller;
@@ -174,6 +178,9 @@
       return Controller.execute();
     });
     $('#plus_target').change(function() {
+      return Controller.execute();
+    });
+    $('#simulation_type').change(function() {
       return Controller.execute();
     });
     Controller.execute();

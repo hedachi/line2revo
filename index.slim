@@ -9,7 +9,7 @@ html lang="ja"
     link rel='stylesheet' href='reset.css' type='text/css' media='all'
     link rel='stylesheet' href='index.css?ver=4' type='text/css' media='all'
   body
-    #popup_window
+    /#popup_window
       .popup_window_title 詳細情報
       .popup_window_content
       div style="text-align: center;"
@@ -20,7 +20,9 @@ html lang="ja"
       select#plus_target.plus
       /div style="background: gray; border-radius: 2px;  position: absolute; right: 0;top: 0; padding: 5px; font-size: 10px;"
         |ほげしています…
-      img#run src="ok_button.png"
+      /img#run src="ok_button.png"
+      .ok_button#run
+        |更新
       /div
         label.input
           |種類:
@@ -38,12 +40,16 @@ html lang="ja"
         |枚
         /input#run type="button" value="実行"
       select#simulation_type.plus
-        option value="100"
-          |100回試す
+        option value="500"
+          |500回試す
         option value="1000"
           |1,000回試す
         option value="10"
           |10回試す
+        option value="100"
+          |100回試す
+        option value="10000"
+          |10,000回試す
     #system_message
     .result_area
       table#result

@@ -99,6 +99,27 @@ img#run {
   left: 155px;
   width: 180px;
 }
+.ok_button {
+  text-align: center;
+  position: absolute;
+  top: 130px;
+  left: 155px;
+  width: 180px;
+  border: solid #222 1px;
+  border-radius: 1px;
+  height: 50px;
+  line-height: 50px;
+  font-size: 15px;
+  background-image: -webkit-gradient(
+     linear
+    ,left top
+    ,left bottom
+    ,from(rgb(62, 97, 136))
+    ,color-stop(0.49, rgb(51, 87, 126))
+    ,color-stop(0.50, rgb(39, 75, 115))
+    ,to(rgb(25, 62, 103))
+  );
+}
 .system_message {
 }
 table#result {

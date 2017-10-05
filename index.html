@@ -10,32 +10,32 @@
     <link href="index.css?ver=4" media="all" rel="stylesheet" type="text/css" />
   </head>
   <body>
-    <div id="popup_window">
-      <div class="popup_window_title">
-        詳細情報
-      </div>
-      <div class="popup_window_content"></div>
-      <div style="text-align: center;">
-        <img id="close_popup_window" src="ok_button.png" />
-      </div>
-    </div>
     <h1>
       リネレボ強化シミュレーター
     </h1>
     <div class="input_area">
-      <select class="plus" id="plus"></select><select class="plus" id="plus_target"></select><img id="run" src="ok_button.png" />
+      <select class="plus" id="plus"></select><select class="plus" id="plus_target"></select>
+      <div class="ok_button" id="run">
+        更新
+      </div>
       <div style="display:none;">
         <label class="input">スクロール枚数:</label><input id="scroll_num" type="text" value="0" />枚
       </div>
       <select class="plus" id="simulation_type">
-        <option value="100">
-          100回試す
+        <option value="500">
+          500回試す
         </option>
         <option value="1000">
           1,000回試す
         </option>
         <option value="10">
           10回試す
+        </option>
+        <option value="100">
+          100回試す
+        </option>
+        <option value="10000">
+          10,000回試す
         </option>
       </select>
     </div>
