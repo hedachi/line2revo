@@ -151,6 +151,30 @@ class PopupWindow
       @show()
     $('#close_popup_window').click -> PopupWindow.hide()
 
+class SavedToggleButton
+  @set = (button_selector, target_selector) ->
+    @reflect_local_storage(button_selector, target_selector)
+    key = @get_key(button_selector, target_selector)
+    $(button_selector).click =>
+      @toggle_local_storage(button_selector, target_selector)
+      @reflect_local_storage(button_selector, target_selector)
+  @get_key = (button_selector, target_selector) ->
+    "#{button_selector}___#{target_selector}"
+  @toggle_local_storage = (button_selector, target_selector) ->
+    key = @get_key(button_selector, target_selector)
+    is_visible = localStorage.getItem(key)
+    if is_visible
+      localStorage.removeItem(key)
+    else
+      localStorage.setItem(key, '1')
+  @reflect_local_storage = (button_selector, target_selector) ->
+    key = @get_key(button_selector, target_selector)
+    is_visible = localStorage.getItem(key)
+    if is_visible
+      $(target_selector).hide()
+    else
+      $(target_selector).show()
+
 $ ->
   for i in [0..29]
     $('#plus').append "<option value='#{i}'>#{i}</option>"
@@ -167,5 +191,6 @@ $ ->
     Controller.execute()
   $('#plus_target').change -> Controller.execute()
   $('#simulation_type').change -> Controller.execute()
+  SavedToggleButton.set '#toggle_settings', '.settings'
   Controller.execute()
   PopupWindow.init()

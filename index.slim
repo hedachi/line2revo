@@ -79,8 +79,21 @@ html lang="ja"
           |再実行
         .ok_button#toggle_details
           |詳細な結果を見る
-        .ok_button
+        .ok_button#toggle_settings
           |設定
+      .settings
+        .settings_title
+          |設定
+        .settings_content
+          table style="width: 100%;"
+            tr
+              th
+                label for="try_times"
+                  |シミュレーション回数
+              td
+                |:
+              td
+                input#try_times type="text" value="100000"
       select#simulation_type.plus style="display: none;"
         option value="500"
           |500回試す

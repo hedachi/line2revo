@@ -307,3 +307,21 @@ tr.result_summary_header th {
   position: absolute;
   right: 35px;
 }
+.settings {
+  width: 90%;
+  margin: 10px auto;
+  border: solid gray 1px;
+  display: none;
+}
+.settings_title {
+  padding: 5px;
+  border-bottom: solid gray 1px;
+}
+.settings_content {
+  padding: 5px;
+}
+.settings_content input[type="text"] {
+  width: 200px;
+}
+
+
