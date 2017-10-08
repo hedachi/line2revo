@@ -172,7 +172,7 @@
     };
 
     PopupWindow.set_title = function(title) {
-      return $('.popup_window_title').text(title);
+      return $('.popup_window_title').html(title);
     };
 
     PopupWindow.set_content = function(content) {
@@ -182,6 +182,8 @@
     PopupWindow.init = function() {
       $('#explain').click((function(_this) {
         return function() {
+          _this.set_title('このデータは何？');
+          _this.set_content;
           return _this.show();
         };
       })(this));

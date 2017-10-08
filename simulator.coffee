@@ -141,11 +141,13 @@ class PopupWindow
   @hide = ->
     $('#popup_window_base').hide()
   @set_title = (title) ->
-    $('.popup_window_title').text title
+    $('.popup_window_title').html title
   @set_content = (content) ->
     $('.popup_window_content').html content
   @init = ->
     $('#explain').click =>
+      @set_title 'このデータは何？'
+      @set_content
       @show()
     $('#close_popup_window').click -> PopupWindow.hide()
 

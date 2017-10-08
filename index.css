@@ -131,7 +131,7 @@ table#result th, table#result td {
 }
 #popup_window_base {
   display: none;
-  background: rgba(0,0,0,0.6);
+  background: rgba(0,0,0,0.4);
   width: 100%;
   height: 110%;
   position: absolute;
@@ -144,7 +144,7 @@ table#result th, table#result td {
   width: 450px;
   left: 15px;
   top: 50px;
-  background: rgba(0,0,0,0.8);
+  background: rgba(0,0,0,0.7);
   z-index: 10;
   border: solid #999 1px;
   padding-bottom: 10px;
@@ -231,6 +231,7 @@ tr.result_summary_header th {
   text-decoration:none; 
   display:inline-block;
   text-shadow: -1px -1px 0 rgba(0,0,0,0.3);
+  text-align: center;
   color: #FFFFFF;
   background-color: #a7cfdf; 
   background-image: -webkit-gradient(linear, left top, left bottom, from(#a7cfdf), to(#23538a));
@@ -239,6 +240,7 @@ tr.result_summary_header th {
   background-image: -ms-linear-gradient(top, #a7cfdf, #23538a);
   background-image: -o-linear-gradient(top, #a7cfdf, #23538a);
   background-image: linear-gradient(to bottom, #a7cfdf, #23538a);filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr=#a7cfdf, endColorstr=#23538a);
+  position: relative;
 }
 
 .circle_button:hover{
@@ -249,4 +251,59 @@ tr.result_summary_header th {
   background-image: -ms-linear-gradient(top, #82bbd1, #193b61);
   background-image: -o-linear-gradient(top, #82bbd1, #193b61);
   background-image: linear-gradient(to bottom, #82bbd1, #193b61);filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr=#82bbd1, endColorstr=#193b61);
+}
+
+.balloon {
+  width: 200px;
+  border-radius: 5px;
+  background: white;
+  border: solid gray 1px;
+  color: black;
+}
+#balloon-1-top {
+	color: #19283C;
+  position: absolute;
+  top: 40px;
+  right: 0px;
+  text-shadow: 0px 0px 0 rgba(0,0,0,0.3);
+	display: inline-block;
+	padding: 0 15px;
+	width: auto;
+	min-width: 115px;
+	height: 40px;
+	line-height: 32px;
+	text-align: center;
+	background: #F6F6F6;
+	border: 3px solid #19283C;
+	z-index: 0;
+}
+#balloon-1-top:before {
+	content: "";
+	position: absolute;
+	top: -8px; left: 50%;
+	margin-left: -9px;
+	display: block;
+	width: 0px;
+	height: 0px;
+	border-style: solid;
+	border-width: 0 9px 9px 9px;
+	border-color: transparent transparent #F6F6F6 transparent;
+	z-index: 0;
+}
+#balloon-1-top:after {
+	content: "";
+	position: absolute;
+	top: -12px; left: 50%;
+	margin-left: -10px;
+	display: block;
+	width: 0px;
+	height: 0px;
+	border-style: solid;
+	border-width: 0 10px 10px 10px;
+	border-color: transparent transparent #19283C transparent;
+	z-index: -1;
+}
+#explain {
+  position: absolute;
+  right: 35px;
 }
