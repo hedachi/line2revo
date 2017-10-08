@@ -10,6 +10,19 @@
     <link href="index.css?ver=6" media="all" rel="stylesheet" type="text/css" />
   </head>
   <body>
+    <div id="popup_window_base">
+      <div id="popup_window">
+        <div class="popup_window_title">
+          詳細情報
+        </div>
+        <div class="popup_window_content"></div>
+        <div style="text-align: center;">
+          <div class="ok_button" id="close_popup_window">
+            閉じる
+          </div>
+        </div>
+      </div>
+    </div>
     <h1>
       リネレボ強化シミュレーター
     </h1>
@@ -20,7 +33,10 @@
       <table class="result_summary">
         <tr class="result_summary_header">
           <th colspan="3">
-            強化<span class="result_execute_times"></span>回の平均データ
+            強化シミュレーション<span class="result_execute_times"></span>回の平均データ
+            <div class="circle_button" id="explain">
+              ?
+            </div>
           </th>
         </tr>
         <tr>
@@ -60,8 +76,16 @@
           </td>
         </tr>
       </table>
-      <div class="ok_button" id="run">
-        更新
+      <div style="text-align: center; margin: 20px;">
+        <div class="ok_button" id="run">
+          再実行
+        </div>
+        <div class="ok_button" id="toggle_details">
+          詳細な結果を見る
+        </div>
+        <div class="ok_button">
+          設定
+        </div>
       </div>
       <select class="plus" id="simulation_type" style="display: none;">
         <option value="500">
@@ -83,7 +107,7 @@
       <table id="result">
         <tr id="result_area_header">
           <th style="width: 10%;">
-            No.
+            実験<br />No.
           </th>
           <th style="width: 15%;">
             強化<br />回数

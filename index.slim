@@ -9,11 +9,12 @@ html lang="ja"
     link rel='stylesheet' href='reset.css' type='text/css' media='all'
     link rel='stylesheet' href='index.css?ver=6' type='text/css' media='all'
   body
-    /#popup_window
-      .popup_window_title 詳細情報
-      .popup_window_content
-      div style="text-align: center;"
-        img#close_popup_window src="ok_button.png"
+    #popup_window_base
+      #popup_window
+        .popup_window_title 詳細情報
+        .popup_window_content
+        div style="text-align: center;"
+          .ok_button#close_popup_window 閉じる
     h1 リネレボ強化シミュレーター
     .input_area
       select#plus.plus
@@ -49,9 +50,10 @@ html lang="ja"
             /|[+
             /span.result_plus_target
             /|]&nbsp;
-            |強化
+            |強化シミュレーション
             span.result_execute_times
             |回の平均データ
+            #explain.circle_button ?
         tr
           th 強化回数
           td#average_enhance_times
@@ -68,8 +70,13 @@ html lang="ja"
           th 消費アデナ(防具・装飾品)※
           td#average_used_money_not_weapon
           td.unit 万
-      .ok_button#run
-        |更新
+      div style="text-align: center; margin: 20px;"
+        .ok_button#run
+          |再実行
+        .ok_button#toggle_details
+          |詳細な結果を見る
+        .ok_button
+          |設定
       select#simulation_type.plus style="display: none;"
         option value="500"
           |500回試す
@@ -84,6 +91,8 @@ html lang="ja"
       table#result
         tr#result_area_header
           th style="width: 10%;"
+            |実験
+            br
             |No.
           th style="width: 15%;"
             |強化

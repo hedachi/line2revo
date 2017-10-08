@@ -135,6 +135,20 @@ class Controller
     #parseInt $('#simulation_type').val() <= 10
     false
 
+class PopupWindow
+  @show = ->
+    $('#popup_window_base').show()
+  @hide = ->
+    $('#popup_window_base').hide()
+  @set_title = (title) ->
+    $('.popup_window_title').text title
+  @set_content = (content) ->
+    $('.popup_window_content').html content
+  @init = ->
+    $('#explain').click =>
+      @show()
+    $('#close_popup_window').click -> PopupWindow.hide()
+
 $ ->
   for i in [0..29]
     $('#plus').append "<option value='#{i}'>#{i}</option>"
@@ -145,10 +159,11 @@ $ ->
   $('#plus_target').val parseInt($('#plus').val()) + 1
 
   $('#run').click -> Controller.execute()
+  $('#toggle_details').click -> $('table#result').toggle()
   $('#plus').change ->
     $('#plus_target').val(parseInt($('#plus').val()) + 1)
     Controller.execute()
   $('#plus_target').change -> Controller.execute()
   $('#simulation_type').change -> Controller.execute()
   Controller.execute()
-  $('#close_popup_window').click -> $('#popup_window').hide()
+  PopupWindow.init()
