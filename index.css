@@ -72,7 +72,7 @@ input[type="text"] {
   font-size: 40px;
   border: solid gray 1px;
   border-radius: 2px;
-  height: 50px;
+  height: 40px;
   width: 100px;
   text-align: right;
 }
@@ -334,4 +334,19 @@ tr.result_summary_header th {
 }
 .is_success.marble {
   border: solid yellow 1px;
+}
+.select_default {
+  font-size: 24px;
+  background: white;
+  width: 60px;
+  height: 40px;
+}
+table.settings_table {
+  width: 100%;
+}
+table.settings_table td {
+  padding: 5px;
+}
+table.settings_table th {
+  text-align: right;
 }

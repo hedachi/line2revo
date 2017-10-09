@@ -85,7 +85,45 @@ html lang="ja"
         .settings_title
           |設定
         .settings_content
-          table style="width: 100%;"
+          table.settings_table
+            tr
+              th
+                label for="marble_count"
+                  |マーブルの加護使用数
+              td
+                |:
+              td
+                select#marble_count.select_default
+                  option value="0"
+                    |0
+                  option value="1"
+                    |1
+                  option value="2"
+                    |2
+                  option value="3"
+                    |3
+                  option value="4"
+                    |4
+                  option value="5"
+                    |5
+                  option value="6"
+                    |6
+                  option value="7"
+                    |7
+                  option value="8"
+                    |8
+                  option value="9"
+                    |9
+                  option value="10"
+                    |10
+                  option value="11"
+                    |11
+                  option value="12"
+                    |12
+                  option value="13"
+                    |13
+                  option value="14"
+                    |14
             tr
               th
                 label for="execute_count"
@@ -94,14 +132,6 @@ html lang="ja"
                 |:
               td
                 input#execute_count type="text" value="100000"
-            tr
-              th
-                label for="marble_count"
-                  |マーブルの加護使用数
-              td
-                |:
-              td
-                input#marble_count type="text" value="0"
       select#simulation_type.plus style="display: none;"
         option value="1000"
           |1000回試す
