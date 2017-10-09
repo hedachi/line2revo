@@ -69,13 +69,19 @@ class TargetSimulator extends AbstractSimulator
         @used_money += data.money
         before_plus = @plus
         is_success = (data.percent / 100) >= Math.random()
+        with_marble = @marble_count >= data.marble
+        if with_marble
+          @marble_count = @marble_count - data.marble
         if is_success
           @plus++
+        else if with_marble
+          #何も起こらない
         else if @plus == 30 || @plus % 10 != 0
           @plus--
         @result_process.push
           plus: new Number(@plus)
           is_success: is_success
+          with_marble: with_marble
         #console.log "+#{before_plus}からスクロール#{data.scroll}枚、#{data.money}アデナ、成功率#{data.percent}%で強化...[#{result}]#{@plus}になりました。"
       else
         @show_result()
@@ -121,22 +127,13 @@ class Controller
       if !$(e.target).data('opened')
         result_process = $(e.target).data('details')
         text = result_process.map( (result) ->
-          "<span class='is_success is_success_#{result.is_success}'>+#{result.plus}</span>"
+          "<span class='is_success is_success_#{result.is_success} #{if result.with_marble then 'marble'}'>+#{result.plus}</span>"
         ).join(' →')
         $(e.target).parent().parent().after("<tr><td colspan='6'>#{text}</td></tr>")
         $(e.target).data('opened', '1')
       else
         $(e.target).data('opened', '')
         $(e.target).parent().parent().next().detach()
-      #console.log($(e.target).data('details'))
-    #$result_tr = $ '<tr></tr>'
-    #$result_tr.append $ "<td>平均</td>"
-    #$result_tr.append $ "<td class='enhance_times'>#{@get_average('.enhance_times')}</td>"
-    #$result_tr.append $ "<td class='used_scroll_num'>#{@get_average('.used_scroll_num')}</td>"
-    #used_money_average = @get_average('.used_money')
-    #$result_tr.append $ "<td class='used_money'>#{used_money_average}</td>"
-    #$result_tr.append $ "<td class='used_money_not_weapon'>#{used_money_average / 4}</td>"
-    #$('tr#result_area_header').after $result_tr
   @execute = ->
     @initialize()
     try_times = parseInt $('#simulation_type').val()

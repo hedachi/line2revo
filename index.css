@@ -333,5 +333,5 @@ tr.result_summary_header th {
   color: #f99;
 }
 .is_success.marble {
-  background: yellow;
+  border: solid yellow 1px;
 }

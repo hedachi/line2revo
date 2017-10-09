@@ -46,7 +46,7 @@ TargetSimulator = (function(superClass) {
   TargetSimulator.EXECUTE_COUNT_LIMIT = 0;
 
   TargetSimulator.prototype.exec = function(target_plus) {
-    var before_plus, data, is_success;
+    var before_plus, data, is_success, with_marble;
     if (TargetSimulator.execute_count > TargetSimulator.EXECUTE_COUNT_LIMIT) {
       return false;
     }
@@ -65,14 +65,21 @@ TargetSimulator = (function(superClass) {
         this.used_money += data.money;
         before_plus = this.plus;
         is_success = (data.percent / 100) >= Math.random();
+        with_marble = this.marble_count >= data.marble;
+        if (with_marble) {
+          this.marble_count = this.marble_count - data.marble;
+        }
         if (is_success) {
           this.plus++;
+        } else if (with_marble) {
+
         } else if (this.plus === 30 || this.plus % 10 !== 0) {
           this.plus--;
         }
         this.result_process.push({
           plus: new Number(this.plus),
-          is_success: is_success
+          is_success: is_success,
+          with_marble: with_marble
         });
       } else {
         this.show_result();
@@ -141,7 +148,7 @@ Controller = (function() {
       if (!$(e.target).data('opened')) {
         result_process = $(e.target).data('details');
         text = result_process.map(function(result) {
-          return "<span class='is_success is_success_" + result.is_success + "'>+" + result.plus + "</span>";
+          return "<span class='is_success is_success_" + result.is_success + " " + (result.with_marble ? 'marble' : void 0) + "'>+" + result.plus + "</span>";
         }).join(' →');
         $(e.target).parent().parent().after("<tr><td colspan='6'>" + text + "</td></tr>");
         return $(e.target).data('opened', '1');
