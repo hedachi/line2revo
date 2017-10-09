@@ -84,7 +84,7 @@ TargetSimulator = (function(superClass) {
   TargetSimulator.prototype.show_result = function() {
     var $result_tr;
     $result_tr = $('<tr></tr>');
-    $result_tr.append($("<td>" + this.simulation_number + "</td>"));
+    $result_tr.append($("<td class='simulation_number'>" + this.simulation_number + "</td>"));
     $result_tr.append($("<td class='enhance_times'>" + (this.result_process.length - 1) + "</td>"));
     $result_tr.append($("<td class='used_scroll_num'>" + this.used_scroll_num + "</td>"));
     $result_tr.append($("<td class='used_money'>" + this.used_money + "</td>"));
@@ -122,7 +122,6 @@ Controller = (function() {
   Controller.initialize = function() {
     $('span.result_plus').text($('#plus').val());
     $('span.result_plus_target').text($('#plus_target').val());
-    $('span.result_execute_times').text(parseInt($('#simulation_type').val()));
     TargetSimulator.EXECUTE_COUNT_LIMIT = parseInt($('#execute_count').val());
     return $('table#result tr').not('#result_area_header').detach();
   };
@@ -135,6 +134,7 @@ Controller = (function() {
     $('#average_used_money').text((used_money_average / 10000).toFixed(1));
     $('#average_used_money_not_weapon').text((used_money_average / 4 / 10000).toFixed(1));
     TargetSimulator.execute_count = 0;
+    $('span.result_execute_times').text($('td.simulation_number').last().text());
     return $('input.show_details').on('click', function(e) {
       var result_process, text;
       if (!$(e.target).data('opened')) {
