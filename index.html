@@ -5,9 +5,9 @@
   <head>
     <title>リネレボ強化シミュレーター</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
-    <script src="simulator.js?ver=6"></script>
+    <script src="simulator.js?ver=7"></script>
     <link href="reset.css" media="all" rel="stylesheet" type="text/css" />
-    <link href="index.css?ver=6" media="all" rel="stylesheet" type="text/css" />
+    <link href="index.css?ver=7" media="all" rel="stylesheet" type="text/css" />
   </head>
   <body>
     <div id="popup_window_base">
@@ -98,13 +98,16 @@
                 :
               </td>
               <td>
-                <input id="execute_count" type="text" value="100000" />
+                <input id="execute_count" type="text" value="10000" />
               </td>
             </tr>
           </table>
         </div>
       </div>
       <select class="plus" id="simulation_type" style="display: none;">
+        <option value="100">
+          100回試す
+        </option>
         <option value="1000">
           1000回試す
         </option>
@@ -119,9 +122,6 @@
         </option>
         <option value="10">
           10回試す
-        </option>
-        <option value="100">
-          100回試す
         </option>
       </select>
       <table id="result">

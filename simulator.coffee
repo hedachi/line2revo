@@ -111,6 +111,14 @@ class Controller
     $('#average_used_money').text (used_money_average / 10000).toFixed(1)
     $('#average_used_money_not_weapon').text (used_money_average / 4 / 10000).toFixed(1)
     TargetSimulator.execute_count = 0
+    $('input.show_details').on 'click', (e) ->
+      if !$(e.target).data('opened')
+        $(e.target).parent().parent().after("<tr><td colspan='6'>#{$(e.target).data('details')}</td></tr>")
+        $(e.target).data('opened', '1')
+      else
+        $(e.target).data('opened', '')
+        $(e.target).parent().parent().next().detach()
+      #console.log($(e.target).data('details'))
     #$result_tr = $ '<tr></tr>'
     #$result_tr.append $ "<td>平均</td>"
     #$result_tr.append $ "<td class='enhance_times'>#{@get_average('.enhance_times')}</td>"
@@ -123,14 +131,17 @@ class Controller
     @initialize()
     try_times = parseInt $('#simulation_type').val()
     $('th#result_details').toggle(@show_details())
+    i = 0
+    #loop
     for i in [1...try_times]
       sim = new TargetSimulator($('#plus').val(), i, try_times)
+      i++
       is_continuable = sim.exec(parseInt $('#plus_target').val())
       break unless is_continuable 
     @finalize()
   @show_details = ->
     #parseInt $('#simulation_type').val() <= 10
-    false
+    true
 
 class PopupWindow
   @show = ->

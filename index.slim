@@ -5,9 +5,9 @@ html lang="ja"
   head
     title リネレボ強化シミュレーター
     script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"
-    script src="simulator.js?ver=6"
+    script src="simulator.js?ver=7"
     link rel='stylesheet' href='reset.css' type='text/css' media='all'
-    link rel='stylesheet' href='index.css?ver=6' type='text/css' media='all'
+    link rel='stylesheet' href='index.css?ver=7' type='text/css' media='all'
   body
     #popup_window_base
       #popup_window
@@ -93,8 +93,10 @@ html lang="ja"
               td
                 |:
               td
-                input#execute_count type="text" value="100000"
+                input#execute_count type="text" value="10000"
       select#simulation_type.plus style="display: none;"
+        option value="100"
+          |100回試す
         option value="1000"
           |1000回試す
         option value="10000"
@@ -105,8 +107,6 @@ html lang="ja"
           |1,000回試す
         option value="10"
           |10回試す
-        option value="100"
-          |100回試す
       table#result
         tr#result_area_header
           th style="width: 10%;"

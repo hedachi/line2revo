@@ -130,7 +130,16 @@ Controller = (function() {
     used_money_average = this.get_average('.used_money');
     $('#average_used_money').text((used_money_average / 10000).toFixed(1));
     $('#average_used_money_not_weapon').text((used_money_average / 4 / 10000).toFixed(1));
-    return TargetSimulator.execute_count = 0;
+    TargetSimulator.execute_count = 0;
+    return $('input.show_details').on('click', function(e) {
+      if (!$(e.target).data('opened')) {
+        $(e.target).parent().parent().after("<tr><td colspan='6'>" + ($(e.target).data('details')) + "</td></tr>");
+        return $(e.target).data('opened', '1');
+      } else {
+        $(e.target).data('opened', '');
+        return $(e.target).parent().parent().next().detach();
+      }
+    });
   };
 
   Controller.execute = function() {
@@ -138,8 +147,10 @@ Controller = (function() {
     this.initialize();
     try_times = parseInt($('#simulation_type').val());
     $('th#result_details').toggle(this.show_details());
+    i = 0;
     for (i = j = 1, ref = try_times; 1 <= ref ? j < ref : j > ref; i = 1 <= ref ? ++j : --j) {
       sim = new TargetSimulator($('#plus').val(), i, try_times);
+      i++;
       is_continuable = sim.exec(parseInt($('#plus_target').val()));
       if (!is_continuable) {
         break;
@@ -149,7 +160,7 @@ Controller = (function() {
   };
 
   Controller.show_details = function() {
-    return false;
+    return true;
   };
 
   return Controller;
