@@ -323,5 +323,15 @@ tr.result_summary_header th {
 .settings_content input[type="text"] {
   width: 200px;
 }
-
-
+.is_success {
+  margin: 3px;
+}
+.is_success_true {
+  color: #9f9;
+}
+.is_success_false {
+  color: #f99;
+}
+.is_success.marble {
+  background: yellow;
+}

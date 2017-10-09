@@ -51,7 +51,11 @@ TargetSimulator = (function(superClass) {
     }
     this.used_scroll_num = 0;
     this.used_money = 0;
-    this.result_process = [new Number(this.plus)];
+    this.result_process = [];
+    this.result_process.push({
+      plus: new Number(this.plus),
+      is_success: null
+    });
     while (true) {
       TargetSimulator.execute_count++;
       if (target_plus > this.plus) {
@@ -65,7 +69,10 @@ TargetSimulator = (function(superClass) {
         } else if (this.plus === 30 || this.plus % 10 !== 0) {
           this.plus--;
         }
-        this.result_process.push(new Number(this.plus));
+        this.result_process.push({
+          plus: new Number(this.plus),
+          is_success: is_success
+        });
       } else {
         this.show_result();
         break;
@@ -75,7 +82,7 @@ TargetSimulator = (function(superClass) {
   };
 
   TargetSimulator.prototype.show_result = function() {
-    var $result_tr, text;
+    var $result_tr;
     $result_tr = $('<tr></tr>');
     $result_tr.append($("<td>" + this.simulation_number + "</td>"));
     $result_tr.append($("<td class='enhance_times'>" + (this.result_process.length - 1) + "</td>"));
@@ -83,10 +90,7 @@ TargetSimulator = (function(superClass) {
     $result_tr.append($("<td class='used_money'>" + this.used_money + "</td>"));
     $result_tr.append($("<td class='used_money_not_weapon'>" + (Math.round(this.used_money / 4)) + "</td>"));
     if (Controller.show_details()) {
-      text = this.result_process.map(function(plus) {
-        return " +" + plus + " ";
-      }).join('→');
-      $result_tr.append($("<td><input class='show_details' type='button' value='詳細' data-details='" + text + "'/></td>"));
+      $result_tr.append($("<td><input class='show_details' type='button' value='見る' data-details='" + (JSON.stringify(this.result_process)) + "'/></td>"));
     }
     return $('table#result').append($result_tr);
   };
@@ -132,8 +136,13 @@ Controller = (function() {
     $('#average_used_money_not_weapon').text((used_money_average / 4 / 10000).toFixed(1));
     TargetSimulator.execute_count = 0;
     return $('input.show_details').on('click', function(e) {
+      var result_process, text;
       if (!$(e.target).data('opened')) {
-        $(e.target).parent().parent().after("<tr><td colspan='6'>" + ($(e.target).data('details')) + "</td></tr>");
+        result_process = $(e.target).data('details');
+        text = result_process.map(function(result) {
+          return "<span class='is_success is_success_" + result.is_success + "'>+" + result.plus + "</span>";
+        }).join(' →');
+        $(e.target).parent().parent().after("<tr><td colspan='6'>" + text + "</td></tr>");
         return $(e.target).data('opened', '1');
       } else {
         $(e.target).data('opened', '');

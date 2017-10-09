@@ -56,7 +56,10 @@ class TargetSimulator extends AbstractSimulator
       return false
     @used_scroll_num = 0
     @used_money = 0
-    @result_process = [new Number(@plus)]
+    @result_process = [] 
+    @result_process.push
+      plus: new Number(@plus)
+      is_success: null
     loop
       TargetSimulator.execute_count++
       if target_plus > @plus
@@ -69,7 +72,9 @@ class TargetSimulator extends AbstractSimulator
           @plus++
         else if @plus == 30 || @plus % 10 != 0
           @plus--
-        @result_process.push new Number(@plus)
+        @result_process.push
+          plus: new Number(@plus)
+          is_success: is_success
         #console.log "+#{before_plus}からスクロール#{data.scroll}枚、#{data.money}アデナ、成功率#{data.percent}%で強化...[#{result}]#{@plus}になりました。"
       else
         @show_result()
@@ -83,8 +88,7 @@ class TargetSimulator extends AbstractSimulator
     $result_tr.append $ "<td class='used_money'>#{@used_money}</td>"
     $result_tr.append $ "<td class='used_money_not_weapon'>#{Math.round @used_money/4}</td>"
     if Controller.show_details()
-      text = @result_process.map((plus)->" +#{plus} ").join('→')
-      $result_tr.append $("<td><input class='show_details' type='button' value='詳細' data-details='#{text}'/></td>")
+      $result_tr.append $("<td><input class='show_details' type='button' value='見る' data-details='#{JSON.stringify(@result_process)}'/></td>")
     $('table#result').append $result_tr
 
 with_scroll = false
@@ -113,7 +117,11 @@ class Controller
     TargetSimulator.execute_count = 0
     $('input.show_details').on 'click', (e) ->
       if !$(e.target).data('opened')
-        $(e.target).parent().parent().after("<tr><td colspan='6'>#{$(e.target).data('details')}</td></tr>")
+        result_process = $(e.target).data('details')
+        text = result_process.map( (result) ->
+          "<span class='is_success is_success_#{result.is_success}'>+#{result.plus}</span>"
+        ).join(' →')
+        $(e.target).parent().parent().after("<tr><td colspan='6'>#{text}</td></tr>")
         $(e.target).data('opened', '1')
       else
         $(e.target).data('opened', '')
