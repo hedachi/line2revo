@@ -88,13 +88,17 @@ html lang="ja"
           table style="width: 100%;"
             tr
               th
-                label for="try_times"
-                  |シミュレーション回数
+                label for="execute_count"
+                  |強化実行回数
               td
                 |:
               td
-                input#try_times type="text" value="100000"
+                input#execute_count type="text" value="100000"
       select#simulation_type.plus style="display: none;"
+        option value="1000"
+          |1000回試す
+        option value="10000"
+          |10,000回試す
         option value="500"
           |500回試す
         option value="1000"
@@ -103,8 +107,6 @@ html lang="ja"
           |10回試す
         option value="100"
           |100回試す
-        option value="10000"
-          |10,000回試す
       table#result
         tr#result_area_header
           th style="width: 10%;"

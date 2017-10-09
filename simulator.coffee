@@ -50,11 +50,10 @@ class AbstractSimulator
 
 class TargetSimulator extends AbstractSimulator
   @execute_count = 0
-  @EXECUTE_COUNT_LIMIT = 100000
+  @EXECUTE_COUNT_LIMIT = 0
   exec: (target_plus) ->
     if TargetSimulator.execute_count > TargetSimulator.EXECUTE_COUNT_LIMIT
-      alert "計算量が多すぎるため停止します。"
-      throw "計算量が多すぎるため停止します。"
+      return false
     @used_scroll_num = 0
     @used_money = 0
     @result_process = [new Number(@plus)]
@@ -75,6 +74,7 @@ class TargetSimulator extends AbstractSimulator
       else
         @show_result()
         break
+    true
   show_result: ->
     $result_tr = $ '<tr></tr>'
     $result_tr.append $ "<td>#{@simulation_number}</td>"
@@ -102,7 +102,7 @@ class Controller
     $('span.result_plus').text $('#plus').val()
     $('span.result_plus_target').text $('#plus_target').val()
     $('span.result_execute_times').text parseInt($('#simulation_type').val())
-    TargetSimulator.execute_count = 0
+    TargetSimulator.EXECUTE_COUNT_LIMIT = parseInt $('#execute_count').val()
     $('table#result tr').not('#result_area_header').detach()
   @finalize = ->
     $('#average_enhance_times').text @get_average('.enhance_times').toFixed(1)
@@ -110,6 +110,7 @@ class Controller
     used_money_average = @get_average('.used_money')
     $('#average_used_money').text (used_money_average / 10000).toFixed(1)
     $('#average_used_money_not_weapon').text (used_money_average / 4 / 10000).toFixed(1)
+    TargetSimulator.execute_count = 0
     #$result_tr = $ '<tr></tr>'
     #$result_tr.append $ "<td>平均</td>"
     #$result_tr.append $ "<td class='enhance_times'>#{@get_average('.enhance_times')}</td>"
@@ -120,17 +121,13 @@ class Controller
     #$('tr#result_area_header').after $result_tr
   @execute = ->
     @initialize()
-    if with_scroll
-      sim = new ScrollSimulator($('#plus').val())
-      #sim.exec($('#scroll_num').val())
-      sim.exec(Math.ceil(Math.random() * 100))
-    else
-      try_times = parseInt $('#simulation_type').val()
-      $('th#result_details').toggle(@show_details())
-      for i in [1...try_times]
-        sim = new TargetSimulator($('#plus').val(), i, try_times)
-        sim.exec(parseInt $('#plus_target').val())
-      @finalize()
+    try_times = parseInt $('#simulation_type').val()
+    $('th#result_details').toggle(@show_details())
+    for i in [1...try_times]
+      sim = new TargetSimulator($('#plus').val(), i, try_times)
+      is_continuable = sim.exec(parseInt $('#plus_target').val())
+      break unless is_continuable 
+    @finalize()
   @show_details = ->
     #parseInt $('#simulation_type').val() <= 10
     false
@@ -154,7 +151,6 @@ class PopupWindow
 class SavedToggleButton
   @set = (button_selector, target_selector) ->
     @reflect_local_storage(button_selector, target_selector)
-    key = @get_key(button_selector, target_selector)
     $(button_selector).click =>
       @toggle_local_storage(button_selector, target_selector)
       @reflect_local_storage(button_selector, target_selector)
