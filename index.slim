@@ -89,20 +89,28 @@ html lang="ja"
             tr
               th
                 label for="execute_count"
-                  |強化実行回数
+                  |処理回数制限
               td
                 |:
               td
                 input#execute_count type="text" value="100000"
+            tr
+              th
+                label for="marble_count"
+                  |マーブルの加護使用数
+              td
+                |:
+              td
+                input#marble_count type="text" value="5"
       select#simulation_type.plus style="display: none;"
         option value="1000"
           |1000回試す
+        option value="500"
+          |500回試す
         option value="100"
           |100回試す
         option value="10000"
           |10,000回試す
-        option value="500"
-          |500回試す
         option value="1000"
           |1,000回試す
         option value="10"

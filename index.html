@@ -92,13 +92,24 @@
           <table style="width: 100%;">
             <tr>
               <th>
-                <label for="execute_count">強化実行回数</label>
+                <label for="execute_count">処理回数制限</label>
               </th>
               <td>
                 :
               </td>
               <td>
                 <input id="execute_count" type="text" value="100000" />
+              </td>
+            </tr>
+            <tr>
+              <th>
+                <label for="marble_count">マーブルの加護使用数</label>
+              </th>
+              <td>
+                :
+              </td>
+              <td>
+                <input id="marble_count" type="text" value="5" />
               </td>
             </tr>
           </table>
@@ -108,14 +119,14 @@
         <option value="1000">
           1000回試す
         </option>
+        <option value="500">
+          500回試す
+        </option>
         <option value="100">
           100回試す
         </option>
         <option value="10000">
           10,000回試す
-        </option>
-        <option value="500">
-          500回試す
         </option>
         <option value="1000">
           1,000回試す

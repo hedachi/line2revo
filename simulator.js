@@ -4,10 +4,11 @@ var AbstractSimulator, Controller, PopupWindow, SavedToggleButton, TargetSimulat
   hasProp = {}.hasOwnProperty;
 
 AbstractSimulator = (function() {
-  function AbstractSimulator(plus, simulation_number, try_times) {
+  function AbstractSimulator(plus, simulation_number, try_times, marble_count) {
     this.plus = plus;
     this.simulation_number = simulation_number;
     this.try_times = try_times;
+    this.marble_count = marble_count;
   }
 
   AbstractSimulator.prototype.show_result = function(result) {};
@@ -157,8 +158,8 @@ Controller = (function() {
     try_times = parseInt($('#simulation_type').val());
     $('th#result_details').toggle(this.show_details());
     i = 0;
-    for (i = j = 1, ref = try_times; 1 <= ref ? j < ref : j > ref; i = 1 <= ref ? ++j : --j) {
-      sim = new TargetSimulator($('#plus').val(), i, try_times);
+    for (i = j = 1, ref = try_times; 1 <= ref ? j <= ref : j >= ref; i = 1 <= ref ? ++j : --j) {
+      sim = new TargetSimulator($('#plus').val(), i, try_times, parseInt($('#marble_count').val()));
       i++;
       is_continuable = sim.exec(parseInt($('#plus_target').val()));
       if (!is_continuable) {

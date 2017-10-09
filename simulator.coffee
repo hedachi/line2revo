@@ -1,8 +1,9 @@
 class AbstractSimulator
-  constructor: (plus, simulation_number, try_times) ->
+  constructor: (plus, simulation_number, try_times, marble_count) ->
     @plus = plus
     @simulation_number = simulation_number
     @try_times = try_times
+    @marble_count = marble_count
   show_result: (result) ->
   show_message: (message) ->
     $('.result_area').append "<div>#{message}</div>"
@@ -142,8 +143,8 @@ class Controller
     $('th#result_details').toggle(@show_details())
     i = 0
     #loop
-    for i in [1...try_times]
-      sim = new TargetSimulator($('#plus').val(), i, try_times)
+    for i in [1..try_times]
+      sim = new TargetSimulator($('#plus').val(), i, try_times, parseInt($('#marble_count').val()))
       i++
       is_continuable = sim.exec(parseInt $('#plus_target').val())
       break unless is_continuable 
