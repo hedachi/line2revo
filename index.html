@@ -20,7 +20,93 @@
       <table class="result_summary">
         <tr class="result_summary_header">
           <th colspan="3">
-            強化シミュレーション<span class="result_execute_times"></span>回の平均データ
+            幸運な強化シミュレーション<span class="result_execute_times"></span>回の平均データ
+          </th>
+        </tr>
+        <tr>
+          <th>
+            強化回数
+          </th>
+          <td id="average_enhance_times"></td>
+          <td class="unit">
+            回
+          </td>
+        </tr>
+        <tr>
+          <th>
+            スクロール消費枚数
+          </th>
+          <td id="average_used_scroll_num"></td>
+          <td class="unit">
+            枚
+          </td>
+        </tr>
+        <tr>
+          <th>
+            消費アデナ(武器)
+          </th>
+          <td id="average_used_money"></td>
+          <td class="unit">
+            万
+          </td>
+        </tr>
+        <tr>
+          <th>
+            消費アデナ(防具・装飾品)※
+          </th>
+          <td id="average_used_money_not_weapon"></td>
+          <td class="unit">
+            万
+          </td>
+        </tr>
+      </table>
+      <table class="result_summary">
+        <tr class="result_summary_header">
+          <th colspan="3">
+            普通な強化シミュレーション<span class="result_execute_times"></span>回の平均データ
+          </th>
+        </tr>
+        <tr>
+          <th>
+            強化回数
+          </th>
+          <td id="average_enhance_times"></td>
+          <td class="unit">
+            回
+          </td>
+        </tr>
+        <tr>
+          <th>
+            スクロール消費枚数
+          </th>
+          <td id="average_used_scroll_num"></td>
+          <td class="unit">
+            枚
+          </td>
+        </tr>
+        <tr>
+          <th>
+            消費アデナ(武器)
+          </th>
+          <td id="average_used_money"></td>
+          <td class="unit">
+            万
+          </td>
+        </tr>
+        <tr>
+          <th>
+            消費アデナ(防具・装飾品)※
+          </th>
+          <td id="average_used_money_not_weapon"></td>
+          <td class="unit">
+            万
+          </td>
+        </tr>
+      </table>
+      <table class="result_summary">
+        <tr class="result_summary_header">
+          <th colspan="3">
+            不運な強化シミュレーション<span class="result_execute_times"></span>回の平均データ
           </th>
         </tr>
         <tr>
@@ -149,6 +235,9 @@
         </div>
       </div>
       <select class="plus" id="simulation_type" style="display: none;">
+        <option value="10">
+          10回試す
+        </option>
         <option value="1000">
           1,000回試す
         </option>
@@ -160,9 +249,6 @@
         </option>
         <option value="100">
           100回試す
-        </option>
-        <option value="10">
-          10回試す
         </option>
       </select>
       <table id="result">
