@@ -4,6 +4,12 @@ var AbstractSimulator, Controller, PopupWindow, SavedToggleButton, TargetSimulat
   hasProp = {}.hasOwnProperty;
 
 AbstractSimulator = (function() {
+  AbstractSimulator.LUCKS = {
+    'good': '幸運',
+    'normal': '普通',
+    'bad': '不運'
+  };
+
   function AbstractSimulator(plus, simulation_number, try_times, marble_count) {
     this.plus = plus;
     this.simulation_number = simulation_number;
@@ -135,7 +141,12 @@ Controller = (function() {
   };
 
   Controller.finalize = function() {
-    var used_money_average;
+    var jp, luck, ref, used_money_average;
+    ref = this.constructor.LUCKS;
+    for (luck in ref) {
+      jp = ref[luck];
+      console.log(luck);
+    }
     $('#average_enhance_times').text(this.get_average('.enhance_times').toFixed(1));
     $('#average_used_scroll_num').text(this.get_average('.used_scroll_num').toFixed(1));
     used_money_average = this.get_average('.used_money');

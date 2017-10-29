@@ -1,4 +1,8 @@
 class AbstractSimulator
+  @LUCKS = 
+    'good':'幸運'
+    'normal':'普通'
+    'bad':'不運'
   constructor: (plus, simulation_number, try_times, marble_count) ->
     @plus = plus
     @simulation_number = simulation_number
@@ -116,6 +120,8 @@ class Controller
     TargetSimulator.EXECUTE_COUNT_LIMIT = parseInt $('#execute_count').val()
     $('table#result tr').not('#result_area_header').detach()
   @finalize = ->
+    for luck, jp of @constructor.LUCKS
+      console.log luck
     $('#average_enhance_times').text @get_average('.enhance_times').toFixed(1)
     $('#average_used_scroll_num').text @get_average('.used_scroll_num').toFixed(1)
     used_money_average = @get_average('.used_money')

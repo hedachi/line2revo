@@ -3,11 +3,12 @@ html lang="ja"
   meta name="viewport" content="width=480,user-scalable=no"
   meta charset="utf-8"
   head
-    title リネレボ強化シミュレーター
+    title
+      |リネレボ強化シミュレーター
     script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"
-    script src="simulator.js?ver=10"
+    script src="simulator.js?ver=#{Time.now.to_i}"
     link rel='stylesheet' href='reset.css' type='text/css' media='all'
-    link rel='stylesheet' href='index.css?ver=10' type='text/css' media='all'
+    link rel='stylesheet' href="index.css?ver=#{Time.now.to_i}" type='text/css' media='all'
   body
     /#popup_window_base
       #popup_window
@@ -43,7 +44,7 @@ html lang="ja"
       /div
         |+13 -> +15までの強化を500回試した平均値です。
     .middle_area
-      - lucks = %w(幸運 普通 不運)
+      - lucks = %w(good normal bad)
       - lucks.each do |luck|
         table.result_summary
           /tr.result_summary_header
@@ -51,8 +52,6 @@ html lang="ja"
               |平均データ
           tr.result_summary_header
             th colspan="3"
-              = luck
-              |な
               /|[+
               /span.result_plus
               /|] => 
@@ -62,21 +61,24 @@ html lang="ja"
               |強化シミュレーション
               span.result_execute_times
               |回の平均データ
+              |[
+              = luck
+              |]
           tr
             th 強化回数
-            td#average_enhance_times
+            td id="average_enhance_times_#{luck}"
             td.unit 回
           tr
             th スクロール消費枚数
-            td#average_used_scroll_num
+            td id="average_used_scroll_num_#{luck}"
             td.unit 枚
           tr
             th 消費アデナ(武器)
-            td#average_used_money
+            td id="average_used_money_#{luck}"
             td.unit 万
           tr
             th 消費アデナ(防具・装飾品)※
-            td#average_used_money_not_weapon
+            td id="average_used_money_not_weapon_#{luck}"
             td.unit 万
       div style="text-align: center; margin: 20px;"
         .ok_button#run

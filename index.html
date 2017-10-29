@@ -5,9 +5,9 @@
   <head>
     <title>リネレボ強化シミュレーター</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
-    <script src="simulator.js?ver=10"></script>
+    <script src="simulator.js?ver=1509277098"></script>
     <link href="reset.css" media="all" rel="stylesheet" type="text/css" />
-    <link href="index.css?ver=10" media="all" rel="stylesheet" type="text/css" />
+    <link href="index.css?ver=1509277098" media="all" rel="stylesheet" type="text/css" />
   </head>
   <body>
     <h1>
@@ -20,14 +20,14 @@
       <table class="result_summary">
         <tr class="result_summary_header">
           <th colspan="3">
-            幸運な強化シミュレーション<span class="result_execute_times"></span>回の平均データ
+            強化シミュレーション<span class="result_execute_times"></span>回の平均データ[good]
           </th>
         </tr>
         <tr>
           <th>
             強化回数
           </th>
-          <td id="average_enhance_times"></td>
+          <td id="average_enhance_times_good"></td>
           <td class="unit">
             回
           </td>
@@ -36,7 +36,7 @@
           <th>
             スクロール消費枚数
           </th>
-          <td id="average_used_scroll_num"></td>
+          <td id="average_used_scroll_num_good"></td>
           <td class="unit">
             枚
           </td>
@@ -45,7 +45,7 @@
           <th>
             消費アデナ(武器)
           </th>
-          <td id="average_used_money"></td>
+          <td id="average_used_money_good"></td>
           <td class="unit">
             万
           </td>
@@ -54,7 +54,7 @@
           <th>
             消費アデナ(防具・装飾品)※
           </th>
-          <td id="average_used_money_not_weapon"></td>
+          <td id="average_used_money_not_weapon_good"></td>
           <td class="unit">
             万
           </td>
@@ -63,14 +63,14 @@
       <table class="result_summary">
         <tr class="result_summary_header">
           <th colspan="3">
-            普通な強化シミュレーション<span class="result_execute_times"></span>回の平均データ
+            強化シミュレーション<span class="result_execute_times"></span>回の平均データ[normal]
           </th>
         </tr>
         <tr>
           <th>
             強化回数
           </th>
-          <td id="average_enhance_times"></td>
+          <td id="average_enhance_times_normal"></td>
           <td class="unit">
             回
           </td>
@@ -79,7 +79,7 @@
           <th>
             スクロール消費枚数
           </th>
-          <td id="average_used_scroll_num"></td>
+          <td id="average_used_scroll_num_normal"></td>
           <td class="unit">
             枚
           </td>
@@ -88,7 +88,7 @@
           <th>
             消費アデナ(武器)
           </th>
-          <td id="average_used_money"></td>
+          <td id="average_used_money_normal"></td>
           <td class="unit">
             万
           </td>
@@ -97,7 +97,7 @@
           <th>
             消費アデナ(防具・装飾品)※
           </th>
-          <td id="average_used_money_not_weapon"></td>
+          <td id="average_used_money_not_weapon_normal"></td>
           <td class="unit">
             万
           </td>
@@ -106,14 +106,14 @@
       <table class="result_summary">
         <tr class="result_summary_header">
           <th colspan="3">
-            不運な強化シミュレーション<span class="result_execute_times"></span>回の平均データ
+            強化シミュレーション<span class="result_execute_times"></span>回の平均データ[bad]
           </th>
         </tr>
         <tr>
           <th>
             強化回数
           </th>
-          <td id="average_enhance_times"></td>
+          <td id="average_enhance_times_bad"></td>
           <td class="unit">
             回
           </td>
@@ -122,7 +122,7 @@
           <th>
             スクロール消費枚数
           </th>
-          <td id="average_used_scroll_num"></td>
+          <td id="average_used_scroll_num_bad"></td>
           <td class="unit">
             枚
           </td>
@@ -131,7 +131,7 @@
           <th>
             消費アデナ(武器)
           </th>
-          <td id="average_used_money"></td>
+          <td id="average_used_money_bad"></td>
           <td class="unit">
             万
           </td>
@@ -140,7 +140,7 @@
           <th>
             消費アデナ(防具・装飾品)※
           </th>
-          <td id="average_used_money_not_weapon"></td>
+          <td id="average_used_money_not_weapon_bad"></td>
           <td class="unit">
             万
           </td>
