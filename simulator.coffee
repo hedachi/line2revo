@@ -112,52 +112,29 @@ class Controller
     'good':'幸運'
     'normal':'普通'
     'bad':'不運'
-  @results = []
   @initialize = ->
     $('span.result_plus').text $('#plus').val()
     $('span.result_plus_target').text $('#plus_target').val()
     #$('span.result_execute_times').text parseInt($('#simulation_type').val())
     Simulator.EXECUTE_COUNT_LIMIT = parseInt $('#execute_count').val()
     $('table#result tr').not('#result_area_header').detach()
-  #@get_sum = (selector) ->
-  #  sum = 0
-  #  $(selector).each (index, element) ->
-  #    sum += parseInt element.innerHTML
-  #  sum
-  #@get_average = (selector) ->
-  #  average = @get_sum(selector) / $(selector).size()
-  #  Math.round(average * 10) / 10
-  #@finalize = ->
-  #  for luck, jp of @LUCKS
-  #    console.log luck
-  #  $('#average_enhance_times').text @get_average('.enhance_times').toFixed(1)
-  #  $('#average_used_scroll_num').text @get_average('.used_scroll_num').toFixed(1)
-  #  used_money_average = @get_average('.used_money')
-  #  $('#average_used_money').text (used_money_average / 10000).toFixed(1)
-  #  $('#average_used_money_not_weapon').text (used_money_average / 4 / 10000).toFixed(1)
-  #  Simulator.execute_count = 0
-  #  $('span.result_execute_times').text $('td.simulation_number').last().text()
-  #  $('input.show_details').on 'click', (e) ->
-  #    if !$(e.target).data('opened')
-  #      result_process = $(e.target).data('details')
-  #      text = result_process.map( (result) ->
-  #        "<span class='is_success is_success_#{result.is_success} #{if result.with_marble then 'marble'}'>+#{result.plus}</span>"
-  #      ).join(' →')
-  #      $(e.target).parent().parent().after("<tr><td colspan='6'>#{text}</td></tr>")
-  #      $(e.target).data('opened', '1')
-  #    else
-  #      $(e.target).data('opened', '')
-  #      $(e.target).parent().parent().next().detach()
-  @get_average_of_results = (index) ->
+    @results = []
+  @get_average_of_results = (index, results) ->
     sum = 0
-    for i, result of @results
+    for i, result of results
       sum += result[index]
-    sum / @results.length
+    sum / results.length
   @finalize = ->
+    @results.sort (a, b) -> a[1] - b[1]
+    length = Math.floor(@results.length / 3)
+    results =
+      good: @results.slice(0, length)
+      normal: @results.slice(length, length + length)
+      bad: @results.slice(length + length)
     for luck, jp of @LUCKS
-      $("#average_enhance_times_#{luck}").text @get_average_of_results(1).toFixed(1)
-      $("#average_used_scroll_num_#{luck}").text @get_average_of_results(2).toFixed(1)
-      used_money_average = @get_average_of_results(3)
+      $("#average_enhance_times_#{luck}").text @get_average_of_results(1, results[luck]).toFixed(1)
+      $("#average_used_scroll_num_#{luck}").text @get_average_of_results(2, results[luck]).toFixed(1)
+      used_money_average = @get_average_of_results(3, results[luck])
       $("#average_used_money_#{luck}").text (used_money_average / 10000).toFixed(1)
       $("#average_used_money_not_weapon_#{luck}").text (used_money_average / 4 / 10000).toFixed(1)
       Simulator.execute_count = 0

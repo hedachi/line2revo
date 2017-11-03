@@ -96,40 +96,47 @@ Controller = (function() {
     'bad': '不運'
   };
 
-  Controller.results = [];
-
   Controller.initialize = function() {
     $('span.result_plus').text($('#plus').val());
     $('span.result_plus_target').text($('#plus_target').val());
     Simulator.EXECUTE_COUNT_LIMIT = parseInt($('#execute_count').val());
-    return $('table#result tr').not('#result_area_header').detach();
+    $('table#result tr').not('#result_area_header').detach();
+    return this.results = [];
   };
 
-  Controller.get_average_of_results = function(index) {
-    var i, ref, result, sum;
+  Controller.get_average_of_results = function(index, results) {
+    var i, result, sum;
     sum = 0;
-    ref = this.results;
-    for (i in ref) {
-      result = ref[i];
+    for (i in results) {
+      result = results[i];
       sum += result[index];
     }
-    return sum / this.results.length;
+    return sum / results.length;
   };
 
   Controller.finalize = function() {
-    var jp, luck, ref, results, used_money_average;
+    var jp, length, luck, ref, results, results1, used_money_average;
+    this.results.sort(function(a, b) {
+      return a[1] - b[1];
+    });
+    length = Math.floor(this.results.length / 3);
+    results = {
+      good: this.results.slice(0, length),
+      normal: this.results.slice(length, length + length),
+      bad: this.results.slice(length + length)
+    };
     ref = this.LUCKS;
-    results = [];
+    results1 = [];
     for (luck in ref) {
       jp = ref[luck];
-      $("#average_enhance_times_" + luck).text(this.get_average_of_results(1).toFixed(1));
-      $("#average_used_scroll_num_" + luck).text(this.get_average_of_results(2).toFixed(1));
-      used_money_average = this.get_average_of_results(3);
+      $("#average_enhance_times_" + luck).text(this.get_average_of_results(1, results[luck]).toFixed(1));
+      $("#average_used_scroll_num_" + luck).text(this.get_average_of_results(2, results[luck]).toFixed(1));
+      used_money_average = this.get_average_of_results(3, results[luck]);
       $("#average_used_money_" + luck).text((used_money_average / 10000).toFixed(1));
       $("#average_used_money_not_weapon_" + luck).text((used_money_average / 4 / 10000).toFixed(1));
       Simulator.execute_count = 0;
       $('span.result_execute_times').text($('td.simulation_number').last().text());
-      results.push($('input.show_details').on('click', function(e) {
+      results1.push($('input.show_details').on('click', function(e) {
         var result_process, text;
         if (!$(e.target).data('opened')) {
           result_process = $(e.target).data('details');
@@ -144,7 +151,7 @@ Controller = (function() {
         }
       }));
     }
-    return results;
+    return results1;
   };
 
   Controller.execute = function() {
