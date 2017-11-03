@@ -1,19 +1,15 @@
-class AbstractSimulator
-  @LUCKS = 
-    'good':'幸運'
-    'normal':'普通'
-    'bad':'不運'
+class Simulator
   constructor: (plus, simulation_number, try_times, marble_count) ->
     @plus = plus
     @simulation_number = simulation_number
     @try_times = try_times
     @marble_count = marble_count
+    @results = []
   show_result: (result) ->
   show_message: (message) ->
     $('.result_area').append "<div>#{message}</div>"
   @get_data = (plus) ->
     data = @DATA[plus]
-    #console.log "get_data of +#{plus}"
     {
       percent: data[0]
       money: data[1]
@@ -52,13 +48,11 @@ class AbstractSimulator
     [25,100000,6,13]
     [25,100000,6,14]
   ]
-
-class TargetSimulator extends AbstractSimulator
   @execute_count = 0
   @EXECUTE_COUNT_LIMIT = 0
   exec: (target_plus) ->
-    if TargetSimulator.execute_count > TargetSimulator.EXECUTE_COUNT_LIMIT
-      return false
+    if Simulator.execute_count > Simulator.EXECUTE_COUNT_LIMIT
+      return [@results, false]
     @used_scroll_num = 0
     @used_money = 0
     @result_process = [] 
@@ -66,7 +60,7 @@ class TargetSimulator extends AbstractSimulator
       plus: new Number(@plus)
       is_success: null
     loop
-      TargetSimulator.execute_count++
+      Simulator.execute_count++
       if target_plus > @plus
         data = @constructor.get_data(@plus)
         @used_scroll_num += data.scroll
@@ -88,58 +82,97 @@ class TargetSimulator extends AbstractSimulator
           with_marble: with_marble
         #console.log "+#{before_plus}からスクロール#{data.scroll}枚、#{data.money}アデナ、成功率#{data.percent}%で強化...[#{result}]#{@plus}になりました。"
       else
-        @show_result()
+        #@show_result()
+        @stock_result()
         break
-    true
-  show_result: ->
-    $result_tr = $ '<tr></tr>'
-    $result_tr.append $ "<td class='simulation_number'>#{@simulation_number}</td>"
-    $result_tr.append $ "<td class='enhance_times'>#{@result_process.length - 1}</td>"
-    $result_tr.append $ "<td class='used_scroll_num'>#{@used_scroll_num}</td>"
-    $result_tr.append $ "<td class='used_money'>#{@used_money}</td>"
-    $result_tr.append $ "<td class='used_money_not_weapon'>#{Math.round @used_money/4}</td>"
-    if Controller.show_details()
-      $result_tr.append $("<td><input class='show_details' type='button' value='見る' data-details='#{JSON.stringify(@result_process)}'/></td>")
-    $('table#result').append $result_tr
+    [@results, true]
+  stock_result: ->
+    @results.push [
+      @simulation_number
+      @result_process.length - 1
+      @used_scroll_num
+      @used_money
+      @result_process
+    ]
+  #show_result: ->
+  #  $result_tr = $ '<tr></tr>'
+  #  $result_tr.append $ "<td class='simulation_number'>#{@simulation_number}</td>"
+  #  $result_tr.append $ "<td class='enhance_times'>#{@result_process.length - 1}</td>"
+  #  $result_tr.append $ "<td class='used_scroll_num'>#{@used_scroll_num}</td>"
+  #  $result_tr.append $ "<td class='used_money'>#{@used_money}</td>"
+  #  $result_tr.append $ "<td class='used_money_not_weapon'>#{Math.round @used_money/4}</td>"
+  #  if Controller.show_details()
+  #    $result_tr.append $("<td><input class='show_details' type='button' value='見る' data-details='#{JSON.stringify(@result_process)}'/></td>")
+  #  $('table#result').append $result_tr
 
 with_scroll = false
 
 class Controller
-  @get_sum = (selector) ->
-    sum = 0
-    $(selector).each (index, element) ->
-      sum += parseInt element.innerHTML
-    sum
-  @get_average = (selector) ->
-    average = @get_sum(selector) / $(selector).size()
-    Math.round(average * 10) / 10
+  @LUCKS = 
+    'good':'幸運'
+    'normal':'普通'
+    'bad':'不運'
+  @results = []
   @initialize = ->
     $('span.result_plus').text $('#plus').val()
     $('span.result_plus_target').text $('#plus_target').val()
     #$('span.result_execute_times').text parseInt($('#simulation_type').val())
-    TargetSimulator.EXECUTE_COUNT_LIMIT = parseInt $('#execute_count').val()
+    Simulator.EXECUTE_COUNT_LIMIT = parseInt $('#execute_count').val()
     $('table#result tr').not('#result_area_header').detach()
+  #@get_sum = (selector) ->
+  #  sum = 0
+  #  $(selector).each (index, element) ->
+  #    sum += parseInt element.innerHTML
+  #  sum
+  #@get_average = (selector) ->
+  #  average = @get_sum(selector) / $(selector).size()
+  #  Math.round(average * 10) / 10
+  #@finalize = ->
+  #  for luck, jp of @LUCKS
+  #    console.log luck
+  #  $('#average_enhance_times').text @get_average('.enhance_times').toFixed(1)
+  #  $('#average_used_scroll_num').text @get_average('.used_scroll_num').toFixed(1)
+  #  used_money_average = @get_average('.used_money')
+  #  $('#average_used_money').text (used_money_average / 10000).toFixed(1)
+  #  $('#average_used_money_not_weapon').text (used_money_average / 4 / 10000).toFixed(1)
+  #  Simulator.execute_count = 0
+  #  $('span.result_execute_times').text $('td.simulation_number').last().text()
+  #  $('input.show_details').on 'click', (e) ->
+  #    if !$(e.target).data('opened')
+  #      result_process = $(e.target).data('details')
+  #      text = result_process.map( (result) ->
+  #        "<span class='is_success is_success_#{result.is_success} #{if result.with_marble then 'marble'}'>+#{result.plus}</span>"
+  #      ).join(' →')
+  #      $(e.target).parent().parent().after("<tr><td colspan='6'>#{text}</td></tr>")
+  #      $(e.target).data('opened', '1')
+  #    else
+  #      $(e.target).data('opened', '')
+  #      $(e.target).parent().parent().next().detach()
+  @get_average_of_results = (index) ->
+    sum = 0
+    for i, result of @results
+      sum += result[index]
+    sum / @results.length
   @finalize = ->
-    for luck, jp of @constructor.LUCKS
-      console.log luck
-    $('#average_enhance_times').text @get_average('.enhance_times').toFixed(1)
-    $('#average_used_scroll_num').text @get_average('.used_scroll_num').toFixed(1)
-    used_money_average = @get_average('.used_money')
-    $('#average_used_money').text (used_money_average / 10000).toFixed(1)
-    $('#average_used_money_not_weapon').text (used_money_average / 4 / 10000).toFixed(1)
-    TargetSimulator.execute_count = 0
-    $('span.result_execute_times').text $('td.simulation_number').last().text()
-    $('input.show_details').on 'click', (e) ->
-      if !$(e.target).data('opened')
-        result_process = $(e.target).data('details')
-        text = result_process.map( (result) ->
-          "<span class='is_success is_success_#{result.is_success} #{if result.with_marble then 'marble'}'>+#{result.plus}</span>"
-        ).join(' →')
-        $(e.target).parent().parent().after("<tr><td colspan='6'>#{text}</td></tr>")
-        $(e.target).data('opened', '1')
-      else
-        $(e.target).data('opened', '')
-        $(e.target).parent().parent().next().detach()
+    for luck, jp of @LUCKS
+      $("#average_enhance_times_#{luck}").text @get_average_of_results(1).toFixed(1)
+      $("#average_used_scroll_num_#{luck}").text @get_average_of_results(2).toFixed(1)
+      used_money_average = @get_average_of_results(3)
+      $("#average_used_money_#{luck}").text (used_money_average / 10000).toFixed(1)
+      $("#average_used_money_not_weapon_#{luck}").text (used_money_average / 4 / 10000).toFixed(1)
+      Simulator.execute_count = 0
+      $('span.result_execute_times').text $('td.simulation_number').last().text()
+      $('input.show_details').on 'click', (e) ->
+        if !$(e.target).data('opened')
+          result_process = $(e.target).data('details')
+          text = result_process.map( (result) ->
+            "<span class='is_success is_success_#{result.is_success} #{if result.with_marble then 'marble'}'>+#{result.plus}</span>"
+          ).join(' →')
+          $(e.target).parent().parent().after("<tr><td colspan='6'>#{text}</td></tr>")
+          $(e.target).data('opened', '1')
+        else
+          $(e.target).data('opened', '')
+          $(e.target).parent().parent().next().detach()
   @execute = ->
     @initialize()
     try_times = parseInt $('#simulation_type').val()
@@ -147,9 +180,11 @@ class Controller
     i = 0
     #loop
     for i in [1..try_times]
-      sim = new TargetSimulator($('#plus').val(), i, try_times, parseInt($('#marble_count').val()))
+      sim = new Simulator($('#plus').val(), i, try_times, parseInt($('#marble_count').val()))
       i++
-      is_continuable = sim.exec(parseInt $('#plus_target').val())
+      ret = sim.exec(parseInt $('#plus_target').val())
+      @results.push ret[0][0] #この[0][0]はなんかおかしいんだけど、こうしないと想定通りに動かない
+      is_continuable = ret[1]
       break unless is_continuable 
     @finalize()
   @show_details = ->
