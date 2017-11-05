@@ -43,6 +43,33 @@ html lang="ja"
         /input#run type="button" value="実行"
       /div
         |+13 -> +15までの強化を500回試した平均値です。
+    /table.overenchant_data
+      tr
+        th 強化Lv
+        th 成功率
+        th
+          |武器
+          br
+          |消費アデナ
+        th
+          |防具・装飾
+          br
+          |消費アデナ
+        th
+          |消費
+          br
+          |スクロール
+        th
+          |マーブル
+          br
+          |の加護
+      tr
+        td 8->9
+        td 60%
+        td 3万2千
+        td 1万
+        td 3枚
+        td 3個
     .middle_area
       - lucks = %w(good normal bad)
       - lucks.each do |luck|
@@ -64,7 +91,7 @@ html lang="ja"
               |[
               = luck
               |]
-          tr
+          /tr
             th 強化回数
             td id="average_enhance_times_#{luck}"
             td.unit 回
@@ -137,8 +164,10 @@ html lang="ja"
               td
                 |:
               td
-                input#execute_count type="text" value="100000"
+                input#execute_count type="text" value="1000000"
       select#simulation_type.plus style="display: none;"
+        option value="3000"
+          |3,000回試す
         option value="1000"
           |1,000回試す
         option value="10000"

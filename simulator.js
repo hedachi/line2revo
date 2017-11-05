@@ -109,13 +109,15 @@ Controller = (function() {
     sum = 0;
     for (i in results) {
       result = results[i];
-      sum += result[index];
+      if (result) {
+        sum += result[index];
+      }
     }
     return sum / results.length;
   };
 
   Controller.finalize = function() {
-    var jp, length, luck, ref, results, results1, used_money_average;
+    var jp, length, luck, ref, result, results, results1, used_money_average, used_money_average_man;
     this.results.sort(function(a, b) {
       return a[1] - b[1];
     });
@@ -129,13 +131,16 @@ Controller = (function() {
     results1 = [];
     for (luck in ref) {
       jp = ref[luck];
-      $("#average_enhance_times_" + luck).text(this.get_average_of_results(1, results[luck]).toFixed(1));
-      $("#average_used_scroll_num_" + luck).text(this.get_average_of_results(2, results[luck]).toFixed(1));
-      used_money_average = this.get_average_of_results(3, results[luck]);
-      $("#average_used_money_" + luck).text((used_money_average / 10000).toFixed(1));
-      $("#average_used_money_not_weapon_" + luck).text((used_money_average / 4 / 10000).toFixed(1));
+      result = results[luck];
+      $("#average_enhance_times_" + luck).text(this.get_average_of_results(1, result).toFixed(0));
+      $("#average_used_scroll_num_" + luck).text(this.get_average_of_results(2, result).toFixed(0));
+      used_money_average = this.get_average_of_results(3, result);
+      used_money_average_man = used_money_average / 10000;
+      used_money_average_man = used_money_average_man > 1 ? used_money_average_man.toFixed(0) : used_money_average_man.toFixed(1);
+      $("#average_used_money_" + luck).text(used_money_average_man);
+      $("#average_used_money_not_weapon_" + luck).text((used_money_average / 4 / 10000).toFixed(0));
       Simulator.execute_count = 0;
-      $('span.result_execute_times').text($('td.simulation_number').last().text());
+      $('span.result_execute_times').text(result.length);
       results1.push($('input.show_details').on('click', function(e) {
         var result_process, text;
         if (!$(e.target).data('opened')) {
@@ -164,11 +169,11 @@ Controller = (function() {
       sim = new Simulator($('#plus').val(), i, try_times, parseInt($('#marble_count').val()));
       i++;
       ret = sim.exec(parseInt($('#plus_target').val()));
-      this.results.push(ret[0][0]);
       is_continuable = ret[1];
       if (!is_continuable) {
         break;
       }
+      this.results.push(ret[0][0]);
     }
     return this.finalize();
   };

@@ -122,7 +122,8 @@ class Controller
   @get_average_of_results = (index, results) ->
     sum = 0
     for i, result of results
-      sum += result[index]
+      if result
+        sum += result[index]
     sum / results.length
   @finalize = ->
     @results.sort (a, b) -> a[1] - b[1]
@@ -132,13 +133,17 @@ class Controller
       normal: @results.slice(length, length + length)
       bad: @results.slice(length + length)
     for luck, jp of @LUCKS
-      $("#average_enhance_times_#{luck}").text @get_average_of_results(1, results[luck]).toFixed(1)
-      $("#average_used_scroll_num_#{luck}").text @get_average_of_results(2, results[luck]).toFixed(1)
-      used_money_average = @get_average_of_results(3, results[luck])
-      $("#average_used_money_#{luck}").text (used_money_average / 10000).toFixed(1)
-      $("#average_used_money_not_weapon_#{luck}").text (used_money_average / 4 / 10000).toFixed(1)
+      result = results[luck]
+      $("#average_enhance_times_#{luck}").text @get_average_of_results(1, result).toFixed(0)
+      $("#average_used_scroll_num_#{luck}").text @get_average_of_results(2, result).toFixed(0)
+      used_money_average = @get_average_of_results(3, result)
+      used_money_average_man = used_money_average / 10000
+      used_money_average_man = if used_money_average_man > 1 then used_money_average_man.toFixed(0) else used_money_average_man.toFixed(1)
+      $("#average_used_money_#{luck}").text used_money_average_man
+      $("#average_used_money_not_weapon_#{luck}").text (used_money_average / 4 / 10000).toFixed(0)
       Simulator.execute_count = 0
-      $('span.result_execute_times').text $('td.simulation_number').last().text()
+      #$('span.result_execute_times').text $('td.simulation_number').last().text()
+      $('span.result_execute_times').text result.length
       $('input.show_details').on 'click', (e) ->
         if !$(e.target).data('opened')
           result_process = $(e.target).data('details')
@@ -160,9 +165,9 @@ class Controller
       sim = new Simulator($('#plus').val(), i, try_times, parseInt($('#marble_count').val()))
       i++
       ret = sim.exec(parseInt $('#plus_target').val())
-      @results.push ret[0][0] #この[0][0]はなんかおかしいんだけど、こうしないと想定通りに動かない
       is_continuable = ret[1]
       break unless is_continuable 
+      @results.push ret[0][0] #この[0][0]はなんかおかしいんだけど、こうしないと想定通りに動かない
     @finalize()
   @show_details = ->
     #parseInt $('#simulation_type').val() <= 10

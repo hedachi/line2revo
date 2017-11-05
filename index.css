@@ -350,3 +350,15 @@ table.settings_table td {
 table.settings_table th {
   text-align: right;
 }
+table.overenchant_data {
+  width: 90%;
+  margin: auto;
+}
+table.overenchant_data th, table.overenchant_data td {
+  width: 15%;
+  text-align: left;
+  line-height: 1.5em;
+  font-size: 12px;
+  border: solid #aaa 1px;
+  padding: 2px;
+}
