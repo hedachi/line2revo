@@ -5,9 +5,9 @@
   <head>
     <title>リネレボ強化シミュレーター</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
-    <script src="simulator.js?ver=1509878506"></script>
+    <script src="simulator.js?ver=1510174020"></script>
     <link href="reset.css" media="all" rel="stylesheet" type="text/css" />
-    <link href="index.css?ver=1509878506" media="all" rel="stylesheet" type="text/css" />
+    <link href="index.css?ver=1510174020" media="all" rel="stylesheet" type="text/css" />
   </head>
   <body>
     <h1>
@@ -17,105 +17,163 @@
       <select class="plus" id="plus"></select><select class="plus" id="plus_target"></select>
     </div>
     <div class="middle_area">
-      <table class="result_summary">
-        <tr class="result_summary_header">
-          <th colspan="3">
-            強化シミュレーション<span class="result_execute_times"></span>回の平均データ[good]
+      <table class="rarity_6_stage_ver">
+        <tr>
+          <th>
+            運のよさ
+          </th>
+          <th>
+            強化回数
+          </th>
+          <th>
+            消費強化<br />スクロール
+          </th>
+          <th>
+            消費アデナ
           </th>
         </tr>
         <tr>
-          <th>
-            スクロール消費枚数
-          </th>
-          <td id="average_used_scroll_num_good"></td>
-          <td class="unit">
-            枚
+          <td>
+            <div class="rarity ur">
+              UR
+            </div>
+            <div style="font-size: 12px;">
+              上位16%
+            </div>
+          </td>
+          <td>
+            <span id="average_enhance_times_ur"></span><span class="unit">回</span>
+          </td>
+          <td>
+            <span id="average_used_scroll_num_ur"></span><span class="unit">枚</span>
+          </td>
+          <td>
+            <div>
+              <span class="unit">武器: </span><span id="average_used_money_ur"></span><span class="unit">万</span>
+            </div>
+            <div>
+              <span class="unit">防装: </span><span id="average_used_money_not_weapon_ur"></span><span class="unit">万</span>
+            </div>
           </td>
         </tr>
         <tr>
-          <th>
-            消費アデナ(武器)
-          </th>
-          <td id="average_used_money_good"></td>
-          <td class="unit">
-            万
+          <td>
+            <div class="rarity sr">
+              SR
+            </div>
+            <div style="font-size: 12px;">
+              17%-32%
+            </div>
+          </td>
+          <td>
+            <span id="average_enhance_times_sr"></span><span class="unit">回</span>
+          </td>
+          <td>
+            <span id="average_used_scroll_num_sr"></span><span class="unit">枚</span>
+          </td>
+          <td>
+            <div>
+              <span class="unit">武器: </span><span id="average_used_money_sr"></span><span class="unit">万</span>
+            </div>
+            <div>
+              <span class="unit">防装: </span><span id="average_used_money_not_weapon_sr"></span><span class="unit">万</span>
+            </div>
           </td>
         </tr>
         <tr>
-          <th>
-            消費アデナ(防具・装飾品)※
-          </th>
-          <td id="average_used_money_not_weapon_good"></td>
-          <td class="unit">
-            万
+          <td>
+            <div class="rarity hr">
+              HR
+            </div>
+            <div style="font-size: 12px;">
+              33-50%
+            </div>
           </td>
-        </tr>
-      </table>
-      <table class="result_summary">
-        <tr class="result_summary_header">
-          <th colspan="3">
-            強化シミュレーション<span class="result_execute_times"></span>回の平均データ[normal]
-          </th>
-        </tr>
-        <tr>
-          <th>
-            スクロール消費枚数
-          </th>
-          <td id="average_used_scroll_num_normal"></td>
-          <td class="unit">
-            枚
+          <td>
+            <span id="average_enhance_times_hr"></span><span class="unit">回</span>
           </td>
-        </tr>
-        <tr>
-          <th>
-            消費アデナ(武器)
-          </th>
-          <td id="average_used_money_normal"></td>
-          <td class="unit">
-            万
+          <td>
+            <span id="average_used_scroll_num_hr"></span><span class="unit">枚</span>
+          </td>
+          <td>
+            <div>
+              <span class="unit">武器: </span><span id="average_used_money_hr"></span><span class="unit">万</span>
+            </div>
+            <div>
+              <span class="unit">防装: </span><span id="average_used_money_not_weapon_hr"></span><span class="unit">万</span>
+            </div>
           </td>
         </tr>
         <tr>
-          <th>
-            消費アデナ(防具・装飾品)※
-          </th>
-          <td id="average_used_money_not_weapon_normal"></td>
-          <td class="unit">
-            万
+          <td>
+            <div class="rarity r">
+              R
+            </div>
+            <div style="font-size: 12px;">
+              51%-67%
+            </div>
           </td>
-        </tr>
-      </table>
-      <table class="result_summary">
-        <tr class="result_summary_header">
-          <th colspan="3">
-            強化シミュレーション<span class="result_execute_times"></span>回の平均データ[bad]
-          </th>
-        </tr>
-        <tr>
-          <th>
-            スクロール消費枚数
-          </th>
-          <td id="average_used_scroll_num_bad"></td>
-          <td class="unit">
-            枚
+          <td>
+            <span id="average_enhance_times_r"></span><span class="unit">回</span>
           </td>
-        </tr>
-        <tr>
-          <th>
-            消費アデナ(武器)
-          </th>
-          <td id="average_used_money_bad"></td>
-          <td class="unit">
-            万
+          <td>
+            <span id="average_used_scroll_num_r"></span><span class="unit">枚</span>
+          </td>
+          <td>
+            <div>
+              <span class="unit">武器: </span><span id="average_used_money_r"></span><span class="unit">万</span>
+            </div>
+            <div>
+              <span class="unit">防装: </span><span id="average_used_money_not_weapon_r"></span><span class="unit">万</span>
+            </div>
           </td>
         </tr>
         <tr>
-          <th>
-            消費アデナ(防具・装飾品)※
-          </th>
-          <td id="average_used_money_not_weapon_bad"></td>
-          <td class="unit">
-            万
+          <td>
+            <div class="rarity hn">
+              HN
+            </div>
+            <div style="font-size: 12px;">
+              68%-84%
+            </div>
+          </td>
+          <td>
+            <span id="average_enhance_times_hn"></span><span class="unit">回</span>
+          </td>
+          <td>
+            <span id="average_used_scroll_num_hn"></span><span class="unit">枚</span>
+          </td>
+          <td>
+            <div>
+              <span class="unit">武器: </span><span id="average_used_money_hn"></span><span class="unit">万</span>
+            </div>
+            <div>
+              <span class="unit">防装: </span><span id="average_used_money_not_weapon_hn"></span><span class="unit">万</span>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <div class="rarity n">
+              N
+            </div>
+            <div style="font-size: 12px;">
+              下位16%
+            </div>
+          </td>
+          <td>
+            <span id="average_enhance_times_n"></span><span class="unit">回</span>
+          </td>
+          <td>
+            <span id="average_used_scroll_num_n"></span><span class="unit">枚</span>
+          </td>
+          <td>
+            <div>
+              <span class="unit">武器: </span><span id="average_used_money_n"></span><span class="unit">万</span>
+            </div>
+            <div>
+              <span class="unit">防装: </span><span id="average_used_money_not_weapon_n"></span><span class="unit">万</span>
+            </div>
           </td>
         </tr>
       </table>

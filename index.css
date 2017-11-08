@@ -362,3 +362,49 @@ table.overenchant_data th, table.overenchant_data td {
   border: solid #aaa 1px;
   padding: 2px;
 }
+.rarity {
+  font-style: italic;
+  font-family: serif
+}
+.rarity.ur {
+  color: rgb(240, 146, 49);
+}
+.rarity.sr {
+  color: rgb(177, 91, 254);
+}
+.rarity.hr {
+  color: rgb(34, 208, 208);
+}
+.rarity.r {
+  color: rgb(114, 159, 35);
+}
+.rarity.hn {
+  color: rgb(111, 142, 172);
+}
+.rarity.n {
+  color: rgb(106, 106, 106);
+}
+table.rarity_6_stage_ver {
+  width: 90%;
+  margin: auto;
+}
+table.rarity_6_stage_ver td, table.rarity_6_stage_ver th {
+  border: solid gray 1px;
+  border-collapse: collapse;
+  width: 25%;
+  vertical-align: middle;
+  padding: 5px;
+}
+table.rarity_6_stage_ver td {
+  text-align: center;
+}
+table.rarity_6_stage_ver th {
+  text-align: center;
+}
+table.rarity_6_stage_ver .unit {
+  font-size: 12px;
+}
+table.rarity_6_stage_ver .rarity {
+  font-size: 24px;
+  text-align: center;
+}

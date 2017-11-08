@@ -43,6 +43,10 @@ html lang="ja"
         /input#run type="button" value="実行"
       /div
         |+13 -> +15までの強化を500回試した平均値です。
+    /div style="font-style: italic; font-family: serif"
+      - %w(ur sr hr r hn n).each do |rarity|
+        div class="rarity_#{rarity}"
+          = rarity.upcase
     /table.overenchant_data
       tr
         th 強化Lv
@@ -71,14 +75,70 @@ html lang="ja"
         td 3枚
         td 3個
     .middle_area
-      - lucks = %w(good normal bad)
-      - lucks.each do |luck|
+      /ruby:
+        lucks = %w(ur sr hr r hn n)
+      ruby:
+        lucks = {
+          ur: '上位16%',
+          sr: '17%-32%',
+          hr: '33-50%',
+          r:  '51%-67%',
+          hn: '68%-84%',
+          n:  '下位16%',
+        }
+      table.rarity_6_stage_ver
+        tr
+          th 運のよさ
+          th 強化回数
+          th
+            |消費強化
+            br
+            |スクロール
+          th 消費アデナ
+        - lucks.each do |luck, explain|
+          tr
+            td
+              .rarity class=luck
+                = luck.upcase
+              div style="font-size: 12px;"
+                = explain
+            td
+              span id="average_enhance_times_#{luck}"
+              span.unit 回
+            td
+              span id="average_used_scroll_num_#{luck}"
+              span.unit 枚
+            td
+              div
+                span.unit 武器: 
+                span id="average_used_money_#{luck}"
+                span.unit 万
+              div
+                span.unit 防装: 
+                span id="average_used_money_not_weapon_#{luck}"
+                span.unit 万
+            /tr
+              th 強化回数
+              td id="average_enhance_times_#{luck}"
+            /tr
+              th スクロール消費枚数
+              td 
+              td.unit 枚
+            /tr
+              th 消費アデナ(武器)
+              td.unit 万
+            /tr
+              th 消費アデナ(防具・装飾品)※
+              td.unit 万
+      /- lucks.each do |luck|
         table.result_summary
           /tr.result_summary_header
             th colspan="3"
               |平均データ
           tr.result_summary_header
             th colspan="3"
+              span.rarity class=luck
+                = luck.upcase
               /|[+
               /span.result_plus
               /|] => 

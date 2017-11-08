@@ -108,10 +108,14 @@ class Simulator
 with_scroll = false
 
 class Controller
-  @LUCKS = 
-    'good':'幸運'
-    'normal':'普通'
-    'bad':'不運'
+  @LUCKS = [
+    'ur'
+    'sr'
+    'hr'
+    'r'
+    'hn'
+    'n'
+  ]
   @initialize = ->
     $('span.result_plus').text $('#plus').val()
     $('span.result_plus_target').text $('#plus_target').val()
@@ -127,12 +131,16 @@ class Controller
     sum / results.length
   @finalize = ->
     @results.sort (a, b) -> a[1] - b[1]
-    length = Math.floor(@results.length / 3)
+    length = Math.floor(@results.length / @LUCKS.length)
     results =
-      good: @results.slice(0, length)
-      normal: @results.slice(length, length + length)
-      bad: @results.slice(length + length)
-    for luck, jp of @LUCKS
+      ur: @results.slice(0, length)
+      sr: @results.slice(length, length * 2)
+      hr: @results.slice(length * 2, length * 3)
+      r:  @results.slice(length * 3, length * 4)
+      hn: @results.slice(length * 4, length * 5)
+      n:  @results.slice(length * 5, length * 6)
+    for index, luck of @LUCKS
+      console.log luck
       result = results[luck]
       $("#average_enhance_times_#{luck}").text @get_average_of_results(1, result).toFixed(0)
       $("#average_used_scroll_num_#{luck}").text @get_average_of_results(2, result).toFixed(0)

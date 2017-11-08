@@ -90,11 +90,7 @@ with_scroll = false;
 Controller = (function() {
   function Controller() {}
 
-  Controller.LUCKS = {
-    'good': '幸運',
-    'normal': '普通',
-    'bad': '不運'
-  };
+  Controller.LUCKS = ['ur', 'sr', 'hr', 'r', 'hn', 'n'];
 
   Controller.initialize = function() {
     $('span.result_plus').text($('#plus').val());
@@ -117,20 +113,24 @@ Controller = (function() {
   };
 
   Controller.finalize = function() {
-    var jp, length, luck, ref, result, results, results1, used_money_average, used_money_average_man;
+    var index, length, luck, ref, result, results, results1, used_money_average, used_money_average_man;
     this.results.sort(function(a, b) {
       return a[1] - b[1];
     });
-    length = Math.floor(this.results.length / 3);
+    length = Math.floor(this.results.length / this.LUCKS.length);
     results = {
-      good: this.results.slice(0, length),
-      normal: this.results.slice(length, length + length),
-      bad: this.results.slice(length + length)
+      ur: this.results.slice(0, length),
+      sr: this.results.slice(length, length * 2),
+      hr: this.results.slice(length * 2, length * 3),
+      r: this.results.slice(length * 3, length * 4),
+      hn: this.results.slice(length * 4, length * 5),
+      n: this.results.slice(length * 5, length * 6)
     };
     ref = this.LUCKS;
     results1 = [];
-    for (luck in ref) {
-      jp = ref[luck];
+    for (index in ref) {
+      luck = ref[index];
+      console.log(luck);
       result = results[luck];
       $("#average_enhance_times_" + luck).text(this.get_average_of_results(1, result).toFixed(0));
       $("#average_used_scroll_num_" + luck).text(this.get_average_of_results(2, result).toFixed(0));
