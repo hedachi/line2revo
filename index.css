@@ -364,7 +364,7 @@ table.overenchant_data th, table.overenchant_data td {
 }
 .rarity {
   font-style: italic;
-  font-family: 'serif';
+  font-family: serif;
 }
 .rarity.ur {
   color: rgb(240, 146, 49);
