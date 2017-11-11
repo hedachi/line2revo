@@ -1,5 +1,5 @@
 failed = 0
-10000000.times do
+100000.times do
   i = 0
   250.times do
     i += rand(6) + 1

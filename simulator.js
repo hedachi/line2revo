@@ -90,7 +90,7 @@ with_scroll = false;
 Controller = (function() {
   function Controller() {}
 
-  Controller.LUCKS = ['ur', 'sr', 'hr', 'r', 'hn', 'n'];
+  Controller.LUCKS = ['r', 'hn', 'n'];
 
   Controller.initialize = function() {
     $('span.result_plus').text($('#plus').val());
@@ -119,12 +119,9 @@ Controller = (function() {
     });
     length = Math.floor(this.results.length / this.LUCKS.length);
     results = {
-      ur: this.results.slice(0, length),
-      sr: this.results.slice(length, length * 2),
-      hr: this.results.slice(length * 2, length * 3),
-      r: this.results.slice(length * 3, length * 4),
-      hn: this.results.slice(length * 4, length * 5),
-      n: this.results.slice(length * 5, length * 6)
+      r: this.results.slice(0, length),
+      hn: this.results.slice(length, length * 2),
+      n: this.results.slice(length * 2, length * 3)
     };
     ref = this.LUCKS;
     results1 = [];

@@ -109,9 +109,9 @@ with_scroll = false
 
 class Controller
   @LUCKS = [
-    'ur'
-    'sr'
-    'hr'
+    #'ur'
+    #'sr'
+    #'hr'
     'r'
     'hn'
     'n'
@@ -132,13 +132,17 @@ class Controller
   @finalize = ->
     @results.sort (a, b) -> a[1] - b[1]
     length = Math.floor(@results.length / @LUCKS.length)
+    #results =
+    #  ur: @results.slice(0, length)
+    #  sr: @results.slice(length, length * 2)
+    #  hr: @results.slice(length * 2, length * 3)
+    #  r:  @results.slice(length * 3, length * 4)
+    #  hn: @results.slice(length * 4, length * 5)
+    #  n:  @results.slice(length * 5, length * 6)
     results =
-      ur: @results.slice(0, length)
-      sr: @results.slice(length, length * 2)
-      hr: @results.slice(length * 2, length * 3)
-      r:  @results.slice(length * 3, length * 4)
-      hn: @results.slice(length * 4, length * 5)
-      n:  @results.slice(length * 5, length * 6)
+      r: @results.slice(0, length)
+      hn: @results.slice(length, length * 2)
+      n: @results.slice(length * 2, length * 3)
     for index, luck of @LUCKS
       console.log luck
       result = results[luck]

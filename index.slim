@@ -78,13 +78,18 @@ html lang="ja"
       /ruby:
         lucks = %w(ur sr hr r hn n)
       ruby:
+        #lucks = {
+        #  ur: '上位16%',
+        #  sr: '17%-32%',
+        #  hr: '33-50%',
+        #  r:  '51%-67%',
+        #  hn: '68%-84%',
+        #  n:  '下位16%',
+        #}
         lucks = {
-          ur: '上位16%',
-          sr: '17%-32%',
-          hr: '33-50%',
-          r:  '51%-67%',
-          hn: '68%-84%',
-          n:  '下位16%',
+          r:  '上位33%',
+          hn: '中位33%',
+          n:  '下位33%',
         }
       table.rarity_6_stage_ver
         tr
@@ -101,8 +106,8 @@ html lang="ja"
               .rarity class=luck lang="en"
                 = luck.upcase
               div style="font-size: 12px;"
-                span.result_execute_times
-                /= explain
+                /span.result_execute_times
+                = explain
             td
               span id="average_enhance_times_#{luck}"
               span.unit 回
