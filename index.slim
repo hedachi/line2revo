@@ -101,7 +101,8 @@ html lang="ja"
               .rarity class=luck
                 = luck.upcase
               div style="font-size: 12px;"
-                = explain
+                span.result_execute_times
+                /= explain
             td
               span id="average_enhance_times_#{luck}"
               span.unit 回
