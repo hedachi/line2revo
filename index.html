@@ -5,9 +5,9 @@
   <head>
     <title>リネレボ強化シミュレーター</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
-    <script src="simulator.js?ver=1510420915"></script>
+    <script src="simulator.js?ver=1510484185"></script>
     <link href="reset.css" media="all" rel="stylesheet" type="text/css" />
-    <link href="index.css?ver=1510420915" media="all" rel="stylesheet" type="text/css" />
+    <link href="index.css?ver=1510484185" media="all" rel="stylesheet" type="text/css" />
   </head>
   <body>
     <h1>
@@ -33,7 +33,7 @@
           </th>
         </tr>
         <tr>
-          <td>
+          <td rowspan="2">
             <div class="rarity r" lang="en">
               R
             </div>
@@ -41,23 +41,27 @@
               上位33%
             </div>
           </td>
-          <td>
+          <td rowspan="2">
             <span id="average_enhance_times_r"></span><span class="unit">回</span>
           </td>
-          <td>
+          <td rowspan="2">
             <span id="average_used_scroll_num_r"></span><span class="unit">枚</span>
           </td>
           <td>
             <div>
-              <span class="unit">武器: </span><span id="average_used_money_r"></span><span class="unit">万</span>
-            </div>
-            <div>
-              <span class="unit">防装: </span><span id="average_used_money_not_weapon_r"></span><span class="unit">万</span>
+              <span class="unit">武器:</span><span id="average_used_money_r"></span><span class="unit" id="average_used_money_r_unit">万</span>
             </div>
           </td>
         </tr>
         <tr>
           <td>
+            <div>
+              <span class="unit">装飾:</span><span id="average_used_money_not_weapon_r"></span><span class="unit" id="average_used_money_not_weapon_r_unit">万</span>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td rowspan="2">
             <div class="rarity hn" lang="en">
               HN
             </div>
@@ -65,23 +69,27 @@
               中位33%
             </div>
           </td>
-          <td>
+          <td rowspan="2">
             <span id="average_enhance_times_hn"></span><span class="unit">回</span>
           </td>
-          <td>
+          <td rowspan="2">
             <span id="average_used_scroll_num_hn"></span><span class="unit">枚</span>
           </td>
           <td>
             <div>
-              <span class="unit">武器: </span><span id="average_used_money_hn"></span><span class="unit">万</span>
-            </div>
-            <div>
-              <span class="unit">防装: </span><span id="average_used_money_not_weapon_hn"></span><span class="unit">万</span>
+              <span class="unit">武器:</span><span id="average_used_money_hn"></span><span class="unit" id="average_used_money_hn_unit">万</span>
             </div>
           </td>
         </tr>
         <tr>
           <td>
+            <div>
+              <span class="unit">装飾:</span><span id="average_used_money_not_weapon_hn"></span><span class="unit" id="average_used_money_not_weapon_hn_unit">万</span>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td rowspan="2">
             <div class="rarity n" lang="en">
               N
             </div>
@@ -89,23 +97,27 @@
               下位33%
             </div>
           </td>
-          <td>
+          <td rowspan="2">
             <span id="average_enhance_times_n"></span><span class="unit">回</span>
           </td>
-          <td>
+          <td rowspan="2">
             <span id="average_used_scroll_num_n"></span><span class="unit">枚</span>
           </td>
           <td>
             <div>
-              <span class="unit">武器: </span><span id="average_used_money_n"></span><span class="unit">万</span>
+              <span class="unit">武器:</span><span id="average_used_money_n"></span><span class="unit" id="average_used_money_n_unit">万</span>
             </div>
+          </td>
+        </tr>
+        <tr>
+          <td>
             <div>
-              <span class="unit">防装: </span><span id="average_used_money_not_weapon_n"></span><span class="unit">万</span>
+              <span class="unit">装飾:</span><span id="average_used_money_not_weapon_n"></span><span class="unit" id="average_used_money_not_weapon_n_unit">万</span>
             </div>
           </td>
         </tr>
       </table>
-      <div style="text-align: center; margin: 20px;">
+      <div style="text-align: center; margin: 20px; display: none;">
         <div class="ok_button" id="run">
           再実行
         </div>
@@ -116,7 +128,7 @@
           設定
         </div>
       </div>
-      <div class="settings">
+      <div class="settings" style="display:none;">
         <div class="settings_title">
           設定
         </div>
@@ -238,6 +250,11 @@
     </div>
   </body>
 </html>
-<div class="annotation">
-  ※防具・装飾品の消費アデナはデータがないため推定値です。+15までを見る限りでは武器の消費アデナの4分の1程度なので、4分の1で計算しています。
+<div class="bottom_area">
+  <div style="margin: 5px 0px;">
+    シミュレーション回数: <span class="simulation_times"></span>回
+  </div>
+  <div class="annotation">
+    ※防具・装飾品の消費アデナは推定値です。武器の消費アデナの4分の1として計算していますが、だいたいあってると思います。<br /><br />バグのご報告、ご感想などは<a href="https://twitter.com/hedachi_l2r">hedachi@エルモア鯖</a>まで。
+  </div>
 </div>

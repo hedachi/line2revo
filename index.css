@@ -169,9 +169,11 @@ input.show_details {
   background: #333;
   border-radius: 5px;
 }
-.annotation {
+.bottom_area {
   width: 90%;
-  margin: auto;
+  margin: 5px auto;
+}
+.annotation {
   font-size: 12px;
   line-height: 1.2em;
 }

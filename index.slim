@@ -102,27 +102,29 @@ html lang="ja"
           th 消費アデナ
         - lucks.each do |luck, explain|
           tr
-            td
+            td rowspan="2"
               .rarity class=luck lang="en"
                 = luck.upcase
               div style="font-size: 12px;"
                 /span.result_execute_times
                 = explain
-            td
+            td rowspan="2"
               span id="average_enhance_times_#{luck}"
               span.unit 回
-            td
+            td rowspan="2"
               span id="average_used_scroll_num_#{luck}"
               span.unit 枚
             td
               div
-                span.unit 武器: 
+                span.unit 武器:
                 span id="average_used_money_#{luck}"
-                span.unit 万
+                span.unit id="average_used_money_#{luck}_unit" 万
+          tr
+            td
               div
-                span.unit 防装: 
+                span.unit 装飾:
                 span id="average_used_money_not_weapon_#{luck}"
-                span.unit 万
+                span.unit id="average_used_money_not_weapon_#{luck}_unit" 万
             /tr
               th 強化回数
               td id="average_enhance_times_#{luck}"
@@ -173,14 +175,14 @@ html lang="ja"
             th 消費アデナ(防具・装飾品)※
             td id="average_used_money_not_weapon_#{luck}"
             td.unit 万
-      div style="text-align: center; margin: 20px;"
+      div style="text-align: center; margin: 20px; display: none;"
         .ok_button#run
           |再実行
         .ok_button#toggle_details
           |詳細な結果を見る
         .ok_button#toggle_settings
           |設定
-      .settings
+      .settings style="display:none;"
         .settings_title
           |設定
         .settings_content
@@ -274,17 +276,30 @@ html lang="ja"
             |アデナ（推定値※）
           th#result_details 詳細
 
-.annotation
-  |※
-  |防具・装飾品の消費アデナはデータがないため推定値です。
-  |+15までを見る限りでは武器の消費アデナの4分の1程度なので、4分の1で計算しています。
+.bottom_area
+  div style="margin: 5px 0px;"
+    |シミュレーション回数: 
+    span.simulation_times
+    |回
+  /|+
+  /span.result_plus
+  /|→
+  /|+
+  /span.result_plus_target
+  /|を
+  /span.simulation_times
+  /|回シミュレーションした結果です。
 
-/.author
-  |作成者: hedachi@エルモアサーバー
-  |　
-  a href="https://twitter.com/hedachi"
-    |twitter
-/img style="width:100%;" src="IMG_0144.PNG"
-/.author
-  |無課金やりこみしてます。
-  |21日目、Lv69で戦闘力30万超え達成！
+  .annotation
+    |※
+    |防具・装飾品の消費アデナは推定値です。
+    |武器の消費アデナの4分の1として計算していますが、だいたいあってると思います。
+
+
+    br
+    br
+
+    |バグのご報告、ご感想などは
+    a href="https://twitter.com/hedachi_l2r"
+      |hedachi@エルモア鯖
+    |まで。

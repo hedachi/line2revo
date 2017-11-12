@@ -117,8 +117,10 @@ class Controller
     'n'
   ]
   @initialize = ->
-    $('span.result_plus').text $('#plus').val()
-    $('span.result_plus_target').text $('#plus_target').val()
+    from_oe = $('#plus').val()
+    to_oe = $('#plus_target').val()
+    $('span.result_plus').text from_oe
+    $('span.result_plus_target').text to_oe
     #$('span.result_execute_times').text parseInt($('#simulation_type').val())
     Simulator.EXECUTE_COUNT_LIMIT = parseInt $('#execute_count').val()
     $('table#result tr').not('#result_area_header').detach()
@@ -148,11 +150,16 @@ class Controller
       result = results[luck]
       $("#average_enhance_times_#{luck}").text @get_average_of_results(1, result).toFixed(0)
       $("#average_used_scroll_num_#{luck}").text @get_average_of_results(2, result).toFixed(0)
+
       used_money_average = @get_average_of_results(3, result)
-      used_money_average_man = used_money_average / 10000
-      used_money_average_man = if used_money_average_man > 1 then used_money_average_man.toFixed(0) else used_money_average_man.toFixed(1)
-      $("#average_used_money_#{luck}").text used_money_average_man
-      $("#average_used_money_not_weapon_#{luck}").text (used_money_average / 4 / 10000).toFixed(0)
+      abbr_with_unit = @abbr_with_unit(used_money_average)
+      $("#average_used_money_#{luck}").text abbr_with_unit[0]
+      $("#average_used_money_#{luck}_unit").text abbr_with_unit[1]
+
+      abbr_with_unit_not_weapon = @abbr_with_unit(used_money_average / 4)
+      $("#average_used_money_not_weapon_#{luck}").text abbr_with_unit_not_weapon[0]
+      $("#average_used_money_not_weapon_#{luck}_unit").text abbr_with_unit_not_weapon[1]
+
       Simulator.execute_count = 0
       #$('span.result_execute_times').text $('td.simulation_number').last().text()
       $('span.result_execute_times').text result.length
@@ -167,6 +174,13 @@ class Controller
         else
           $(e.target).data('opened', '')
           $(e.target).parent().parent().next().detach()
+      $('.simulation_times').text @results.length
+  @abbr_with_unit = (money)->
+    money_divided_ichiman = money / 10000
+    if money_divided_ichiman > 1
+      [money_divided_ichiman.toFixed(0), '万']
+    else
+      [(money / 1000).toFixed(0), '千']
   @execute = ->
     @initialize()
     try_times = parseInt $('#simulation_type').val()
@@ -240,6 +254,6 @@ $ ->
     Controller.execute()
   $('#plus_target').change -> Controller.execute()
   $('#simulation_type').change -> Controller.execute()
-  SavedToggleButton.set '#toggle_settings', '.settings'
+  #SavedToggleButton.set '#toggle_settings', '.settings'
   Controller.execute()
   PopupWindow.init()
