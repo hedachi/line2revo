@@ -115,14 +115,19 @@ html lang="ja"
               span id="average_used_scroll_num_#{luck}"
               span.unit 枚
             td
-              div
-                span.unit 武器:
+              .comsumed_money
+                span.unit.unit_label 武器：
                 span id="average_used_money_#{luck}"
                 span.unit id="average_used_money_#{luck}_unit" 万
           tr
             td
-              div
-                span.unit 装飾:
+              .comsumed_money
+                span.unit.unit_label style="position: relative;"
+                  |　　：
+                  div style="position: absolute; top: -7px;"
+                    |防具
+                    br
+                    |装飾
                 span id="average_used_money_not_weapon_#{luck}"
                 span.unit id="average_used_money_not_weapon_#{luck}_unit" 万
             /tr
@@ -292,8 +297,8 @@ html lang="ja"
 
   .annotation
     |※
-    |防具・装飾品の消費アデナは推定値です。
-    |武器の消費アデナの4分の1として計算していますが、だいたいあってると思います。
+    |防具・装飾品の消費アデナはだいたい武器の消費アデナの4分の1なので、それで計算しています。
+    |正確な値ではありませんが、だいたい合ってると思います。
 
 
     br

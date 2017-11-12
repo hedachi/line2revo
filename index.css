@@ -410,3 +410,11 @@ table.rarity_6_stage_ver .rarity {
   font-size: 24px;
   text-align: center;
 }
+.unit_label {
+  display: inline-block;
+  width: 40px;
+  line-height: 1em;
+}
+.comsumed_money {
+  text-align: left;
+}
