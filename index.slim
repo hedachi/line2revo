@@ -297,7 +297,7 @@ html lang="ja"
 
   .annotation
     |※
-    |防具・装飾品の消費アデナはだいたい武器の消費アデナの4分の1なので、それで計算しています。
+    |防具・装飾品の消費アデナはデータがないので、武器の消費アデナの4分の1として計算しています。
     |正確な値ではありませんが、だいたい合ってると思います。
 
 
@@ -308,3 +308,24 @@ html lang="ja"
     a href="https://twitter.com/hedachi_l2r"
       |hedachi@エルモア鯖
     |まで。
+
+    a class="twitter-share-button" href="https://twitter.com/intent/tweet?text=%E3%83%AA%E3%83%8D%E3%83%AC%E3%83%9C%E5%BC%B7%E5%8C%96%E3%82%B7%E3%83%9F%E3%83%A5%E3%83%AC%E3%83%BC%E3%82%BF%E3%83%BC%20https%3A%2F%2Fhedachi.github.io%2Fline2revo%2F%20by%20%40hedachi_l2r" data-size="large"
+      |Tweet
+
+javascript:
+  window.twttr = (function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0],
+      t = window.twttr || {};
+    if (d.getElementById(id)) return t;
+    js = d.createElement(s);
+    js.id = id;
+    js.src = "https://platform.twitter.com/widgets.js";
+    fjs.parentNode.insertBefore(js, fjs);
+
+    t._e = [];
+    t.ready = function(f) {
+      t._e.push(f);
+    };
+
+    return t;
+  }(document, "script", "twitter-wjs"));
