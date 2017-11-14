@@ -9,6 +9,13 @@ html lang="ja"
     script src="simulator.js?ver=#{Time.now.to_i}"
     link rel='stylesheet' href='reset.css' type='text/css' media='all'
     link rel='stylesheet' href="index.css?ver=#{Time.now.to_i}" type='text/css' media='all'
+    script async="" src="https://www.googletagmanager.com/gtag/js?id=UA-109662357-1" 
+    javascript:
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-109662357-1');
+
   body
     /#popup_window_base
       #popup_window
