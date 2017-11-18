@@ -117,7 +117,7 @@
     };
 
     Controller.finalize = function() {
-      var abbr_with_unit, abbr_with_unit_not_weapon, index, length, luck, ref, result, results, results1, used_money_average;
+      var abbr_with_unit, abbr_with_unit_not_weapon, index, length, luck, ref, result, results, used_money_average;
       this.results.sort(function(a, b) {
         return a[1] - b[1];
       });
@@ -128,7 +128,6 @@
         n: this.results.slice(length * 2, length * 3)
       };
       ref = this.LUCKS;
-      results1 = [];
       for (index in ref) {
         luck = ref[index];
         console.log(luck);
@@ -158,9 +157,13 @@
             return $(e.target).parent().parent().next().detach();
           }
         });
-        results1.push($('.simulation_times').text(this.results.length));
+        $('.simulation_times').text(this.results.length);
       }
-      return results1;
+      if (this.is_not_first_rendering) {
+        return this.highlight('table.rarity_6_stage_ver td');
+      } else {
+        return this.is_not_first_rendering = true;
+      }
     };
 
     Controller.abbr_with_unit = function(money) {
@@ -171,6 +174,13 @@
       } else {
         return [(money / 1000).toFixed(0), '千'];
       }
+    };
+
+    Controller.highlight = function(selector) {
+      $(selector).addClass('highlight');
+      return setTimeout(function() {
+        return $(selector).removeClass('highlight');
+      }, 2000);
     };
 
     Controller.execute = function() {

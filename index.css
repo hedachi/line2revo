@@ -418,3 +418,10 @@ table.rarity_6_stage_ver .rarity {
 .comsumed_money {
   text-align: left;
 }
+.highlight {
+  -webkit-animation: highlight 2s ease 1;
+}
+@-webkit-keyframes highlight {
+    0%   { background: rgba(150, 220, 255, 1); }
+    100% { background: rgba(150, 220, 255, 0); }
+}

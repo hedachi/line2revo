@@ -175,12 +175,21 @@ class Controller
           $(e.target).data('opened', '')
           $(e.target).parent().parent().next().detach()
       $('.simulation_times').text @results.length
+    if @is_not_first_rendering
+      @highlight('table.rarity_6_stage_ver td')
+    else
+      @is_not_first_rendering = true
   @abbr_with_unit = (money)->
     money_divided_ichiman = money / 10000
     if money_divided_ichiman > 1
       [money_divided_ichiman.toFixed(0), '万']
     else
       [(money / 1000).toFixed(0), '千']
+  @highlight = (selector) ->
+    $(selector).addClass('highlight')
+    setTimeout -> 
+      $(selector).removeClass('highlight')
+    , 2000
   @execute = ->
     @initialize()
     try_times = parseInt $('#simulation_type').val()
