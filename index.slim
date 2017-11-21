@@ -86,7 +86,7 @@ html lang="ja"
     .middle_area
       /ruby:
         lucks = %w(ur sr hr r hn n)
-      ruby:
+      /ruby:
         #lucks = {
         #  ur: '上位16%',
         #  sr: '17%-32%',
@@ -100,7 +100,7 @@ html lang="ja"
           hn: '中位33%',
           n:  '下位33%',
         }
-      table.rarity_6_stage_ver
+      table.rarity_6_stage_ver#result_table
         tr
           th 運のよさ
           th 強化回数
@@ -109,25 +109,52 @@ html lang="ja"
             br
             |スクロール
           th 消費アデナ
-        - lucks.each do |luck, explain|
-          tr
-            td rowspan="2"
-              .rarity class=luck lang="en"
-                = luck.upcase
-              div style="font-size: 12px;"
-                /span.result_execute_times
-                = explain
-            td rowspan="2"
-              span id="average_enhance_times_#{luck}"
-              span.unit 回
-            td rowspan="2"
-              span id="average_used_scroll_num_#{luck}"
-              span.unit 枚
-            td
-              .comsumed_money
-                span.unit.unit_label 武器：
-                span id="average_used_money_#{luck}"
-                span.unit id="average_used_money_#{luck}_unit" 万
+        tr#result_template_1 style="display: none;"
+          td rowspan="2"
+            .rarity lang="en"
+              |N
+            div style="font-size: 12px;"
+              |下位33%
+          td rowspan="2"
+            span.average_enhance_times
+            span.unit 回
+          td rowspan="2"
+            span.average_used_scroll_num
+            span.unit 枚
+          td
+            .comsumed_money
+              span.unit.unit_label 武器：
+              span.average_used_money
+              span.unit.average_used_money_unit
+        tr#result_template_2 style="display: none;"
+          td
+            .comsumed_money
+              span.unit.unit_label style="position: relative;"
+                |　　：
+                div style="position: absolute; top: -7px;"
+                  |防具
+                  br
+                  |装飾
+              span.average_used_money_not_weapon
+              span.unit.average_used_money_not_weapon_unit
+        /tr
+          td rowspan="2"
+            .rarity class=luck lang="en"
+              = luck.upcase
+            div style="font-size: 12px;"
+              /span.result_execute_times
+              = explain
+          td rowspan="2"
+            span id="average_enhance_times_#{luck}"
+            span.unit 回
+          td rowspan="2"
+            span id="average_used_scroll_num_#{luck}"
+            span.unit 枚
+          td
+            .comsumed_money
+              span.unit.unit_label 武器：
+              span id="average_used_money_#{luck}"
+              span.unit id="average_used_money_#{luck}_unit" 万
           tr
             td
               .comsumed_money
@@ -139,56 +166,6 @@ html lang="ja"
                     |装飾
                 span id="average_used_money_not_weapon_#{luck}"
                 span.unit id="average_used_money_not_weapon_#{luck}_unit" 万
-            /tr
-              th 強化回数
-              td id="average_enhance_times_#{luck}"
-            /tr
-              th スクロール消費枚数
-              td 
-              td.unit 枚
-            /tr
-              th 消費アデナ(武器)
-              td.unit 万
-            /tr
-              th 消費アデナ(防具・装飾品)※
-              td.unit 万
-      /- lucks.each do |luck|
-        table.result_summary
-          /tr.result_summary_header
-            th colspan="3"
-              |平均データ
-          tr.result_summary_header
-            th colspan="3"
-              span.rarity class=luck
-                = luck.upcase
-              /|[+
-              /span.result_plus
-              /|] => 
-              /|[+
-              /span.result_plus_target
-              /|]&nbsp;
-              |強化シミュレーション
-              span.result_execute_times
-              |回の平均データ
-              |[
-              = luck
-              |]
-          /tr
-            th 強化回数
-            td id="average_enhance_times_#{luck}"
-            td.unit 回
-          tr
-            th スクロール消費枚数
-            td id="average_used_scroll_num_#{luck}"
-            td.unit 枚
-          tr
-            th 消費アデナ(武器)
-            td id="average_used_money_#{luck}"
-            td.unit 万
-          tr
-            th 消費アデナ(防具・装飾品)※
-            td id="average_used_money_not_weapon_#{luck}"
-            td.unit 万
       div style="text-align: center; margin: 20px; display: none;"
         .ok_button#run
           |再実行
@@ -308,7 +285,6 @@ html lang="ja"
     |※
     |防具・装飾品の消費アデナはデータがないので、武器の消費アデナの4分の1として計算しています。
     |正確な値ではありませんが、だいたい合ってると思います。
-
 
     br
     br

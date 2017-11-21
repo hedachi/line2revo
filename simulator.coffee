@@ -131,6 +131,11 @@ class Controller
       if result
         sum += result[index]
     sum / results.length
+  @copy_from_template = (selector) ->
+    $copied = $(selector).clone()
+    $copied.attr('id', '')
+    $copied.show()
+    $copied
   @finalize = ->
     @results.sort (a, b) -> a[1] - b[1]
     length = Math.floor(@results.length / @LUCKS.length)
@@ -146,19 +151,26 @@ class Controller
       hn: @results.slice(length, length * 2)
       n: @results.slice(length * 2, length * 3)
     for index, luck of @LUCKS
-      console.log luck
+      $tr1 = @copy_from_template('#result_template_1')
+      $tr2 = @copy_from_template('#result_template_2')
+      $('#result_table').append($tr1)
+      $('#result_table').append($tr2)
+
+      $tr1.find(".rarity").addClass(luck)
+      $tr1.find(".rarity").text luck.toUpperCase()
+
       result = results[luck]
-      $("#average_enhance_times_#{luck}").text @get_average_of_results(1, result).toFixed(0)
-      $("#average_used_scroll_num_#{luck}").text @get_average_of_results(2, result).toFixed(0)
+      $tr1.find(".average_enhance_times").text @get_average_of_results(1, result).toFixed(0)
+      $tr1.find(".average_used_scroll_num").text @get_average_of_results(2, result).toFixed(0)
 
       used_money_average = @get_average_of_results(3, result)
       abbr_with_unit = @abbr_with_unit(used_money_average)
-      $("#average_used_money_#{luck}").text abbr_with_unit[0]
-      $("#average_used_money_#{luck}_unit").text abbr_with_unit[1]
+      $tr1.find(".average_used_money").text abbr_with_unit[0]
+      $tr1.find(".average_used_money_unit").text abbr_with_unit[1]
 
       abbr_with_unit_not_weapon = @abbr_with_unit(used_money_average / 4)
-      $("#average_used_money_not_weapon_#{luck}").text abbr_with_unit_not_weapon[0]
-      $("#average_used_money_not_weapon_#{luck}_unit").text abbr_with_unit_not_weapon[1]
+      $tr2.find(".average_used_money_not_weapon").text abbr_with_unit_not_weapon[0]
+      $tr2.find(".average_used_money_not_weapon_unit").text abbr_with_unit_not_weapon[1]
 
       Simulator.execute_count = 0
       #$('span.result_execute_times').text $('td.simulation_number').last().text()

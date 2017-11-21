@@ -116,8 +116,16 @@
       return sum / results.length;
     };
 
+    Controller.copy_from_template = function(selector) {
+      var $copied;
+      $copied = $(selector).clone();
+      $copied.attr('id', '');
+      $copied.show();
+      return $copied;
+    };
+
     Controller.finalize = function() {
-      var abbr_with_unit, abbr_with_unit_not_weapon, index, length, luck, ref, result, results, used_money_average;
+      var $tr1, $tr2, abbr_with_unit, abbr_with_unit_not_weapon, index, length, luck, ref, result, results, used_money_average;
       this.results.sort(function(a, b) {
         return a[1] - b[1];
       });
@@ -130,17 +138,22 @@
       ref = this.LUCKS;
       for (index in ref) {
         luck = ref[index];
-        console.log(luck);
+        $tr1 = this.copy_from_template('#result_template_1');
+        $tr2 = this.copy_from_template('#result_template_2');
+        $('#result_table').append($tr1);
+        $('#result_table').append($tr2);
+        $tr1.find(".rarity").addClass(luck);
+        $tr1.find(".rarity").text(luck.toUpperCase());
         result = results[luck];
-        $("#average_enhance_times_" + luck).text(this.get_average_of_results(1, result).toFixed(0));
-        $("#average_used_scroll_num_" + luck).text(this.get_average_of_results(2, result).toFixed(0));
+        $tr1.find(".average_enhance_times").text(this.get_average_of_results(1, result).toFixed(0));
+        $tr1.find(".average_used_scroll_num").text(this.get_average_of_results(2, result).toFixed(0));
         used_money_average = this.get_average_of_results(3, result);
         abbr_with_unit = this.abbr_with_unit(used_money_average);
-        $("#average_used_money_" + luck).text(abbr_with_unit[0]);
-        $("#average_used_money_" + luck + "_unit").text(abbr_with_unit[1]);
+        $tr1.find(".average_used_money").text(abbr_with_unit[0]);
+        $tr1.find(".average_used_money_unit").text(abbr_with_unit[1]);
         abbr_with_unit_not_weapon = this.abbr_with_unit(used_money_average / 4);
-        $("#average_used_money_not_weapon_" + luck).text(abbr_with_unit_not_weapon[0]);
-        $("#average_used_money_not_weapon_" + luck + "_unit").text(abbr_with_unit_not_weapon[1]);
+        $tr2.find(".average_used_money_not_weapon").text(abbr_with_unit_not_weapon[0]);
+        $tr2.find(".average_used_money_not_weapon_unit").text(abbr_with_unit_not_weapon[1]);
         Simulator.execute_count = 0;
         $('span.result_execute_times').text(result.length);
         $('input.show_details').on('click', function(e) {
