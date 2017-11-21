@@ -130,6 +130,7 @@
         return a[1] - b[1];
       });
       length = Math.floor(this.results.length / this.LUCKS.length);
+      $('#result_table tr').not('#result_template_1, #result_template_2, #result_header').detach();
       results = {
         r: this.results.slice(0, length),
         hn: this.results.slice(length, length * 2),

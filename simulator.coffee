@@ -139,6 +139,7 @@ class Controller
   @finalize = ->
     @results.sort (a, b) -> a[1] - b[1]
     length = Math.floor(@results.length / @LUCKS.length)
+    $('#result_table tr').not('#result_template_1, #result_template_2, #result_header').detach()
     #results =
     #  ur: @results.slice(0, length)
     #  sr: @results.slice(length, length * 2)
