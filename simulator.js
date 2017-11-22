@@ -125,26 +125,32 @@
     };
 
     Controller.finalize = function() {
-      var $tr1, $tr2, abbr_with_unit, abbr_with_unit_not_weapon, index, length, luck, ref, result, results, used_money_average;
+      var $tr1, $tr2, _results, abbr_with_unit, abbr_with_unit_not_weapon, active_rank, i, index, j, length, length_of_a_stage, luck, rank, ref, ref1, result, results, stage, used_money_average;
       this.results.sort(function(a, b) {
         return a[1] - b[1];
       });
       length = Math.floor(this.results.length / this.LUCKS.length);
       $('#result_table tr').not('#result_template_1, #result_template_2, #result_header').detach();
-      results = {
-        r: this.results.slice(0, length),
-        hn: this.results.slice(length, length * 2),
-        n: this.results.slice(length * 2, length * 3)
-      };
-      ref = this.LUCKS;
-      for (index in ref) {
-        luck = ref[index];
+      rank = ['ur', 'sr', 'hr', 'r', 'hn', 'n'];
+      stage = 3;
+      active_rank = rank.slice(rank.length - stage, rank.length);
+      console.log(active_rank);
+      _results = this.results.slice();
+      results = {};
+      length_of_a_stage = Math.floor(this.results.length / stage);
+      for (i = j = 0, ref = stage; 0 <= ref ? j <= ref : j >= ref; i = 0 <= ref ? ++j : --j) {
+        results[active_rank[i]] = _results.splice(0, length_of_a_stage);
+      }
+      ref1 = this.LUCKS;
+      for (index in ref1) {
+        luck = ref1[index];
         $tr1 = this.copy_from_template('#result_template_1');
         $tr2 = this.copy_from_template('#result_template_2');
         $('#result_table').append($tr1);
         $('#result_table').append($tr2);
         $tr1.find(".rarity").addClass(luck);
         $tr1.find(".rarity").text(luck.toUpperCase());
+        $tr1.find(".explain_rarity").text('ほげほげ');
         result = results[luck];
         $tr1.find(".average_enhance_times").text(this.get_average_of_results(1, result).toFixed(0));
         $tr1.find(".average_used_scroll_num").text(this.get_average_of_results(2, result).toFixed(0));

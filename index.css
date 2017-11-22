@@ -393,15 +393,30 @@ table.rarity_6_stage_ver {
 table.rarity_6_stage_ver td, table.rarity_6_stage_ver th {
   border: solid gray 1px;
   border-collapse: collapse;
-  width: 25%;
   vertical-align: middle;
   padding: 5px;
 }
+table.rarity_6_stage_ver th:nth-child(1) {
+  width: 22%;
+}
+table.rarity_6_stage_ver th:nth-child(2) {
+  width: 22%;
+}
+table.rarity_6_stage_ver th:nth-child(3) {
+  width: 22%;
+}
+table.rarity_6_stage_ver th:nth-child(4) {
+  width: 34%;
+}
+/*
+*/
 table.rarity_6_stage_ver td {
   text-align: center;
 }
 table.rarity_6_stage_ver th {
   text-align: center;
+  font-size: 12px;
+  line-height: 1.5em;
 }
 table.rarity_6_stage_ver .unit {
   font-size: 12px;

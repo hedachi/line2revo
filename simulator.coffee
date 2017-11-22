@@ -140,17 +140,18 @@ class Controller
     @results.sort (a, b) -> a[1] - b[1]
     length = Math.floor(@results.length / @LUCKS.length)
     $('#result_table tr').not('#result_template_1, #result_template_2, #result_header').detach()
-    #results =
-    #  ur: @results.slice(0, length)
-    #  sr: @results.slice(length, length * 2)
-    #  hr: @results.slice(length * 2, length * 3)
-    #  r:  @results.slice(length * 3, length * 4)
-    #  hn: @results.slice(length * 4, length * 5)
-    #  n:  @results.slice(length * 5, length * 6)
-    results =
-      r: @results.slice(0, length)
-      hn: @results.slice(length, length * 2)
-      n: @results.slice(length * 2, length * 3)
+
+    rank = ['ur', 'sr', 'hr', 'r', 'hn', 'n']
+    stage = 3
+    active_rank = rank.slice(rank.length - stage, rank.length)
+    console.log active_rank
+
+    _results = @results.slice() #copyしてるだけ
+    results = {}
+    length_of_a_stage = Math.floor(@results.length / stage)
+    for i in [0..stage]
+      results[active_rank[i]] = _results.splice(0, length_of_a_stage)
+
     for index, luck of @LUCKS
       $tr1 = @copy_from_template('#result_template_1')
       $tr2 = @copy_from_template('#result_template_2')
@@ -159,6 +160,8 @@ class Controller
 
       $tr1.find(".rarity").addClass(luck)
       $tr1.find(".rarity").text luck.toUpperCase()
+
+      $tr1.find(".explain_rarity").text 'ほげほげ'
 
       result = results[luck]
       $tr1.find(".average_enhance_times").text @get_average_of_results(1, result).toFixed(0)
