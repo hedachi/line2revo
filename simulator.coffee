@@ -149,7 +149,7 @@ class Controller
     [$tr1, $tr2]
   @finalize = ->
     @results.sort (a, b) -> a[1] - b[1]
-    $('#result_table tr').not('#result_template_1, #result_template_2, #result_header').detach()
+    $('#result_table tr').not('#result_template_1, #result_template_2, #result_header, #result_title').detach()
 
     stage = 3
     active_rank = @RANK.slice(@RANK.length - stage, @RANK.length)
@@ -184,6 +184,8 @@ class Controller
     $tr1.css 'margin-top', '2px'
     $tr2.find("td").css
       'font-weight': 'bold'
+
+    $('.simulation_times').text @results.length
 
     Simulator.execute_count = 0
 

@@ -146,7 +146,7 @@
       this.results.sort(function(a, b) {
         return a[1] - b[1];
       });
-      $('#result_table tr').not('#result_template_1, #result_template_2, #result_header').detach();
+      $('#result_table tr').not('#result_template_1, #result_template_2, #result_header, #result_title').detach();
       stage = 3;
       active_rank = this.RANK.slice(this.RANK.length - stage, this.RANK.length);
       _results = this.results.slice();
@@ -180,6 +180,7 @@
       $tr2.find("td").css({
         'font-weight': 'bold'
       });
+      $('.simulation_times').text(this.results.length);
       Simulator.execute_count = 0;
       if (this.is_not_first_rendering) {
         return this.highlight('table.rarity_6_stage_ver td');

@@ -31,6 +31,7 @@ html lang="ja"
         div style="text-align: center;"
           .ok_button#close_popup_window 閉じる
     h1 リネレボ強化シミュレーター
+
     .input_area
       select#plus.plus
       select#plus_target.plus
@@ -63,6 +64,20 @@ html lang="ja"
         td 3個
     .middle_area
       table.rarity_6_stage_ver#result_table
+        tr#result_title
+          th colspan="4"
+            |+
+            span.result_plus
+            |&nbsp;
+            |→
+            |&nbsp;
+            |+
+            span.result_plus_target
+            |&nbsp;
+            |シミュレーション
+            span.simulation_times
+            |回
+            |の結果
         tr#result_header
           th 運のよさ
           th
@@ -119,7 +134,7 @@ html lang="ja"
       |hedachi@エルモア鯖
     |まで。
 
-  div style="text-align: center;"
+  div style="text-align: center; display: none;"
     .ok_button#run
       |再実行
     /.ok_button#toggle_details
@@ -180,7 +195,8 @@ html lang="ja"
   select#simulation_type.plus style="display: none;"
     option value="3000"
       |3,000回試す
-  table#result
+
+  /table#result
     tr#result_area_header
       th style="width: 10%;"
         |実験

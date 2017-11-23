@@ -116,9 +116,7 @@ img#run {
   );
 }
 table#result {
-  width: 90%;
   margin: auto;
-  display: none;
 }
 table#result th {
   text-align: left;
@@ -128,6 +126,9 @@ table#result th, table#result td {
   border: #888 1px solid;
   padding: 2px;
   font-size: 14px;
+}
+tr#result_title th {
+  font-size: 18px;
 }
 #popup_window_base {
   display: none;
