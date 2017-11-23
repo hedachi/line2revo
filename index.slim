@@ -34,28 +34,6 @@ html lang="ja"
     .input_area
       select#plus.plus
       select#plus_target.plus
-      /div
-        label.input
-          |種類:
-        label for="weapon"
-          |武器
-        input#weapon type="radio" name="item_type" value="武器" checked="checked"
-        |　
-        label for="armor"
-          |防具
-        input#armor  type="radio" name="item_type" value="防具"
-      /div style="display:none;"
-        label.input
-          |スクロール枚数:
-        input#scroll_num type="text" value="0"
-        |枚
-        /input#run type="button" value="実行"
-      /div
-        |+13 -> +15までの強化を500回試した平均値です。
-    /div style="font-style: italic; font-family: serif"
-      - %w(ur sr hr r hn n).each do |rarity|
-        div class="rarity_#{rarity}"
-          = rarity.upcase
     /table.overenchant_data
       tr
         th 強化Lv
@@ -84,22 +62,6 @@ html lang="ja"
         td 3枚
         td 3個
     .middle_area
-      /ruby:
-        lucks = %w(ur sr hr r hn n)
-      /ruby:
-        #lucks = {
-        #  ur: '上位16%',
-        #  sr: '17%-32%',
-        #  hr: '33-50%',
-        #  r:  '51%-67%',
-        #  hn: '68%-84%',
-        #  n:  '下位16%',
-        #}
-        lucks = {
-          r:  '上位33%',
-          hn: '中位33%',
-          n:  '下位33%',
-        }
       table.rarity_6_stage_ver#result_table
         tr#result_header
           th 運のよさ
@@ -135,149 +97,13 @@ html lang="ja"
                   |装飾
               span.average_used_money_not_weapon
               span.unit.average_used_money_not_weapon_unit
-        /tr
-          td rowspan="2"
-            .rarity class=luck lang="en"
-              = luck.upcase
-            div style="font-size: 12px;"
-              /span.result_execute_times
-              = explain
-          td rowspan="2"
-            span id="average_enhance_times_#{luck}"
-            span.unit 回
-          td rowspan="2"
-            span id="average_used_scroll_num_#{luck}"
-            span.unit 枚
-          td
-            .comsumed_money
-              span.unit.unit_label 武器：
-              span id="average_used_money_#{luck}"
-              span.unit id="average_used_money_#{luck}_unit" 万
-          tr
-            td
-              .comsumed_money
-                span.unit.unit_label style="position: relative;"
-                  |　　：
-                  div style="position: absolute; top: -7px;"
-                    |防具
-                    br
-                    |装飾
-                span id="average_used_money_not_weapon_#{luck}"
-                span.unit id="average_used_money_not_weapon_#{luck}_unit" 万
-      div style="text-align: center; margin: 20px; display: none;"
-        .ok_button#run
-          |再実行
-        .ok_button#toggle_details
-          |詳細な結果を見る
-        .ok_button#toggle_settings
-          |設定
-      .settings style="display:none;"
-        .settings_title
-          |設定
-        .settings_content
-          table.settings_table
-            tr
-              th
-                label for="marble_count"
-                  |マーブルの加護使用数
-              td
-                |:
-              td
-                select#marble_count.select_default
-                  option value="0"
-                    |0
-                  option value="1"
-                    |1
-                  option value="2"
-                    |2
-                  option value="3"
-                    |3
-                  option value="4"
-                    |4
-                  option value="5"
-                    |5
-                  option value="6"
-                    |6
-                  option value="7"
-                    |7
-                  option value="8"
-                    |8
-                  option value="9"
-                    |9
-                  option value="10"
-                    |10
-                  option value="11"
-                    |11
-                  option value="12"
-                    |12
-                  option value="13"
-                    |13
-                  option value="14"
-                    |14
-            tr
-              th
-                label for="execute_count"
-                  |処理回数制限
-              td
-                |:
-              td
-                input#execute_count type="text" value="1000000"
-      select#simulation_type.plus style="display: none;"
-        option value="3000"
-          |3,000回試す
-        option value="1000"
-          |1,000回試す
-        option value="10000"
-          |10,000回試す
-        option value="10"
-          |10回試す
-        option value="500"
-          |500回試す
-        option value="100"
-          |100回試す
-      table#result
-        tr#result_area_header
-          th style="width: 10%;"
-            |実験
-            br
-            |No.
-          th style="width: 15%;"
-            |強化
-            br
-            |回数
-          th style="width: 15%;"
-            |ｽｸﾛｰﾙ
-            br
-            |消費
-            br
-            |枚数
-          th style="width: 30%;"
-            |武器
-            br
-            |消費
-            br
-            |アデナ
-          th style="width: 30%;"
-            |防具・装飾品
-            br
-            |消費
-            br
-            |アデナ（推定値※）
-          th#result_details 詳細
+
 
 .bottom_area
   div style="margin: 5px 0px;"
     |シミュレーション回数: 
     span.simulation_times
     |回
-  /|+
-  /span.result_plus
-  /|→
-  /|+
-  /span.result_plus_target
-  /|を
-  /span.simulation_times
-  /|回シミュレーションした結果です。
 
   .annotation
     |※
@@ -291,3 +117,94 @@ html lang="ja"
     a href="https://twitter.com/hedachi_l2r"
       |hedachi@エルモア鯖
     |まで。
+
+  div style="text-align: center;"
+    .ok_button#run
+      |再実行
+    .ok_button#toggle_details
+      |詳細な結果を見る
+    .ok_button#toggle_settings
+      |設定
+  .settings style="display:none;"
+    .settings_title
+      |設定
+    .settings_content
+      table.settings_table
+        tr
+          th
+            label for="marble_count"
+              |マーブルの加護使用数
+          td
+            |:
+          td
+            select#marble_count.select_default
+              option value="0"
+                |0
+              option value="1"
+                |1
+              option value="2"
+                |2
+              option value="3"
+                |3
+              option value="4"
+                |4
+              option value="5"
+                |5
+              option value="6"
+                |6
+              option value="7"
+                |7
+              option value="8"
+                |8
+              option value="9"
+                |9
+              option value="10"
+                |10
+              option value="11"
+                |11
+              option value="12"
+                |12
+              option value="13"
+                |13
+              option value="14"
+                |14
+        tr
+          th
+            label for="execute_count"
+              |処理回数制限
+          td
+            |:
+          td
+            input#execute_count type="text" value="1000000"
+  select#simulation_type.plus style="display: none;"
+    option value="3000"
+      |3,000回試す
+  table#result
+    tr#result_area_header
+      th style="width: 10%;"
+        |実験
+        br
+        |No.
+      th style="width: 15%;"
+        |強化
+        br
+        |回数
+      th style="width: 15%;"
+        |ｽｸﾛｰﾙ
+        br
+        |消費
+        br
+        |枚数
+      th style="width: 30%;"
+        |武器
+        br
+        |消費
+        br
+        |アデナ
+      th style="width: 30%;"
+        |防具・装飾品
+        br
+        |消費
+        br
+        |アデナ（推定値※）
+      th#result_details 詳細

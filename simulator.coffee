@@ -108,14 +108,7 @@ class Simulator
 with_scroll = false
 
 class Controller
-  @LUCKS = [
-    #'ur'
-    #'sr'
-    #'hr'
-    'r'
-    'hn'
-    'n'
-  ]
+  @RANK = ['ur', 'sr', 'hr', 'r', 'hn', 'n']
   @initialize = ->
     from_oe = $('#plus').val()
     to_oe = $('#plus_target').val()
@@ -138,13 +131,10 @@ class Controller
     $copied
   @finalize = ->
     @results.sort (a, b) -> a[1] - b[1]
-    length = Math.floor(@results.length / @LUCKS.length)
     $('#result_table tr').not('#result_template_1, #result_template_2, #result_header').detach()
 
-    rank = ['ur', 'sr', 'hr', 'r', 'hn', 'n']
-    stage = 3
-    active_rank = rank.slice(rank.length - stage, rank.length)
-    console.log active_rank
+    stage = 4
+    active_rank = @RANK.slice(@RANK.length - stage, @RANK.length)
 
     _results = @results.slice() #copyしてるだけ
     results = {}
@@ -152,7 +142,7 @@ class Controller
     for i in [0..stage]
       results[active_rank[i]] = _results.splice(0, length_of_a_stage)
 
-    for index, luck of @LUCKS
+    for index, luck of active_rank
       $tr1 = @copy_from_template('#result_template_1')
       $tr2 = @copy_from_template('#result_template_2')
       $('#result_table').append($tr1)
@@ -161,9 +151,12 @@ class Controller
       $tr1.find(".rarity").addClass(luck)
       $tr1.find(".rarity").text luck.toUpperCase()
 
-      $tr1.find(".explain_rarity").text 'ほげほげ'
-
       result = results[luck]
+      first = @results.indexOf(result[0]) + 1
+      last = @results.indexOf(result[result.length - 1]) + 1
+
+      $tr1.find(".explain_rarity").text "#{first}-#{last}位"
+
       $tr1.find(".average_enhance_times").text @get_average_of_results(1, result).toFixed(0)
       $tr1.find(".average_used_scroll_num").text @get_average_of_results(2, result).toFixed(0)
 
