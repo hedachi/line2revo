@@ -146,12 +146,12 @@ class Controller
     abbr_with_unit_not_weapon = @abbr_with_unit(used_money_average / 4)
     $tr2.find(".average_used_money_not_weapon").text abbr_with_unit_not_weapon[0]
     $tr2.find(".average_used_money_not_weapon_unit").text abbr_with_unit_not_weapon[1]
-    $tr1
+    [$tr1, $tr2]
   @finalize = ->
     @results.sort (a, b) -> a[1] - b[1]
     $('#result_table tr').not('#result_template_1, #result_template_2, #result_header').detach()
 
-    stage = 4
+    stage = 3
     active_rank = @RANK.slice(@RANK.length - stage, @RANK.length)
 
     _results = @results.slice() #copyしてるだけ
@@ -163,7 +163,8 @@ class Controller
     #ランクごとの結果
     for index, luck of active_rank
       result = results[luck]
-      $tr1 = @create_and_append_row(result)
+      trs = @create_and_append_row(result)
+      $tr1 = trs[0]
       $tr1.find(".rarity").addClass(luck)
       $tr1.find(".rarity").text luck.toUpperCase()
       first = @results.indexOf(result[0]) + 1
@@ -171,10 +172,18 @@ class Controller
       $tr1.find(".explain_rarity").text "#{first}-#{last}位"
 
     #累計結果
-    $tr1 = @create_and_append_row(@results)
+    trs = @create_and_append_row(@results)
+    $tr1 = trs[0]
+    $tr2 = trs[1]
     $tr1.find(".rarity").css 'font-style', 'normal'
     $tr1.find(".rarity").text "全体"
     $tr1.find(".explain_rarity").text "計#{@results.length}回"
+    $tr1.find("td").css
+      'border-top': 'solid white 2px'
+      'font-weight': 'bold'
+    $tr1.css 'margin-top', '2px'
+    $tr2.find("td").css
+      'font-weight': 'bold'
 
     Simulator.execute_count = 0
 
@@ -193,7 +202,6 @@ class Controller
     #    $(e.target).data('opened', '')
     #    $(e.target).parent().parent().next().detach()
 
-    $('.simulation_times').text @results.length
     if @is_not_first_rendering
       @highlight('table.rarity_6_stage_ver td')
     else

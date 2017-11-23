@@ -65,12 +65,18 @@ html lang="ja"
       table.rarity_6_stage_ver#result_table
         tr#result_header
           th 運のよさ
-          th 強化回数
           th
-            |消費強化
+            |平均
+            br
+            |強化回数
+          th
+            |平均消費
             br
             |スクロール
-          th 消費アデナ
+          th
+            |平均
+            br
+            |消費アデナ
         tr#result_template_1 style="display: none;"
           td rowspan="2"
             .rarity lang="en"
@@ -100,11 +106,6 @@ html lang="ja"
 
 
 .bottom_area
-  div style="margin: 5px 0px;"
-    |シミュレーション回数: 
-    span.simulation_times
-    |回
-
   .annotation
     |※
     |防具・装飾品の消費アデナはデータがないので、武器の消費アデナの4分の1として計算しています。

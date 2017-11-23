@@ -138,16 +138,16 @@
       abbr_with_unit_not_weapon = this.abbr_with_unit(used_money_average / 4);
       $tr2.find(".average_used_money_not_weapon").text(abbr_with_unit_not_weapon[0]);
       $tr2.find(".average_used_money_not_weapon_unit").text(abbr_with_unit_not_weapon[1]);
-      return $tr1;
+      return [$tr1, $tr2];
     };
 
     Controller.finalize = function() {
-      var $tr1, _results, active_rank, first, i, index, j, last, length_of_a_stage, luck, ref, result, results, stage;
+      var $tr1, $tr2, _results, active_rank, first, i, index, j, last, length_of_a_stage, luck, ref, result, results, stage, trs;
       this.results.sort(function(a, b) {
         return a[1] - b[1];
       });
       $('#result_table tr').not('#result_template_1, #result_template_2, #result_header').detach();
-      stage = 4;
+      stage = 3;
       active_rank = this.RANK.slice(this.RANK.length - stage, this.RANK.length);
       _results = this.results.slice();
       results = {};
@@ -158,19 +158,29 @@
       for (index in active_rank) {
         luck = active_rank[index];
         result = results[luck];
-        $tr1 = this.create_and_append_row(result);
+        trs = this.create_and_append_row(result);
+        $tr1 = trs[0];
         $tr1.find(".rarity").addClass(luck);
         $tr1.find(".rarity").text(luck.toUpperCase());
         first = this.results.indexOf(result[0]) + 1;
         last = this.results.indexOf(result[result.length - 1]) + 1;
         $tr1.find(".explain_rarity").text(first + "-" + last + "位");
       }
-      $tr1 = this.create_and_append_row(this.results);
+      trs = this.create_and_append_row(this.results);
+      $tr1 = trs[0];
+      $tr2 = trs[1];
       $tr1.find(".rarity").css('font-style', 'normal');
       $tr1.find(".rarity").text("全体");
       $tr1.find(".explain_rarity").text("計" + this.results.length + "回");
+      $tr1.find("td").css({
+        'border-top': 'solid white 2px',
+        'font-weight': 'bold'
+      });
+      $tr1.css('margin-top', '2px');
+      $tr2.find("td").css({
+        'font-weight': 'bold'
+      });
       Simulator.execute_count = 0;
-      $('.simulation_times').text(this.results.length);
       if (this.is_not_first_rendering) {
         return this.highlight('table.rarity_6_stage_ver td');
       } else {
