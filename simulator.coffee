@@ -129,7 +129,7 @@ class Controller
     $copied.attr('id', '')
     $copied.show()
     $copied
-  @hoge = (result) ->
+  @create_and_append_row = (result) ->
     $tr1 = @copy_from_template('#result_template_1')
     $tr2 = @copy_from_template('#result_template_2')
     $('#result_table').append($tr1)
@@ -163,7 +163,7 @@ class Controller
     #ランクごとの結果
     for index, luck of active_rank
       result = results[luck]
-      $tr1 = @hoge(result)
+      $tr1 = @create_and_append_row(result)
       $tr1.find(".rarity").addClass(luck)
       $tr1.find(".rarity").text luck.toUpperCase()
       first = @results.indexOf(result[0]) + 1
@@ -171,12 +171,14 @@ class Controller
       $tr1.find(".explain_rarity").text "#{first}-#{last}位"
 
     #累計結果
-    $tr1 = @hoge(@results)
+    $tr1 = @create_and_append_row(@results)
     $tr1.find(".rarity").css 'font-style', 'normal'
     $tr1.find(".rarity").text "全体"
     $tr1.find(".explain_rarity").text "計#{@results.length}回"
 
     Simulator.execute_count = 0
+
+    #シミュレーション1回ごとの詳細結果表示
     #$('span.result_execute_times').text $('td.simulation_number').last().text()
     #$('span.result_execute_times').text result.length
     #$('input.show_details').on 'click', (e) ->
@@ -190,6 +192,7 @@ class Controller
     #  else
     #    $(e.target).data('opened', '')
     #    $(e.target).parent().parent().next().detach()
+
     $('.simulation_times').text @results.length
     if @is_not_first_rendering
       @highlight('table.rarity_6_stage_ver td')

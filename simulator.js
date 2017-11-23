@@ -123,7 +123,7 @@
       return $copied;
     };
 
-    Controller.hoge = function(result) {
+    Controller.create_and_append_row = function(result) {
       var $tr1, $tr2, abbr_with_unit, abbr_with_unit_not_weapon, used_money_average;
       $tr1 = this.copy_from_template('#result_template_1');
       $tr2 = this.copy_from_template('#result_template_2');
@@ -158,14 +158,14 @@
       for (index in active_rank) {
         luck = active_rank[index];
         result = results[luck];
-        $tr1 = this.hoge(result);
+        $tr1 = this.create_and_append_row(result);
         $tr1.find(".rarity").addClass(luck);
         $tr1.find(".rarity").text(luck.toUpperCase());
         first = this.results.indexOf(result[0]) + 1;
         last = this.results.indexOf(result[result.length - 1]) + 1;
         $tr1.find(".explain_rarity").text(first + "-" + last + "位");
       }
-      $tr1 = this.hoge(this.results);
+      $tr1 = this.create_and_append_row(this.results);
       $tr1.find(".rarity").css('font-style', 'normal');
       $tr1.find(".rarity").text("全体");
       $tr1.find(".explain_rarity").text("計" + this.results.length + "回");
