@@ -100,7 +100,6 @@
       $('span.result_plus').text(from_oe);
       $('span.result_plus_target').text(to_oe);
       Simulator.EXECUTE_COUNT_LIMIT = parseInt($('#execute_count').val());
-      $('table#result tr').not('#result_area_header').detach();
       return this.results = [];
     };
 
@@ -124,8 +123,26 @@
       return $copied;
     };
 
+    Controller.hoge = function(result) {
+      var $tr1, $tr2, abbr_with_unit, abbr_with_unit_not_weapon, used_money_average;
+      $tr1 = this.copy_from_template('#result_template_1');
+      $tr2 = this.copy_from_template('#result_template_2');
+      $('#result_table').append($tr1);
+      $('#result_table').append($tr2);
+      $tr1.find(".average_enhance_times").text(this.get_average_of_results(1, result).toFixed(0));
+      $tr1.find(".average_used_scroll_num").text(this.get_average_of_results(2, result).toFixed(0));
+      used_money_average = this.get_average_of_results(3, result);
+      abbr_with_unit = this.abbr_with_unit(used_money_average);
+      $tr1.find(".average_used_money").text(abbr_with_unit[0]);
+      $tr1.find(".average_used_money_unit").text(abbr_with_unit[1]);
+      abbr_with_unit_not_weapon = this.abbr_with_unit(used_money_average / 4);
+      $tr2.find(".average_used_money_not_weapon").text(abbr_with_unit_not_weapon[0]);
+      $tr2.find(".average_used_money_not_weapon_unit").text(abbr_with_unit_not_weapon[1]);
+      return $tr1;
+    };
+
     Controller.finalize = function() {
-      var $tr1, $tr2, _results, abbr_with_unit, abbr_with_unit_not_weapon, active_rank, first, i, index, j, last, length_of_a_stage, luck, ref, result, results, stage, used_money_average;
+      var $tr1, _results, active_rank, first, i, index, j, last, length_of_a_stage, luck, ref, result, results, stage;
       this.results.sort(function(a, b) {
         return a[1] - b[1];
       });
@@ -140,43 +157,20 @@
       }
       for (index in active_rank) {
         luck = active_rank[index];
-        $tr1 = this.copy_from_template('#result_template_1');
-        $tr2 = this.copy_from_template('#result_template_2');
-        $('#result_table').append($tr1);
-        $('#result_table').append($tr2);
+        result = results[luck];
+        $tr1 = this.hoge(result);
         $tr1.find(".rarity").addClass(luck);
         $tr1.find(".rarity").text(luck.toUpperCase());
-        result = results[luck];
         first = this.results.indexOf(result[0]) + 1;
         last = this.results.indexOf(result[result.length - 1]) + 1;
         $tr1.find(".explain_rarity").text(first + "-" + last + "位");
-        $tr1.find(".average_enhance_times").text(this.get_average_of_results(1, result).toFixed(0));
-        $tr1.find(".average_used_scroll_num").text(this.get_average_of_results(2, result).toFixed(0));
-        used_money_average = this.get_average_of_results(3, result);
-        abbr_with_unit = this.abbr_with_unit(used_money_average);
-        $tr1.find(".average_used_money").text(abbr_with_unit[0]);
-        $tr1.find(".average_used_money_unit").text(abbr_with_unit[1]);
-        abbr_with_unit_not_weapon = this.abbr_with_unit(used_money_average / 4);
-        $tr2.find(".average_used_money_not_weapon").text(abbr_with_unit_not_weapon[0]);
-        $tr2.find(".average_used_money_not_weapon_unit").text(abbr_with_unit_not_weapon[1]);
-        Simulator.execute_count = 0;
-        $('span.result_execute_times').text(result.length);
-        $('input.show_details').on('click', function(e) {
-          var result_process, text;
-          if (!$(e.target).data('opened')) {
-            result_process = $(e.target).data('details');
-            text = result_process.map(function(result) {
-              return "<span class='is_success is_success_" + result.is_success + " " + (result.with_marble ? 'marble' : void 0) + "'>+" + result.plus + "</span>";
-            }).join(' →');
-            $(e.target).parent().parent().after("<tr><td colspan='6'>" + text + "</td></tr>");
-            return $(e.target).data('opened', '1');
-          } else {
-            $(e.target).data('opened', '');
-            return $(e.target).parent().parent().next().detach();
-          }
-        });
-        $('.simulation_times').text(this.results.length);
       }
+      $tr1 = this.hoge(this.results);
+      $tr1.find(".rarity").css('font-style', 'normal');
+      $tr1.find(".rarity").text("全体");
+      $tr1.find(".explain_rarity").text("計" + this.results.length + "回");
+      Simulator.execute_count = 0;
+      $('.simulation_times').text(this.results.length);
       if (this.is_not_first_rendering) {
         return this.highlight('table.rarity_6_stage_ver td');
       } else {

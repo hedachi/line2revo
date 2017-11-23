@@ -116,7 +116,7 @@ class Controller
     $('span.result_plus_target').text to_oe
     #$('span.result_execute_times').text parseInt($('#simulation_type').val())
     Simulator.EXECUTE_COUNT_LIMIT = parseInt $('#execute_count').val()
-    $('table#result tr').not('#result_area_header').detach()
+    #$('table#result tr').not('#result_area_header').detach()
     @results = []
   @get_average_of_results = (index, results) ->
     sum = 0
@@ -129,6 +129,24 @@ class Controller
     $copied.attr('id', '')
     $copied.show()
     $copied
+  @hoge = (result) ->
+    $tr1 = @copy_from_template('#result_template_1')
+    $tr2 = @copy_from_template('#result_template_2')
+    $('#result_table').append($tr1)
+    $('#result_table').append($tr2)
+
+    $tr1.find(".average_enhance_times").text @get_average_of_results(1, result).toFixed(0)
+    $tr1.find(".average_used_scroll_num").text @get_average_of_results(2, result).toFixed(0)
+
+    used_money_average = @get_average_of_results(3, result)
+    abbr_with_unit = @abbr_with_unit(used_money_average)
+    $tr1.find(".average_used_money").text abbr_with_unit[0]
+    $tr1.find(".average_used_money_unit").text abbr_with_unit[1]
+
+    abbr_with_unit_not_weapon = @abbr_with_unit(used_money_average / 4)
+    $tr2.find(".average_used_money_not_weapon").text abbr_with_unit_not_weapon[0]
+    $tr2.find(".average_used_money_not_weapon_unit").text abbr_with_unit_not_weapon[1]
+    $tr1
   @finalize = ->
     @results.sort (a, b) -> a[1] - b[1]
     $('#result_table tr').not('#result_template_1, #result_template_2, #result_header').detach()
@@ -142,48 +160,37 @@ class Controller
     for i in [0..stage]
       results[active_rank[i]] = _results.splice(0, length_of_a_stage)
 
+    #ランクごとの結果
     for index, luck of active_rank
-      $tr1 = @copy_from_template('#result_template_1')
-      $tr2 = @copy_from_template('#result_template_2')
-      $('#result_table').append($tr1)
-      $('#result_table').append($tr2)
-
+      result = results[luck]
+      $tr1 = @hoge(result)
       $tr1.find(".rarity").addClass(luck)
       $tr1.find(".rarity").text luck.toUpperCase()
-
-      result = results[luck]
       first = @results.indexOf(result[0]) + 1
       last = @results.indexOf(result[result.length - 1]) + 1
-
       $tr1.find(".explain_rarity").text "#{first}-#{last}位"
 
-      $tr1.find(".average_enhance_times").text @get_average_of_results(1, result).toFixed(0)
-      $tr1.find(".average_used_scroll_num").text @get_average_of_results(2, result).toFixed(0)
+    #累計結果
+    $tr1 = @hoge(@results)
+    $tr1.find(".rarity").css 'font-style', 'normal'
+    $tr1.find(".rarity").text "全体"
+    $tr1.find(".explain_rarity").text "計#{@results.length}回"
 
-      used_money_average = @get_average_of_results(3, result)
-      abbr_with_unit = @abbr_with_unit(used_money_average)
-      $tr1.find(".average_used_money").text abbr_with_unit[0]
-      $tr1.find(".average_used_money_unit").text abbr_with_unit[1]
-
-      abbr_with_unit_not_weapon = @abbr_with_unit(used_money_average / 4)
-      $tr2.find(".average_used_money_not_weapon").text abbr_with_unit_not_weapon[0]
-      $tr2.find(".average_used_money_not_weapon_unit").text abbr_with_unit_not_weapon[1]
-
-      Simulator.execute_count = 0
-      #$('span.result_execute_times').text $('td.simulation_number').last().text()
-      $('span.result_execute_times').text result.length
-      $('input.show_details').on 'click', (e) ->
-        if !$(e.target).data('opened')
-          result_process = $(e.target).data('details')
-          text = result_process.map( (result) ->
-            "<span class='is_success is_success_#{result.is_success} #{if result.with_marble then 'marble'}'>+#{result.plus}</span>"
-          ).join(' →')
-          $(e.target).parent().parent().after("<tr><td colspan='6'>#{text}</td></tr>")
-          $(e.target).data('opened', '1')
-        else
-          $(e.target).data('opened', '')
-          $(e.target).parent().parent().next().detach()
-      $('.simulation_times').text @results.length
+    Simulator.execute_count = 0
+    #$('span.result_execute_times').text $('td.simulation_number').last().text()
+    #$('span.result_execute_times').text result.length
+    #$('input.show_details').on 'click', (e) ->
+    #  if !$(e.target).data('opened')
+    #    result_process = $(e.target).data('details')
+    #    text = result_process.map( (result) ->
+    #      "<span class='is_success is_success_#{result.is_success} #{if result.with_marble then 'marble'}'>+#{result.plus}</span>"
+    #    ).join(' →')
+    #    $(e.target).parent().parent().after("<tr><td colspan='6'>#{text}</td></tr>")
+    #    $(e.target).data('opened', '1')
+    #  else
+    #    $(e.target).data('opened', '')
+    #    $(e.target).parent().parent().next().detach()
+    $('.simulation_times').text @results.length
     if @is_not_first_rendering
       @highlight('table.rarity_6_stage_ver td')
     else
