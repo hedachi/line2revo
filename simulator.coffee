@@ -169,7 +169,7 @@ class Controller
       $tr1.find(".rarity").text luck.toUpperCase()
       first = @results.indexOf(result[0]) + 1
       last = @results.indexOf(result[result.length - 1]) + 1
-      $tr1.find(".explain_rarity").text "#{first}-#{last}位"
+      $tr1.find(".explain_rarity").text "#{first}位-#{last}位"
 
     #累計結果
     trs = @create_and_append_row(@results)

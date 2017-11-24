@@ -164,7 +164,7 @@
         $tr1.find(".rarity").text(luck.toUpperCase());
         first = this.results.indexOf(result[0]) + 1;
         last = this.results.indexOf(result[result.length - 1]) + 1;
-        $tr1.find(".explain_rarity").text(first + "-" + last + "位");
+        $tr1.find(".explain_rarity").text(first + "位-" + last + "位");
       }
       trs = this.create_and_append_row(this.results);
       $tr1 = trs[0];
