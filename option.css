@@ -1,0 +1,50 @@
+body {
+  width: 480px;
+  line-height: 1.5em;
+  font-size: 18px;
+  /*
+  background: -webkit-gradient(linear, left bottom, left top, from(rgba(45, 61, 70, 1)), to(rgba(70, 119, 152,1)));
+  background-color: rgb(45, 61, 70);
+  background-color: rgb(33, 72, 93);
+  background-color: rgb(44, 86, 114);
+  background-color: rgb(70, 119, 152);
+  background-image: url('enhance4.jpg');
+  background-size: 480px 600px;
+  */
+  background-image: url('option_bg.jpeg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  color: white;
+  position: relative;
+  height: 1000px;
+}
+h1 {
+  margin-top: 42px;
+  font-size: 18px;
+  top: 0;
+  height: 0;
+  text-align: center;
+}
+a {
+  color: yellow;
+}
+.option_change_animation {
+  background-image: url('option_change.gif');
+  background-size: 320px 320px;
+  -webkit-mask-image: url('gradation.png');
+  -webkit-mask-position:center center;
+  width: 320px;
+  height: 320px;
+  margin: auto;
+  position: absolute;
+  left: 80px;
+  top: 80px;
+}
+.option_change_animation_left {
+  background: linear-gradient(left, #ff0000, rgba(255,0,0,0));
+  background: -webkit-gradient(linear, left top, right top, from(rgba(45, 61, 70, 1)), to(rgba(0,0,0,0)));
+  height: 480px;
+  width: 20px;
+  position: absolute;
+  left: 80px;
+}
