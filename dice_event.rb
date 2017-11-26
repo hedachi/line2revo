@@ -1,6 +1,6 @@
 failed = 0
 try_times = 100000
-target = 804
+target = 840
 try_times.times do
   i = 0
   250.times do
@@ -9,4 +9,4 @@ try_times.times do
   failed += 1 if i < target
 end
 
-p "failed: #{failed} (#{failed.to_f / try_times.to_f}%)"
+p "failed: #{failed} (#{100 * failed.to_f / try_times.to_f}%)"
