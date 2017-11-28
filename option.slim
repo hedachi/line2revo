@@ -5,12 +5,14 @@ html lang="ja"
   head
     script
       == File.read 'jquery.min.js'
+    script
+      == File.read 'option.js'
     style
       == File.read 'reset.css'
     style
       == File.read 'option.css'
     title
-      |ほげ
+      |リネレボ オプション変更シミュレーター
     script async="" src="https://www.googletagmanager.com/gtag/js?id=UA-109662357-1" 
     javascript:
       window.dataLayer = window.dataLayer || [];
@@ -18,7 +20,28 @@ html lang="ja"
       gtag('js', new Date());
       gtag('config', 'UA-109662357-1');
   body
-    /h1 ほげ
     .option_change_animation
-    /.option_change_animation_left
+    /.title
+      .title_inner リネレボ オプション変更シミュレーター
+    select.item_type
+      option 武器
+      option 頭防具
+      option 体防具
+      option 腕防具
+      option 足防具
+      option リング
+      option イヤリング
+      option ネックレス
+
+  #option_list
+    table#option_selector
+      tr
+        th オプション名
+        th 必須
+        th OK
+        th NG
+    /label for="type1"
+      |HP吸収率
+    /input type="radio" name="type1" value="a"
+    /input type="radio" name="type1" value="b" default=""
 
