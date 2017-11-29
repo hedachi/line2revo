@@ -21,8 +21,8 @@
         option_name = ref[i];
         $tr = $('<tr/>');
         $tr.append($("<td>" + option_name + "</td>"));
-        $tr.append($("<td><input class='radio_red' id='option_" + i + "_need' checked='checked' name='option_" + i + "' value='need' type='radio'/><label for='option_" + i + "_need'/></td>"));
-        $tr.append($("<td><input class='radio_red' id='option_" + i + "_ok' name='option_" + i + "' value='ok' type='radio'/><label for='option_" + i + "_ok'/></td>"));
+        $tr.append($("<td><input class='radio_red' id='option_" + i + "_need' name='option_" + i + "' value='need' type='radio'/><label for='option_" + i + "_need'/></td>"));
+        $tr.append($("<td><input checked='checked' class='radio_red' id='option_" + i + "_ok' name='option_" + i + "' value='ok' type='radio'/><label for='option_" + i + "_ok'/></td>"));
         $tr.append($("<td><input class='radio_red' id='option_" + i + "_ng' name='option_" + i + "' value='ng' type='radio'/><label for='option_" + i + "_ng'/></td>"));
         results.push($('table#option_selector').append($tr));
       }

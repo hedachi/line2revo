@@ -29,7 +29,7 @@ a {
   color: yellow;
 }
 .option_change_animation {
-  background-image: url('option_change.gif');
+  background-image: url('option_change2.gif');
   background-size: 200px 200px;
   -webkit-mask-image: url('gradation2.png');
   -webkit-mask-position:center center;
