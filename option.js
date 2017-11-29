@@ -5,17 +5,23 @@
   Controller = (function() {
     function Controller() {}
 
+    Controller.SIMULATION_TIMES = 10000;
+
     Controller.init = function() {
       return $((function(_this) {
         return function() {
-          return _this.change_item_type();
+          _this.change_item_type();
+          Controller.execute();
+          return $('input[type=radio]').on('change', function() {
+            return Controller.execute();
+          });
         };
       })(this));
     };
 
     Controller.change_item_type = function() {
       var $tr, i, option_name, ref, results;
-      ref = DATA.weapon;
+      ref = DATA[$('select.item_type').val()];
       results = [];
       for (i in ref) {
         option_name = ref[i];
@@ -27,6 +33,54 @@
         results.push($('table#option_selector').append($tr));
       }
       return results;
+    };
+
+    Controller.execute = function() {
+      var all_results, conditions, i, item_type, j, name, ref, ref1, sim_results, success;
+      item_type = $('select.item_type').val();
+      conditions = {};
+      ref = DATA[item_type];
+      for (i in ref) {
+        name = ref[i];
+        conditions[name] = $("input[name=option_" + i + "]:checked").val();
+      }
+      all_results = [];
+      success = 0;
+      for (i = j = 0, ref1 = this.SIMULATION_TIMES; 0 <= ref1 ? j < ref1 : j > ref1; i = 0 <= ref1 ? ++j : --j) {
+        sim_results = _.sampleSize(DATA[item_type], 3);
+        if (this.judge(item_type, conditions, sim_results)) {
+          success++;
+        }
+        all_results.push(sim_results);
+      }
+      return this.show_summary(success);
+    };
+
+    Controller.show_summary = function(success) {
+      $('#simulation_times').text(this.SIMULATION_TIMES);
+      $('#success_percent').text(success * 100 / this.SIMULATION_TIMES);
+      return $('#success_times').text(success);
+    };
+
+    Controller.judge = function(item_type, conditions, sim_results) {
+      var name, requirement;
+      for (name in conditions) {
+        requirement = conditions[name];
+        if (requirement === 'need') {
+          if (!(sim_results.indexOf(name) > -1)) {
+            return false;
+          }
+        } else if (requirement === 'ok') {
+
+        } else if (requirement === 'ng') {
+          if (sim_results.indexOf(name) > -1) {
+            return false;
+          }
+        } else {
+          throw "条件が不正です。";
+        }
+      }
+      return true;
     };
 
     return Controller;
