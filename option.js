@@ -11,7 +11,8 @@
       return $((function(_this) {
         return function() {
           _this.change_item_type();
-          return $('#run').click(function() {
+          Controller.execute();
+          return $('input[type=radio]').on('change', function() {
             return Controller.execute();
           });
         };

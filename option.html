@@ -150,7 +150,8 @@ var n=this.__index__>=this.__values__.length;return{done:n,value:n?F:this.__valu
       return $((function(_this) {
         return function() {
           _this.change_item_type();
-          return $('#run').click(function() {
+          Controller.execute();
+          return $('input[type=radio]').on('change', function() {
             return Controller.execute();
           });
         };
@@ -507,4 +508,4 @@ input[type=checkbox] + label {
 </style><title>リネレボ オプション変更シミュレーター</title><script async="" src="https://www.googletagmanager.com/gtag/js?id=UA-109662357-1"></script><script>window.dataLayer = window.dataLayer || [];
 function gtag(){dataLayer.push(arguments);}
 gtag('js', new Date());
-gtag('config', 'UA-109662357-1');</script></head><body><div class="item_type_select_area"><div class="option_change_animation"></div><select class="item_type"><option value="weapon">武器 </option><option>頭防具</option><option>体防具</option><option>腕防具</option><option>足防具</option><option>リング</option><option>イヤリング</option><option>ネックレス</option></select></div><div class="result_area">成功率: <span id="success_percent"></span>%<br />試行: <span id="success_times"></span>/<span id="simulation_times"></span></div><table id="option_selector"><tr><th>オプション名</th><th>必須</th><th>OK</th><th>NG</th></tr></table></body><div class="bottom_area"><div class="ok_button" id="run">実行</div></div></html>
+gtag('config', 'UA-109662357-1');</script></head><body><div class="item_type_select_area"><div class="option_change_animation"></div><select class="item_type"><option value="weapon">武器 </option><option>頭防具</option><option>体防具</option><option>腕防具</option><option>足防具</option><option>リング</option><option>イヤリング</option><option>ネックレス</option></select></div><div class="result_area">成功率: <span id="success_percent"></span>%<br />試行: <span id="success_times"></span>/<span id="simulation_times"></span></div><table id="option_selector"><tr><th>オプション名</th><th>必須</th><th>OK</th><th>NG</th></tr></table></body></html>

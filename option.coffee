@@ -3,7 +3,9 @@ class Controller
   @init = ->
     $ =>
       @change_item_type()
-      $('#run').click -> Controller.execute()
+      Controller.execute()
+      #$('#run').click -> Controller.execute()
+      $('input[type=radio]').on 'change', -> Controller.execute()
   @change_item_type = ->
     for i, option_name of DATA[$('select.item_type').val()]
       $tr = $('<tr/>')
