@@ -12,7 +12,11 @@
         return function() {
           _this.change_item_type();
           Controller.execute();
-          return $('input[type=radio]').on('change', function() {
+          return $('select.item_type').on('change', function() {
+            _this.change_item_type();
+            $('input[type=radio]').on('change', function() {
+              return Controller.execute();
+            });
             return Controller.execute();
           });
         };
@@ -21,6 +25,7 @@
 
     Controller.change_item_type = function() {
       var $tr, i, option_name, ref, results;
+      $('table#option_selector tr').not('#option_selector_tr_header').detach();
       ref = DATA[$('select.item_type').val()];
       results = [];
       for (i in ref) {
@@ -91,7 +96,13 @@
 
   DATA = {
     weapon: ['攻撃速度増加率', 'HP吸収率', '物理攻撃力', '魔法攻撃力', 'クリティカル', 'クリティカルダメージ増加率', '防御無視ダメージ', '命中', '貫通', 'アデナ獲得量増加率', '経験値獲得量増加率'],
-    head: ['HP吸収率', '物理防御力', '魔法防御力', '状態異常抵抗率', '最大HP', '最大MP', 'HP回復量', 'MP回復量', '固定ダメージ減少', '回避', '貫通', 'アデナ獲得量増加率', '経験値獲得量増加率']
+    head: ['HP吸収率', '物理防御力', '魔法防御力', '状態異常抵抗率', '最大HP', '最大MP', 'HP回復量', 'MP回復量', '固定ダメージ減少', '回避', '貫通', 'アデナ獲得量増加率', '経験値獲得量増加率'],
+    body: ['移動速度増加', '物理防御力', '魔法防御力', '最大HP', '最大MP', '固定ダメージ減少', '回避', '弾力', 'アデナ獲得量増加率', '経験値獲得量増加率'],
+    arm: ['物理攻撃力', '魔法攻撃力', '最大HP', '最大MP', '防御無視ダメージ', '回避', '貫通', 'クールタイム減少率', 'MPコスト減少率', 'アデナ獲得量増加率', '経験値獲得量増加率'],
+    foot: ['攻撃速度増加率', '移動速度増加率', '物理攻撃力', '魔法攻撃力', '最大HP', '最大MP', '回避', '弾力', 'クールタイム減少', 'MPコスト減少率', 'アデナ獲得量増加率', '経験値獲得量増加率'],
+    ring: ['攻撃速度増加率', 'HP吸収率', '物理防御力', '魔法防御力', '状態異常抵抗', 'クリティカル抵抗', '最大HP', '最大MP', 'HP回復量', 'MP回復量', '固定ダメージ減少', '命中', '弾力', 'クールタイム減少', 'アデナ獲得量増加率', '経験値獲得量増加率'],
+    earring: ['HP吸収率', '移動速度増加率', '状態異常抵抗率', 'クリティカル抵抗', '最大HP', '最大MP', 'HP回復量', 'MP回復量', '命中', '貫通', 'MPコスト減少率'],
+    necklace: ['HP吸収率', 'クリティカル', '物理攻撃力', '魔法攻撃力', 'クリティカルダメージ増加率', '状態異常抵抗率', 'クリティカル抵抗', '最大HP', '最大MP', 'HP回復量', 'MP回復量', '防御無視ダメージ', '命中', '貫通', '弾力']
   };
 
 }).call(this);

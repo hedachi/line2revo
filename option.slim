@@ -28,13 +28,20 @@ html lang="ja"
       select.item_type
         option value="weapon"
           |武器 
-        /option 頭防具
-        /option 体防具
-        /option 腕防具
-        /option 足防具
-        /option リング
-        /option イヤリング
-        /option ネックレス
+        option value="head"
+          |頭防具
+        option value="body"
+          |体防具
+        option value="arm"
+          |腕防具
+        option value="foot"
+          |足防具
+        option value="ring"
+          |リング
+        option value="earring"
+          |イヤリング
+        option value="necklace"
+          |ネックレス
     .result_area
       |成功率: 
       span#success_percent
@@ -48,8 +55,9 @@ html lang="ja"
         span#success_times
         |回
     table#option_selector
-      tr
-        th オプション名
+      tr#option_selector_tr_header
+        th style="width: 260px;"
+          |オプション名
         th 必須
         th OK
         th NG
