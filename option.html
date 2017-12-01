@@ -144,14 +144,18 @@ var n=this.__index__>=this.__values__.length;return{done:n,value:n?F:this.__valu
   Controller = (function() {
     function Controller() {}
 
-    Controller.SIMULATION_TIMES = 10000;
+    Controller.SIMULATION_TIMES = 100000;
 
     Controller.init = function() {
       return $((function(_this) {
         return function() {
           _this.change_item_type();
           Controller.execute();
-          return $('input[type=radio]').on('change', function() {
+          return $('select.item_type').on('change', function() {
+            _this.change_item_type();
+            $('input[type=radio]').on('change', function() {
+              return Controller.execute();
+            });
             return Controller.execute();
           });
         };
@@ -160,6 +164,7 @@ var n=this.__index__>=this.__values__.length;return{done:n,value:n?F:this.__valu
 
     Controller.change_item_type = function() {
       var $tr, i, option_name, ref, results;
+      $('table#option_selector tr').not('#option_selector_tr_header').detach();
       ref = DATA[$('select.item_type').val()];
       results = [];
       for (i in ref) {
@@ -196,9 +201,9 @@ var n=this.__index__>=this.__values__.length;return{done:n,value:n?F:this.__valu
     };
 
     Controller.show_summary = function(success) {
-      $('#simulation_times').text(this.SIMULATION_TIMES);
-      $('#success_percent').text(success * 100 / this.SIMULATION_TIMES);
-      return $('#success_times').text(success);
+      $('#simulation_times').text(this.SIMULATION_TIMES.toLocaleString('en'));
+      $('#success_percent').text((success * 100 / this.SIMULATION_TIMES).toFixed(1));
+      return $('#success_times').text(success.toLocaleString('en'));
     };
 
     Controller.judge = function(item_type, conditions, sim_results) {
@@ -230,7 +235,13 @@ var n=this.__index__>=this.__values__.length;return{done:n,value:n?F:this.__valu
 
   DATA = {
     weapon: ['攻撃速度増加率', 'HP吸収率', '物理攻撃力', '魔法攻撃力', 'クリティカル', 'クリティカルダメージ増加率', '防御無視ダメージ', '命中', '貫通', 'アデナ獲得量増加率', '経験値獲得量増加率'],
-    head: ['HP吸収率', '物理防御力', '魔法防御力', '状態異常抵抗率', '最大HP', '最大MP', 'HP回復量', 'MP回復量', '固定ダメージ減少', '回避', '貫通', 'アデナ獲得量増加率', '経験値獲得量増加率']
+    head: ['HP吸収率', '物理防御力', '魔法防御力', '状態異常抵抗率', '最大HP', '最大MP', 'HP回復量', 'MP回復量', '固定ダメージ減少', '回避', '貫通', 'アデナ獲得量増加率', '経験値獲得量増加率'],
+    body: ['移動速度増加', '物理防御力', '魔法防御力', '最大HP', '最大MP', '固定ダメージ減少', '回避', '弾力', 'アデナ獲得量増加率', '経験値獲得量増加率'],
+    arm: ['物理攻撃力', '魔法攻撃力', '最大HP', '最大MP', '防御無視ダメージ', '回避', '貫通', 'クールタイム減少率', 'MPコスト減少率', 'アデナ獲得量増加率', '経験値獲得量増加率'],
+    foot: ['攻撃速度増加率', '移動速度増加率', '物理攻撃力', '魔法攻撃力', '最大HP', '最大MP', '回避', '弾力', 'クールタイム減少', 'MPコスト減少率', 'アデナ獲得量増加率', '経験値獲得量増加率'],
+    ring: ['攻撃速度増加率', 'HP吸収率', '物理防御力', '魔法防御力', '状態異常抵抗', 'クリティカル抵抗', '最大HP', '最大MP', 'HP回復量', 'MP回復量', '固定ダメージ減少', '命中', '弾力', 'クールタイム減少', 'アデナ獲得量増加率', '経験値獲得量増加率'],
+    earring: ['HP吸収率', '移動速度増加率', '状態異常抵抗率', 'クリティカル抵抗', '最大HP', '最大MP', 'HP回復量', 'MP回復量', '命中', '貫通', 'MPコスト減少率'],
+    necklace: ['HP吸収率', 'クリティカル', '物理攻撃力', '魔法攻撃力', 'クリティカルダメージ増加率', '状態異常抵抗率', 'クリティカル抵抗', '最大HP', '最大MP', 'HP回復量', 'MP回復量', '防御無視ダメージ', '命中', '貫通', '弾力']
   };
 
 }).call(this);
@@ -337,11 +348,11 @@ table {
   line-height: 1.5em
 }
 h1 {
-  margin-top: 42px;
-  font-size: 18px;
-  top: 0;
+  position: absolute;
+  width: 100%;
   text-align: center;
-  position: relative;
+  padding-top: 10px;
+  z-index: 1;
 }
 a {
   color: yellow;
@@ -508,4 +519,4 @@ input[type=checkbox] + label {
 </style><title>リネレボ オプション変更シミュレーター</title><script async="" src="https://www.googletagmanager.com/gtag/js?id=UA-109662357-1"></script><script>window.dataLayer = window.dataLayer || [];
 function gtag(){dataLayer.push(arguments);}
 gtag('js', new Date());
-gtag('config', 'UA-109662357-1');</script></head><body><div class="item_type_select_area"><div class="option_change_animation"></div><select class="item_type"><option value="weapon">武器 </option><option>頭防具</option><option>体防具</option><option>腕防具</option><option>足防具</option><option>リング</option><option>イヤリング</option><option>ネックレス</option></select></div><div class="result_area">成功率: <span id="success_percent"></span>%<br />試行: <span id="success_times"></span>/<span id="simulation_times"></span></div><table id="option_selector"><tr><th>オプション名</th><th>必須</th><th>OK</th><th>NG</th></tr></table></body></html>
+gtag('config', 'UA-109662357-1');</script></head><body><h1>リネレボ オプション変更シミュレーター</h1><div class="item_type_select_area"><div class="option_change_animation"></div><select class="item_type"><option value="weapon">武器 </option><option value="head">頭防具</option><option value="body">体防具</option><option value="arm">腕防具</option><option value="foot">足防具</option><option value="ring">リング</option><option value="earring">イヤリング</option><option value="necklace">ネックレス</option></select></div><div class="result_area">成功率: <span id="success_percent"></span>%<div style="font-size: 14px; line-height: 1.5em; margin-top: 10px;">試行回数:<span id="simulation_times"></span>回<br />成功回数:<span id="success_times"></span>回</div></div><table id="option_selector"><tr id="option_selector_tr_header"><th style="width: 260px;">オプション名</th><th>必須</th><th>OK</th><th>NG</th></tr></table></body></html>
