@@ -5,7 +5,7 @@
   Controller = (function() {
     function Controller() {}
 
-    Controller.SIMULATION_TIMES = 10000;
+    Controller.SIMULATION_TIMES = 100000;
 
     Controller.init = function() {
       return $((function(_this) {
@@ -57,9 +57,9 @@
     };
 
     Controller.show_summary = function(success) {
-      $('#simulation_times').text(this.SIMULATION_TIMES);
-      $('#success_percent').text(success * 100 / this.SIMULATION_TIMES);
-      return $('#success_times').text(success);
+      $('#simulation_times').text(this.SIMULATION_TIMES.toLocaleString('en'));
+      $('#success_percent').text((success * 100 / this.SIMULATION_TIMES).toFixed(1));
+      return $('#success_times').text(success.toLocaleString('en'));
     };
 
     Controller.judge = function(item_type, conditions, sim_results) {

@@ -1,5 +1,5 @@
 class Controller
-  @SIMULATION_TIMES = 10000
+  @SIMULATION_TIMES = 100000
   @init = ->
     $ =>
       @change_item_type()
@@ -28,9 +28,9 @@ class Controller
       all_results.push sim_results
     @show_summary(success)
   @show_summary = (success) ->
-    $('#simulation_times').text @SIMULATION_TIMES
-    $('#success_percent').text success * 100 / @SIMULATION_TIMES
-    $('#success_times').text success
+    $('#simulation_times').text @SIMULATION_TIMES.toLocaleString('en')
+    $('#success_percent').text (success * 100 / @SIMULATION_TIMES).toFixed(1)
+    $('#success_times').text success.toLocaleString('en')
   @judge  = (item_type, conditions, sim_results) ->
     for name, requirement of conditions
       if      requirement == 'need'

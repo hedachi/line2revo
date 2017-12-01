@@ -144,7 +144,7 @@ var n=this.__index__>=this.__values__.length;return{done:n,value:n?F:this.__valu
   Controller = (function() {
     function Controller() {}
 
-    Controller.SIMULATION_TIMES = 10000;
+    Controller.SIMULATION_TIMES = 100000;
 
     Controller.init = function() {
       return $((function(_this) {
@@ -196,9 +196,9 @@ var n=this.__index__>=this.__values__.length;return{done:n,value:n?F:this.__valu
     };
 
     Controller.show_summary = function(success) {
-      $('#simulation_times').text(this.SIMULATION_TIMES);
-      $('#success_percent').text(success * 100 / this.SIMULATION_TIMES);
-      return $('#success_times').text(success);
+      $('#simulation_times').text(this.SIMULATION_TIMES.toLocaleString('en'));
+      $('#success_percent').text((success * 100 / this.SIMULATION_TIMES).toFixed(1));
+      return $('#success_times').text(success.toLocaleString('en'));
     };
 
     Controller.judge = function(item_type, conditions, sim_results) {
@@ -337,11 +337,11 @@ table {
   line-height: 1.5em
 }
 h1 {
-  margin-top: 42px;
-  font-size: 18px;
-  top: 0;
+  position: absolute;
+  width: 100%;
   text-align: center;
-  position: relative;
+  padding-top: 10px;
+  z-index: 1;
 }
 a {
   color: yellow;
@@ -508,4 +508,4 @@ input[type=checkbox] + label {
 </style><title>リネレボ オプション変更シミュレーター</title><script async="" src="https://www.googletagmanager.com/gtag/js?id=UA-109662357-1"></script><script>window.dataLayer = window.dataLayer || [];
 function gtag(){dataLayer.push(arguments);}
 gtag('js', new Date());
-gtag('config', 'UA-109662357-1');</script></head><body><div class="item_type_select_area"><div class="option_change_animation"></div><select class="item_type"><option value="weapon">武器 </option><option>頭防具</option><option>体防具</option><option>腕防具</option><option>足防具</option><option>リング</option><option>イヤリング</option><option>ネックレス</option></select></div><div class="result_area">成功率: <span id="success_percent"></span>%<br />試行: <span id="success_times"></span>/<span id="simulation_times"></span></div><table id="option_selector"><tr><th>オプション名</th><th>必須</th><th>OK</th><th>NG</th></tr></table></body></html>
+gtag('config', 'UA-109662357-1');</script></head><body><h1>リネレボ オプション変更シミュレーター</h1><div class="item_type_select_area"><div class="option_change_animation"></div><select class="item_type"><option value="weapon">武器 </option></select></div><div class="result_area">成功率: <span id="success_percent"></span>%<div style="font-size: 14px; line-height: 1.5em; margin-top: 10px;">試行回数:<span id="simulation_times"></span>回<br />成功回数:<span id="success_times"></span>回</div></div><table id="option_selector"><tr><th>オプション名</th><th>必須</th><th>OK</th><th>NG</th></tr></table></body></html>
