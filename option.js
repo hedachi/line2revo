@@ -10,17 +10,20 @@
     Controller.init = function() {
       return $((function(_this) {
         return function() {
-          _this.change_item_type();
-          Controller.execute();
+          _this._init();
           return $('select.item_type').on('change', function() {
-            _this.change_item_type();
-            $('input[type=radio]').on('change', function() {
-              return Controller.execute();
-            });
-            return Controller.execute();
+            return _this._init();
           });
         };
       })(this));
+    };
+
+    Controller._init = function() {
+      this.change_item_type();
+      $('input[type=radio]').on('change', function() {
+        return Controller.execute();
+      });
+      return Controller.execute();
     };
 
     Controller.change_item_type = function() {

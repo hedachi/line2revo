@@ -2,13 +2,12 @@ class Controller
   @SIMULATION_TIMES = 100000
   @init = ->
     $ =>
-      @change_item_type()
-      Controller.execute()
-      #$('#run').click -> Controller.execute()
-      $('select.item_type').on 'change', =>
-        @change_item_type()
-        $('input[type=radio]').on 'change', -> Controller.execute()
-        Controller.execute()
+      @_init()
+      $('select.item_type').on 'change', => @_init()
+  @_init = ->
+    @change_item_type()
+    $('input[type=radio]').on 'change', -> Controller.execute()
+    Controller.execute()
   @change_item_type = ->
     $('table#option_selector tr').not('#option_selector_tr_header').detach()
     for i, option_name of DATA[$('select.item_type').val()]
